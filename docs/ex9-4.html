@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Exercise 9.4 | Epidemiological exercises in R</title>
+  <meta name="description" content="This book contains epidemiological data analysis exercises in R. These are written for students of PLPTH 905 (Ecology and Epidemiology of Plant Pathogens) offered in even springs at Kansas State University." />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Exercise 9.4 | Epidemiological exercises in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book contains epidemiological data analysis exercises in R. These are written for students of PLPTH 905 (Ecology and Epidemiology of Plant Pathogens) offered in even springs at Kansas State University." />
+  <meta name="github-repo" content="luckymehra/epidem-exercises" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Exercise 9.4 | Epidemiological exercises in R" />
+  
+  <meta name="twitter:description" content="This book contains epidemiological data analysis exercises in R. These are written for students of PLPTH 905 (Ecology and Epidemiology of Plant Pathogens) offered in even springs at Kansas State University." />
+  
+
+<meta name="author" content="Lucky Mehra" />
+
+
+<meta name="date" content="2019-08-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ex4.html">
+<link rel="next" href="ex9-5.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Epidemiological exercises in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="1" data-path="ex4.html"><a href="ex4.html"><i class="fa fa-check"></i><b>1</b> Exercise 4</a><ul>
+<li class="chapter" data-level="1.1" data-path="ex4.html"><a href="ex4.html#load-packages"><i class="fa fa-check"></i><b>1.1</b> Load packages</a></li>
+<li class="chapter" data-level="1.2" data-path="ex4.html"><a href="ex4.html#import-data"><i class="fa fa-check"></i><b>1.2</b> Import data</a></li>
+<li class="chapter" data-level="1.3" data-path="ex4.html"><a href="ex4.html#first-mixed-model"><i class="fa fa-check"></i><b>1.3</b> First mixed model</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="ex4.html"><a href="ex4.html#fit-the-model"><i class="fa fa-check"></i><b>1.3.1</b> Fit the model</a></li>
+<li class="chapter" data-level="1.3.2" data-path="ex4.html"><a href="ex4.html#diagnostic-plots"><i class="fa fa-check"></i><b>1.3.2</b> Diagnostic plots</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="ex4.html"><a href="ex4.html#second-mixed-model"><i class="fa fa-check"></i><b>1.4</b> Second mixed model</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="ex4.html"><a href="ex4.html#fit-the-model-1"><i class="fa fa-check"></i><b>1.4.1</b> Fit the model</a></li>
+<li class="chapter" data-level="1.4.2" data-path="ex4.html"><a href="ex4.html#plot-observed-versus-predicted-model-values"><i class="fa fa-check"></i><b>1.4.2</b> Plot observed versus predicted model values</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ex9-4.html"><a href="ex9-4.html"><i class="fa fa-check"></i><b>2</b> Exercise 9.4</a><ul>
+<li class="chapter" data-level="2.1" data-path="ex9-4.html"><a href="ex9-4.html#load-packages-1"><i class="fa fa-check"></i><b>2.1</b> Load packages</a></li>
+<li class="chapter" data-level="2.2" data-path="ex9-4.html"><a href="ex9-4.html#data"><i class="fa fa-check"></i><b>2.2</b> Data</a></li>
+<li class="chapter" data-level="2.3" data-path="ex9-4.html"><a href="ex9-4.html#autocorrelation-statistics"><i class="fa fa-check"></i><b>2.3</b> Autocorrelation statistics</a></li>
+<li class="chapter" data-level="2.4" data-path="ex9-4.html"><a href="ex9-4.html#first-variogram"><i class="fa fa-check"></i><b>2.4</b> First variogram</a></li>
+<li class="chapter" data-level="2.5" data-path="ex9-4.html"><a href="ex9-4.html#second-variogram"><i class="fa fa-check"></i><b>2.5</b> Second variogram</a></li>
+<li class="chapter" data-level="2.6" data-path="ex9-4.html"><a href="ex9-4.html#variogram-model-selection"><i class="fa fa-check"></i><b>2.6</b> Variogram model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ex9-5.html"><a href="ex9-5.html"><i class="fa fa-check"></i><b>3</b> Exercise 9.5</a><ul>
+<li class="chapter" data-level="3.1" data-path="ex9-5.html"><a href="ex9-5.html#load-packages-2"><i class="fa fa-check"></i><b>3.1</b> Load packages</a></li>
+<li class="chapter" data-level="3.2" data-path="ex9-5.html"><a href="ex9-5.html#data-1"><i class="fa fa-check"></i><b>3.2</b> Data</a></li>
+<li class="chapter" data-level="3.3" data-path="ex9-5.html"><a href="ex9-5.html#autocorrelation-statistics-1"><i class="fa fa-check"></i><b>3.3</b> Autocorrelation statistics</a></li>
+<li class="chapter" data-level="3.4" data-path="ex9-5.html"><a href="ex9-5.html#first-variogram-1"><i class="fa fa-check"></i><b>3.4</b> First variogram</a></li>
+<li class="chapter" data-level="3.5" data-path="ex9-5.html"><a href="ex9-5.html#second-variogram-1"><i class="fa fa-check"></i><b>3.5</b> Second variogram</a></li>
+<li class="chapter" data-level="3.6" data-path="ex9-5.html"><a href="ex9-5.html#variogram-model-selection-1"><i class="fa fa-check"></i><b>3.6</b> Variogram model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="yieldloss.html"><a href="yieldloss.html"><i class="fa fa-check"></i><b>4</b> Yield loss</a><ul>
+<li class="chapter" data-level="4.1" data-path="yieldloss.html"><a href="yieldloss.html#load-packages-3"><i class="fa fa-check"></i><b>4.1</b> Load packages</a></li>
+<li class="chapter" data-level="4.2" data-path="yieldloss.html"><a href="yieldloss.html#data-2"><i class="fa fa-check"></i><b>4.2</b> Data</a></li>
+<li class="chapter" data-level="4.3" data-path="yieldloss.html"><a href="yieldloss.html#mixed-model-for-response-variable-ds"><i class="fa fa-check"></i><b>4.3</b> Mixed model for response variable DS</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="yieldloss.html"><a href="yieldloss.html#diagnostic-plots-1"><i class="fa fa-check"></i><b>4.3.1</b> Diagnostic plots</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="yieldloss.html"><a href="yieldloss.html#mixed-model-for-response-variable-yield"><i class="fa fa-check"></i><b>4.4</b> Mixed model for response variable YIELD</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="yieldloss.html"><a href="yieldloss.html#diagnostic-plots-2"><i class="fa fa-check"></i><b>4.4.1</b> Diagnostic plots</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="yieldloss.html"><a href="yieldloss.html#linear-regression-between-yield-and-ds"><i class="fa fa-check"></i><b>4.5</b> Linear regression between YIELD and DS</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="yieldloss.html"><a href="yieldloss.html#linear-regression-between-ry1-and-ds"><i class="fa fa-check"></i><b>4.5.1</b> Linear regression between RY1 and DS</a></li>
+<li class="chapter" data-level="4.5.2" data-path="yieldloss.html"><a href="yieldloss.html#transform-dataset-a"><i class="fa fa-check"></i><b>4.5.2</b> Transform dataset a</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="yieldloss.html"><a href="yieldloss.html#mixed-model-for-ry2"><i class="fa fa-check"></i><b>4.6</b> Mixed model for RY2</a></li>
+<li class="chapter" data-level="4.7" data-path="yieldloss.html"><a href="yieldloss.html#linear-regression-between-ry2-and-cds"><i class="fa fa-check"></i><b>4.7</b> Linear regression between RY2 and CDS</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Epidemiological exercises in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ex9_4" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Exercise 9.4</h1>
+<div id="load-packages-1" class="section level2">
+<h2><span class="header-section-number">2.1</span> Load packages</h2>
+<p>Here is the R code to download the required packages for this exercise.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="co"># install package manager &#39;pacman&#39;</span></a>
+<a class="sourceLine" id="cb28-2" title="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(pacman)){</a>
+<a class="sourceLine" id="cb28-3" title="3">  <span class="kw">install.packages</span>(<span class="st">&#39;pacman&#39;</span>)</a>
+<a class="sourceLine" id="cb28-4" title="4">}</a></code></pre></div>
+<pre><code>## Loading required package: pacman</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="co"># load packages needed for this exercise</span></a>
+<a class="sourceLine" id="cb30-2" title="2"><span class="kw">library</span>(pacman)</a>
+<a class="sourceLine" id="cb30-3" title="3"><span class="kw">p_load</span>(tidyverse,</a>
+<a class="sourceLine" id="cb30-4" title="4">       lctools, <span class="co"># to calculate Moran&#39;s I</span></a>
+<a class="sourceLine" id="cb30-5" title="5">       spdep, <span class="co"># to calculate geary&#39;s c</span></a>
+<a class="sourceLine" id="cb30-6" title="6">       geoR, <span class="co"># to compute variogram</span></a>
+<a class="sourceLine" id="cb30-7" title="7">       gridExtra, <span class="co"># to stack plots</span></a>
+<a class="sourceLine" id="cb30-8" title="8">       gstat, automap, <span class="co"># packages for variogram model selection</span></a>
+<a class="sourceLine" id="cb30-9" title="9">       sp <span class="co"># need a function called `coordinates`</span></a>
+<a class="sourceLine" id="cb30-10" title="10">       )</a></code></pre></div>
+</div>
+<div id="data" class="section level2">
+<h2><span class="header-section-number">2.2</span> Data</h2>
+<p>This is equivalent to data step in SAS. Here, the data is entered inside a function called <code>tibble</code>.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="co"># Enter data</span></a>
+<a class="sourceLine" id="cb31-2" title="2">a &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">I =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">16</span>, <span class="dt">YI =</span> <span class="kw">c</span>(<span class="dv">41</span>, <span class="dv">60</span>, <span class="dv">81</span>, <span class="dv">22</span>, <span class="dv">8</span>, <span class="dv">20</span>, <span class="dv">28</span>, <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb31-3" title="3">                             <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">0</span>, <span class="dv">43</span>, <span class="dv">61</span>, <span class="dv">50</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb31-4" title="4"><span class="st">  </span><span class="co"># creat new variable East and North</span></a>
+<a class="sourceLine" id="cb31-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">East =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb31-6" title="6">         <span class="dt">North =</span> I)</a>
+<a class="sourceLine" id="cb31-7" title="7"></a>
+<a class="sourceLine" id="cb31-8" title="8"><span class="co"># print the data</span></a>
+<a class="sourceLine" id="cb31-9" title="9">a</a></code></pre></div>
+<pre><code>## # A tibble: 16 x 4
+##        I    YI  East North
+##    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;
+##  1     1    41     1     1
+##  2     2    60     1     2
+##  3     3    81     1     3
+##  4     4    22     1     4
+##  5     5     8     1     5
+##  6     6    20     1     6
+##  7     7    28     1     7
+##  8     8     2     1     8
+##  9     9     0     1     9
+## 10    10     2     1    10
+## 11    11     2     1    11
+## 12    12     8     1    12
+## 13    13     0     1    13
+## 14    14    43     1    14
+## 15    15    61     1    15
+## 16    16    50     1    16</code></pre>
+</div>
+<div id="autocorrelation-statistics" class="section level2">
+<h2><span class="header-section-number">2.3</span> Autocorrelation statistics</h2>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="co"># visualize the data</span></a>
+<a class="sourceLine" id="cb33-2" title="2"><span class="kw">ggplot</span>(<span class="dt">data =</span> a) <span class="op">+</span></a>
+<a class="sourceLine" id="cb33-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> East, <span class="dt">y =</span> North, <span class="dt">size =</span> YI, <span class="dt">color =</span> YI)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb33-4" title="4"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Spatial Distribution of YI Observation&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb33-5" title="5"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))</a></code></pre></div>
+<p><img src="02-ex9_4_files/figure-html/autocorr-statistics-1.png" width="672" /></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="co"># calculate Moran&#39;s I</span></a>
+<a class="sourceLine" id="cb34-2" title="2">Coords &lt;-<span class="st"> </span>a <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb34-3" title="3"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(East, North)</a>
+<a class="sourceLine" id="cb34-4" title="4"></a>
+<a class="sourceLine" id="cb34-5" title="5">mI &lt;-<span class="st"> </span><span class="kw">moransI</span>(Coords, <span class="dt">Bandwidth =</span> <span class="dv">1</span>, a<span class="op">$</span>YI)</a>
+<a class="sourceLine" id="cb34-6" title="6"></a>
+<a class="sourceLine" id="cb34-7" title="7"><span class="co"># print Moran&#39;s I table</span></a>
+<a class="sourceLine" id="cb34-8" title="8">moran.table &lt;-<span class="st"> </span><span class="kw">tribble</span>(</a>
+<a class="sourceLine" id="cb34-9" title="9">  <span class="op">~</span><span class="st">`</span><span class="dt">Moran&#39;s I</span><span class="st">`</span>, <span class="op">~</span><span class="st">`</span><span class="dt">Expected I</span><span class="st">`</span>, <span class="op">~</span><span class="st">`</span><span class="dt">Z randomization</span><span class="st">`</span>, <span class="op">~</span><span class="st">`</span><span class="dt">P value randomization</span><span class="st">`</span>,</a>
+<a class="sourceLine" id="cb34-10" title="10">  <span class="co">#------------/--------------/-------------------/------------------------</span></a>
+<a class="sourceLine" id="cb34-11" title="11">  mI<span class="op">$</span>Morans.I, mI<span class="op">$</span>Expected.I,  mI<span class="op">$</span>z.randomization, mI<span class="op">$</span>p.value.randomization</a>
+<a class="sourceLine" id="cb34-12" title="12">  )</a>
+<a class="sourceLine" id="cb34-13" title="13"></a>
+<a class="sourceLine" id="cb34-14" title="14">moran.table</a></code></pre></div>
+<pre><code>## # A tibble: 1 x 4
+##   `Moran&#39;s I` `Expected I` `Z randomization` `P value randomization`
+##         &lt;dbl&gt;        &lt;dbl&gt;             &lt;dbl&gt;                   &lt;dbl&gt;
+## 1       0.625      -0.0667              2.81                 0.00499</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1"><span class="co"># create Moran&#39;s I scatter plot</span></a>
+<a class="sourceLine" id="cb36-2" title="2">l.moran &lt;-<span class="st"> </span><span class="kw">l.moransI</span>(Coords, <span class="dt">Bandwidth =</span> <span class="dv">1</span>, a<span class="op">$</span>YI)</a></code></pre></div>
+<p><img src="02-ex9_4_files/figure-html/autocorr-statistics-2.png" width="672" /></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="co"># calculate geary&#39;s c</span></a>
+<a class="sourceLine" id="cb37-2" title="2">Coords_num &lt;-<span class="st"> </span><span class="kw">coordinates</span>(Coords)</a>
+<a class="sourceLine" id="cb37-3" title="3"></a>
+<a class="sourceLine" id="cb37-4" title="4"><span class="co"># create an object of class &#39;nb&#39; so that it can be used with function from packege `spdep`</span></a>
+<a class="sourceLine" id="cb37-5" title="5">Coords_nb &lt;-<span class="st"> </span><span class="kw">knn2nb</span>(<span class="kw">knearneigh</span>(Coords_num))</a>
+<a class="sourceLine" id="cb37-6" title="6"></a>
+<a class="sourceLine" id="cb37-7" title="7"><span class="co"># create a &#39;listw&#39; object for use in the function `geary.test`</span></a>
+<a class="sourceLine" id="cb37-8" title="8">coords_listw &lt;-<span class="st"> </span><span class="kw">nb2listw</span>(Coords_nb)</a>
+<a class="sourceLine" id="cb37-9" title="9"></a>
+<a class="sourceLine" id="cb37-10" title="10">gearyC &lt;-<span class="st"> </span><span class="kw">geary.test</span>(a<span class="op">$</span>YI, coords_listw, <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</a>
+<a class="sourceLine" id="cb37-11" title="11">gearyC</a></code></pre></div>
+<pre><code>## 
+##  Geary C test under randomisation
+## 
+## data:  a$YI 
+## weights: coords_listw 
+## 
+## Geary C statistic standard deviate = 2.5826, p-value = 0.009806
+## alternative hypothesis: two.sided
+## sample estimates:
+## Geary C statistic       Expectation          Variance 
+##        0.37085605        1.00000000        0.05934473</code></pre>
+</div>
+<div id="first-variogram" class="section level2">
+<h2><span class="header-section-number">2.4</span> First variogram</h2>
+<p>We will use the package <code>geoR</code> to construct empricial variogram, and then draw them using package <code>ggplot2</code>.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">v1 &lt;-<span class="st"> </span><span class="kw">variog</span>(<span class="dt">coords =</span> Coords_num, <span class="dt">data =</span> a<span class="op">$</span>YI, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="fl">0.5</span>, <span class="fl">15.5</span>),</a>
+<a class="sourceLine" id="cb39-2" title="2">             <span class="dt">max.dist =</span> <span class="dv">11</span>)</a></code></pre></div>
+<pre><code>## variog: computing omnidirectional variogram</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="co"># extract data from object v1 for plotting</span></a>
+<a class="sourceLine" id="cb41-2" title="2">v1_plot_data &lt;-<span class="st"> </span><span class="kw">cbind</span>(v1<span class="op">$</span>u, v1<span class="op">$</span>v, v1<span class="op">$</span>n) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-3" title="3"><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb41-4" title="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="dt">Distance =</span> V1,</a>
+<a class="sourceLine" id="cb41-5" title="5">                <span class="dt">Semivariance =</span> V2,</a>
+<a class="sourceLine" id="cb41-6" title="6">                <span class="dt">Pair_count =</span> V3)</a>
+<a class="sourceLine" id="cb41-7" title="7"></a>
+<a class="sourceLine" id="cb41-8" title="8"><span class="co"># in the table below, gamma is semivariance</span></a>
+<a class="sourceLine" id="cb41-9" title="9">v1_plot_data</a></code></pre></div>
+<pre><code>##    Distance Semivariance Pair_count
+## 1         1     258.8333         15
+## 2         2     533.0000         14
+## 3         3     576.6154         13
+## 4         4     580.1667         12
+## 5         5     754.0000         11
+## 6         6     958.2000         10
+## 7         7    1020.4444          9
+## 8         8     966.7500          8
+## 9         9    1006.2857          7
+## 10       10    1244.6667          6
+## 11       11     941.8000          5</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="co"># plot variogram</span></a>
+<a class="sourceLine" id="cb43-2" title="2">v1_plot_vario &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> v1_plot_data) <span class="op">+</span></a>
+<a class="sourceLine" id="cb43-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Distance, <span class="dt">y =</span> Semivariance)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb43-4" title="4"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Empirical Semivariogram of YI&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb43-5" title="5"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb43-6" title="6"></a>
+<a class="sourceLine" id="cb43-7" title="7"><span class="co"># plot pair counts</span></a>
+<a class="sourceLine" id="cb43-8" title="8">v1_plot_pair_count &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> v1_plot_data) <span class="op">+</span></a>
+<a class="sourceLine" id="cb43-9" title="9"><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Distance, <span class="dt">y =</span> Pair_count), <span class="dt">width =</span> <span class="fl">0.01</span>, <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>)</a>
+<a class="sourceLine" id="cb43-10" title="10"></a>
+<a class="sourceLine" id="cb43-11" title="11"><span class="co"># stack two plots</span></a>
+<a class="sourceLine" id="cb43-12" title="12"><span class="kw">grid.arrange</span>(v1_plot_vario, v1_plot_pair_count,</a>
+<a class="sourceLine" id="cb43-13" title="13">             <span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>))</a></code></pre></div>
+<p><img src="02-ex9_4_files/figure-html/first-variogram-model-1.png" width="672" /></p>
+</div>
+<div id="second-variogram" class="section level2">
+<h2><span class="header-section-number">2.5</span> Second variogram</h2>
+<p>Plot robust and classical variogram together.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="co"># fit robust variogram</span></a>
+<a class="sourceLine" id="cb44-2" title="2">v1_robust &lt;-<span class="st"> </span><span class="kw">variog</span>(<span class="dt">coords =</span> Coords_num, <span class="dt">data =</span> a<span class="op">$</span>YI, <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="fl">0.5</span>, <span class="fl">15.5</span>),</a>
+<a class="sourceLine" id="cb44-3" title="3">             <span class="dt">max.dist =</span> <span class="dv">11</span>, <span class="dt">estimator.type =</span> <span class="st">&quot;modulus&quot;</span>)</a></code></pre></div>
+<pre><code>## variog: computing omnidirectional variogram</code></pre>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1"><span class="co"># extract the data</span></a>
+<a class="sourceLine" id="cb46-2" title="2">v1_robust_data &lt;-<span class="st"> </span><span class="kw">cbind</span>(v1_robust<span class="op">$</span>u, v1_robust<span class="op">$</span>v, v1_robust<span class="op">$</span>n) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb46-3" title="3"><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb46-4" title="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="dt">Distance =</span> V1,</a>
+<a class="sourceLine" id="cb46-5" title="5">                <span class="dt">Semivariance =</span> V2,</a>
+<a class="sourceLine" id="cb46-6" title="6">                <span class="dt">Pair_count =</span> V3)</a>
+<a class="sourceLine" id="cb46-7" title="7"></a>
+<a class="sourceLine" id="cb46-8" title="8"><span class="co"># plot robust variogram</span></a>
+<a class="sourceLine" id="cb46-9" title="9">v1_robust_vario &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data =</span> v1_robust_data) <span class="op">+</span></a>
+<a class="sourceLine" id="cb46-10" title="10"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Distance, <span class="dt">y =</span> Semivariance)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb46-11" title="11"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Empirical Semivariogram of YI - Robust estimation&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb46-12" title="12"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb46-13" title="13"></a>
+<a class="sourceLine" id="cb46-14" title="14">v1_robust_vario</a></code></pre></div>
+<p><img src="02-ex9_4_files/figure-html/second-variogram-model-1.png" width="672" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="co"># combine robust and classical variogram  </span></a>
+<a class="sourceLine" id="cb47-2" title="2">var_comb &lt;-<span class="st"> </span>v1_robust_data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb47-3" title="3"><span class="st">  </span></a>
+<a class="sourceLine" id="cb47-4" title="4"><span class="st">  </span><span class="co"># combine robust and classical variogram datasets</span></a>
+<a class="sourceLine" id="cb47-5" title="5"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="dt">Semivariance_robust =</span> Semivariance) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb47-6" title="6"><span class="st">  </span><span class="kw">bind_cols</span>(dplyr<span class="op">::</span><span class="kw">select</span>(v1_plot_data, Semivariance)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb47-7" title="7"><span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&quot;Semivariance_type&quot;</span>, <span class="dt">value =</span> <span class="st">&quot;Semivariance&quot;</span>, <span class="op">-</span><span class="kw">c</span>(Distance, Pair_count)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb47-8" title="8"><span class="st">  </span></a>
+<a class="sourceLine" id="cb47-9" title="9"><span class="st">  </span><span class="co"># plot</span></a>
+<a class="sourceLine" id="cb47-10" title="10"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb47-11" title="11"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> Distance, <span class="dt">y =</span> Semivariance, <span class="dt">color =</span> Semivariance_type)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb47-12" title="12"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Empirical Semivariogram for YI&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb47-13" title="13"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">hjust =</span> <span class="fl">0.5</span>))</a>
+<a class="sourceLine" id="cb47-14" title="14"></a>
+<a class="sourceLine" id="cb47-15" title="15">var_comb</a></code></pre></div>
+<p><img src="02-ex9_4_files/figure-html/second-variogram-model-2.png" width="672" /></p>
+</div>
+<div id="variogram-model-selection" class="section level2">
+<h2><span class="header-section-number">2.6</span> Variogram model selection</h2>
+<p>We will use the package <code>gstat</code> and <code>automap</code> for variogram model selection</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1"><span class="co"># specify coordinates in the dataset</span></a>
+<a class="sourceLine" id="cb48-2" title="2"><span class="kw">coordinates</span>(a) =<span class="st"> </span><span class="er">~</span>East<span class="op">+</span>North</a>
+<a class="sourceLine" id="cb48-3" title="3"></a>
+<a class="sourceLine" id="cb48-4" title="4"><span class="co"># select the best model out of exponential, spherical, and gaussian  </span></a>
+<a class="sourceLine" id="cb48-5" title="5"><span class="kw">autofitVariogram</span>(YI <span class="op">~</span><span class="st"> </span>East <span class="op">+</span><span class="st"> </span>North, a, <span class="dt">model =</span> <span class="kw">c</span>(<span class="st">&quot;Sph&quot;</span>, <span class="st">&quot;Exp&quot;</span>, <span class="st">&quot;Gau&quot;</span>))</a></code></pre></div>
+<pre><code>## $exp_var
+##   np dist    gamma dir.hor dir.ver   id
+## 1 15    1 258.8333       0       0 var1
+## 2 14    2 533.0000       0       0 var1
+## 3 13    3 576.6154       0       0 var1
+## 4 12    4 580.1667       0       0 var1
+## 5 11    5 754.0000       0       0 var1
+## 
+## $var_model
+##   model    psill    range
+## 1   Nug   0.0000 0.000000
+## 2   Exp 854.3133 2.575499
+## 
+## $sserr
+## [1] 28783.32
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;autofitVariogram&quot; &quot;list&quot;</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1"><span class="co"># fit empirical variogram</span></a>
+<a class="sourceLine" id="cb50-2" title="2">v_emp &lt;-<span class="st"> </span><span class="kw">variogram</span>(YI <span class="op">~</span><span class="st"> </span>East <span class="op">+</span><span class="st"> </span>North, <span class="dt">data =</span> a, <span class="dt">cutoff =</span> <span class="dv">11</span>)</a>
+<a class="sourceLine" id="cb50-3" title="3">v_emp</a></code></pre></div>
+<pre><code>##    np dist     gamma dir.hor dir.ver   id
+## 1  15    1  258.6800       0       0 var1
+## 2  14    2  533.1935       0       0 var1
+## 3  13    3  585.0892       0       0 var1
+## 4  12    4  599.5342       0       0 var1
+## 5  11    5  781.5082       0       0 var1
+## 6  10    6 1004.5184       0       0 var1
+## 7   9    7 1098.0920       0       0 var1
+## 8   8    8 1068.5891       0       0 var1
+## 9   7    9 1134.6418       0       0 var1
+## 10  6   10 1373.3289       0       0 var1
+## 11  5   11 1074.9398       0       0 var1</code></pre>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1"><span class="kw">plot</span>(v_emp)</a></code></pre></div>
+<p><img src="02-ex9_4_files/figure-html/model-selection-1.png" width="672" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1"><span class="co"># fit exponential variogram</span></a>
+<a class="sourceLine" id="cb53-2" title="2">v_exp &lt;-<span class="st"> </span><span class="kw">fit.variogram</span>(v_emp, <span class="kw">vgm</span>(<span class="st">&quot;Exp&quot;</span>))</a>
+<a class="sourceLine" id="cb53-3" title="3">v_exp</a></code></pre></div>
+<pre><code>##   model      psill    range
+## 1   Nug   28.19161 0.000000
+## 2   Exp 1274.07390 4.827695</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1"><span class="co"># fit spherical and gaussian</span></a>
+<a class="sourceLine" id="cb55-2" title="2">v_sph &lt;-<span class="st"> </span><span class="kw">fit.variogram</span>(v_emp, <span class="kw">vgm</span>(<span class="st">&quot;Sph&quot;</span>))</a>
+<a class="sourceLine" id="cb55-3" title="3">v_gau &lt;-<span class="st"> </span><span class="kw">fit.variogram</span>(v_emp, <span class="kw">vgm</span>(<span class="st">&quot;Gau&quot;</span>))</a>
+<a class="sourceLine" id="cb55-4" title="4"></a>
+<a class="sourceLine" id="cb55-5" title="5"><span class="co"># extract plotting data from fitted variograms</span></a>
+<a class="sourceLine" id="cb55-6" title="6">v_exp_line &lt;-<span class="st"> </span><span class="kw">variogramLine</span>(v_exp, <span class="dt">maxdist =</span> <span class="dv">11</span>)</a>
+<a class="sourceLine" id="cb55-7" title="7">v_sph_line &lt;-<span class="st"> </span><span class="kw">variogramLine</span>(v_sph, <span class="dt">maxdist =</span> <span class="dv">11</span>)</a>
+<a class="sourceLine" id="cb55-8" title="8">v_gau_line &lt;-<span class="st"> </span><span class="kw">variogramLine</span>(v_gau, <span class="dt">maxdist =</span> <span class="dv">11</span>)</a>
+<a class="sourceLine" id="cb55-9" title="9"></a>
+<a class="sourceLine" id="cb55-10" title="10"><span class="co"># plot emprical and fitted variograms together  </span></a>
+<a class="sourceLine" id="cb55-11" title="11"><span class="co"># specify color for legends</span></a>
+<a class="sourceLine" id="cb55-12" title="12">legend_color &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Empirical&quot;</span> =<span class="st"> &quot;blue&quot;</span>, <span class="st">&quot;Exponential&quot;</span> =<span class="st"> &quot;blue&quot;</span>,</a>
+<a class="sourceLine" id="cb55-13" title="13">                  <span class="st">&quot;Spherical&quot;</span> =<span class="st"> &quot;orange&quot;</span>, <span class="st">&quot;Gaussian&quot;</span> =<span class="st"> &quot;green&quot;</span>)</a>
+<a class="sourceLine" id="cb55-14" title="14"><span class="kw">ggplot</span>(<span class="dt">data =</span> v_emp) <span class="op">+</span></a>
+<a class="sourceLine" id="cb55-15" title="15"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> dist, <span class="dt">y =</span> gamma, <span class="dt">fill =</span> <span class="st">&quot;Empirical&quot;</span>), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb55-16" title="16"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> v_exp_line, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> dist, <span class="dt">y =</span> gamma, <span class="dt">color =</span> <span class="st">&quot;Exponential&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb55-17" title="17"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> v_sph_line, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> dist, <span class="dt">y =</span> gamma, <span class="dt">color =</span> <span class="st">&quot;Spherical&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb55-18" title="18"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> v_gau_line, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> dist, <span class="dt">y =</span> gamma, <span class="dt">color =</span> <span class="st">&quot;Gaussian&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb55-19" title="19"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">name =</span> <span class="st">&quot;&quot;</span>, <span class="dt">values =</span> legend_color) <span class="op">+</span></a>
+<a class="sourceLine" id="cb55-20" title="20"><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">name =</span> <span class="st">&quot;&quot;</span>, <span class="dt">values =</span> legend_color) <span class="op">+</span></a>
+<a class="sourceLine" id="cb55-21" title="21"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Distance&quot;</span>,</a>
+<a class="sourceLine" id="cb55-22" title="22">       <span class="dt">y =</span> <span class="st">&quot;Semivariance&quot;</span>)</a></code></pre></div>
+<p><img src="02-ex9_4_files/figure-html/model-selection-2.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ex4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ex9-5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-ex9_4.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["_epidem_exercises.pdf", "_epidem_exercises.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
