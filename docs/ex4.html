@@ -24,7 +24,7 @@
 <meta name="author" content="Lucky Mehra" />
 
 
-<meta name="date" content="2019-08-01" />
+<meta name="date" content="2019-08-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -173,6 +173,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="yieldloss.html"><a href="yieldloss.html#mixed-model-for-ry2"><i class="fa fa-check"></i><b>4.6</b> Mixed model for RY2</a></li>
 <li class="chapter" data-level="4.7" data-path="yieldloss.html"><a href="yieldloss.html#linear-regression-between-ry2-and-cds"><i class="fa fa-check"></i><b>4.7</b> Linear regression between RY2 and CDS</a></li>
 </ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="sas-code.html"><a href="sas-code.html"><i class="fa fa-check"></i><b>A</b> SAS code</a><ul>
+<li class="chapter" data-level="A.1" data-path="sas-code.html"><a href="sas-code.html#exercise-4"><i class="fa fa-check"></i><b>A.1</b> Exercise 4</a></li>
+<li class="chapter" data-level="A.2" data-path="sas-code.html"><a href="sas-code.html#exercise-9.4"><i class="fa fa-check"></i><b>A.2</b> Exercise 9.4</a></li>
+<li class="chapter" data-level="A.3" data-path="sas-code.html"><a href="sas-code.html#exercise-9.5"><i class="fa fa-check"></i><b>A.3</b> Exercise 9.5</a></li>
+<li class="chapter" data-level="A.4" data-path="sas-code.html"><a href="sas-code.html#yield-loss"><i class="fa fa-check"></i><b>A.4</b> Yield loss</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -210,23 +217,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="import-data" class="section level2">
 <h2><span class="header-section-number">1.2</span> Import data</h2>
-<p>Our data is located in <code>ex4.csv</code> file. Import data and create new variables using the code below.</p>
+<p>Our data is located in <code>ex4.csv</code> file, which can be found on <a href="https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/ex4.csv">my github repo</a>. Import the data and create new variables using the code below.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># import data</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="co">#library(tidyverse)</span></a>
-<a class="sourceLine" id="cb4-3" title="3"></a>
-<a class="sourceLine" id="cb4-4" title="4">a &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/ex4.csv&quot;</span>, <span class="dt">col_types =</span> <span class="kw">cols</span>(</a>
-<a class="sourceLine" id="cb4-5" title="5">  <span class="dt">blk =</span> <span class="kw">col_factor</span>(), <span class="co"># parse blk as a factor</span></a>
-<a class="sourceLine" id="cb4-6" title="6">  <span class="dt">trt =</span> <span class="kw">col_factor</span>() <span class="co"># parse trt as a factor</span></a>
-<a class="sourceLine" id="cb4-7" title="7">))</a>
-<a class="sourceLine" id="cb4-8" title="8"></a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="co"># create new variables</span></a>
-<a class="sourceLine" id="cb4-10" title="10">a<span class="op">$</span>y &lt;-<span class="st"> </span>a<span class="op">$</span>pctsev<span class="op">/</span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb4-11" title="11">a<span class="op">$</span>ystar &lt;-<span class="st"> </span><span class="kw">log</span>(a<span class="op">$</span>y<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>a<span class="op">$</span>y))</a>
-<a class="sourceLine" id="cb4-12" title="12">a<span class="op">$</span>wt &lt;-<span class="st"> </span>a<span class="op">$</span>y<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>a<span class="op">$</span>y)</a>
-<a class="sourceLine" id="cb4-13" title="13"></a>
-<a class="sourceLine" id="cb4-14" title="14"><span class="co"># print the data</span></a>
-<a class="sourceLine" id="cb4-15" title="15">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(a),</a>
-<a class="sourceLine" id="cb4-16" title="16">             <span class="dt">caption =</span> <span class="st">&quot;The first 6 rows of dataset *a*.&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb4-2" title="2">a &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/ex4.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb4-3" title="3">              <span class="dt">col_types =</span> <span class="kw">cols</span>(</a>
+<a class="sourceLine" id="cb4-4" title="4">                <span class="dt">blk =</span> <span class="kw">col_factor</span>(), <span class="co"># parse blk as a factor</span></a>
+<a class="sourceLine" id="cb4-5" title="5">                <span class="dt">trt =</span> <span class="kw">col_factor</span>() <span class="co"># parse trt as a factor</span></a>
+<a class="sourceLine" id="cb4-6" title="6">                ))</a>
+<a class="sourceLine" id="cb4-7" title="7"></a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="co"># create new variables</span></a>
+<a class="sourceLine" id="cb4-9" title="9">a<span class="op">$</span>y &lt;-<span class="st"> </span>a<span class="op">$</span>pctsev<span class="op">/</span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb4-10" title="10">a<span class="op">$</span>ystar &lt;-<span class="st"> </span><span class="kw">log</span>(a<span class="op">$</span>y<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>a<span class="op">$</span>y))</a>
+<a class="sourceLine" id="cb4-11" title="11">a<span class="op">$</span>wt &lt;-<span class="st"> </span>a<span class="op">$</span>y<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>a<span class="op">$</span>y)</a>
+<a class="sourceLine" id="cb4-12" title="12"></a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="co"># print the data</span></a>
+<a class="sourceLine" id="cb4-14" title="14">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(a),</a>
+<a class="sourceLine" id="cb4-15" title="15">             <span class="dt">caption =</span> <span class="st">&quot;The first 6 rows of dataset *a*.&quot;</span>)</a></code></pre></div>
 <table>
 <caption><span id="tab:data-import">Table 1.1: </span>The first 6 rows of dataset <em>a</em>.</caption>
 <thead>

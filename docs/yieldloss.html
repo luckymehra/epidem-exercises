@@ -24,7 +24,7 @@
 <meta name="author" content="Lucky Mehra" />
 
 
-<meta name="date" content="2019-08-01" />
+<meta name="date" content="2019-08-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="ex9-5.html">
-
+<link rel="next" href="sas-code.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -173,6 +173,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.6" data-path="yieldloss.html"><a href="yieldloss.html#mixed-model-for-ry2"><i class="fa fa-check"></i><b>4.6</b> Mixed model for RY2</a></li>
 <li class="chapter" data-level="4.7" data-path="yieldloss.html"><a href="yieldloss.html#linear-regression-between-ry2-and-cds"><i class="fa fa-check"></i><b>4.7</b> Linear regression between RY2 and CDS</a></li>
 </ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="sas-code.html"><a href="sas-code.html"><i class="fa fa-check"></i><b>A</b> SAS code</a><ul>
+<li class="chapter" data-level="A.1" data-path="sas-code.html"><a href="sas-code.html#exercise-4"><i class="fa fa-check"></i><b>A.1</b> Exercise 4</a></li>
+<li class="chapter" data-level="A.2" data-path="sas-code.html"><a href="sas-code.html#exercise-9.4"><i class="fa fa-check"></i><b>A.2</b> Exercise 9.4</a></li>
+<li class="chapter" data-level="A.3" data-path="sas-code.html"><a href="sas-code.html#exercise-9.5"><i class="fa fa-check"></i><b>A.3</b> Exercise 9.5</a></li>
+<li class="chapter" data-level="A.4" data-path="sas-code.html"><a href="sas-code.html#yield-loss"><i class="fa fa-check"></i><b>A.4</b> Yield loss</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -212,9 +219,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="data-2" class="section level2">
 <h2><span class="header-section-number">4.2</span> Data</h2>
-<p>This is equivalent to the data step in SAS. Here, the data is imported from a file <code>yield_loss.csv</code> using the function <code>read_csv</code>.</p>
+<p>This is equivalent to the data step in SAS. Here, the data is imported from a file <code>yield_loss.csv</code> using the function <code>read_csv</code>. This function will download the data file direclty from <a href="https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/yield_loss.csv">here</a>.</p>
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="co"># Import data</span></a>
-<a class="sourceLine" id="cb91-2" title="2">a &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/yield_loss.csv&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb91-2" title="2">a &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/yield_loss.csv&quot;</span>)</a></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   WP = col_double(),
@@ -804,13 +811,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
+
+
+
             </section>
 
           </div>
         </div>
       </div>
-<a href="ex9-5.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="ex9-5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="sas-code.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
