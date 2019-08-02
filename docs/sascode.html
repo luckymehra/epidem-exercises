@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>A SAS code | Epidemiological exercises in R</title>
+  <meta name="description" content="This book contains epidemiological data analysis exercises in R. These are written for students of PLPTH 905 (Ecology and Epidemiology of Plant Pathogens) offered in even springs at Kansas State University." />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="A SAS code | Epidemiological exercises in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book contains epidemiological data analysis exercises in R. These are written for students of PLPTH 905 (Ecology and Epidemiology of Plant Pathogens) offered in even springs at Kansas State University." />
+  <meta name="github-repo" content="luckymehra/epidem-exercises" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="A SAS code | Epidemiological exercises in R" />
+  
+  <meta name="twitter:description" content="This book contains epidemiological data analysis exercises in R. These are written for students of PLPTH 905 (Ecology and Epidemiology of Plant Pathogens) offered in even springs at Kansas State University." />
+  
+
+<meta name="author" content="Lucky Mehra" />
+
+
+<meta name="date" content="2019-08-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="yieldloss.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Epidemiological exercises in R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="1" data-path="ex4.html"><a href="ex4.html"><i class="fa fa-check"></i><b>1</b> Exercise 4</a><ul>
+<li class="chapter" data-level="1.1" data-path="ex4.html"><a href="ex4.html#load-packages"><i class="fa fa-check"></i><b>1.1</b> Load packages</a></li>
+<li class="chapter" data-level="1.2" data-path="ex4.html"><a href="ex4.html#import-data"><i class="fa fa-check"></i><b>1.2</b> Import data</a></li>
+<li class="chapter" data-level="1.3" data-path="ex4.html"><a href="ex4.html#first-mixed-model"><i class="fa fa-check"></i><b>1.3</b> First mixed model</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="ex4.html"><a href="ex4.html#fit-the-model"><i class="fa fa-check"></i><b>1.3.1</b> Fit the model</a></li>
+<li class="chapter" data-level="1.3.2" data-path="ex4.html"><a href="ex4.html#diagnostic-plots"><i class="fa fa-check"></i><b>1.3.2</b> Diagnostic plots</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="ex4.html"><a href="ex4.html#second-mixed-model"><i class="fa fa-check"></i><b>1.4</b> Second mixed model</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="ex4.html"><a href="ex4.html#fit-the-model-1"><i class="fa fa-check"></i><b>1.4.1</b> Fit the model</a></li>
+<li class="chapter" data-level="1.4.2" data-path="ex4.html"><a href="ex4.html#plot-observed-versus-predicted-model-values"><i class="fa fa-check"></i><b>1.4.2</b> Plot observed versus predicted model values</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ex9-4.html"><a href="ex9-4.html"><i class="fa fa-check"></i><b>2</b> Exercise 9.4</a><ul>
+<li class="chapter" data-level="2.1" data-path="ex9-4.html"><a href="ex9-4.html#load-packages-1"><i class="fa fa-check"></i><b>2.1</b> Load packages</a></li>
+<li class="chapter" data-level="2.2" data-path="ex9-4.html"><a href="ex9-4.html#data"><i class="fa fa-check"></i><b>2.2</b> Data</a></li>
+<li class="chapter" data-level="2.3" data-path="ex9-4.html"><a href="ex9-4.html#autocorrelation-statistics"><i class="fa fa-check"></i><b>2.3</b> Autocorrelation statistics</a></li>
+<li class="chapter" data-level="2.4" data-path="ex9-4.html"><a href="ex9-4.html#first-variogram"><i class="fa fa-check"></i><b>2.4</b> First variogram</a></li>
+<li class="chapter" data-level="2.5" data-path="ex9-4.html"><a href="ex9-4.html#second-variogram"><i class="fa fa-check"></i><b>2.5</b> Second variogram</a></li>
+<li class="chapter" data-level="2.6" data-path="ex9-4.html"><a href="ex9-4.html#variogram-model-selection"><i class="fa fa-check"></i><b>2.6</b> Variogram model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="ex9-5.html"><a href="ex9-5.html"><i class="fa fa-check"></i><b>3</b> Exercise 9.5</a><ul>
+<li class="chapter" data-level="3.1" data-path="ex9-5.html"><a href="ex9-5.html#load-packages-2"><i class="fa fa-check"></i><b>3.1</b> Load packages</a></li>
+<li class="chapter" data-level="3.2" data-path="ex9-5.html"><a href="ex9-5.html#data-1"><i class="fa fa-check"></i><b>3.2</b> Data</a></li>
+<li class="chapter" data-level="3.3" data-path="ex9-5.html"><a href="ex9-5.html#autocorrelation-statistics-1"><i class="fa fa-check"></i><b>3.3</b> Autocorrelation statistics</a></li>
+<li class="chapter" data-level="3.4" data-path="ex9-5.html"><a href="ex9-5.html#first-variogram-1"><i class="fa fa-check"></i><b>3.4</b> First variogram</a></li>
+<li class="chapter" data-level="3.5" data-path="ex9-5.html"><a href="ex9-5.html#second-variogram-1"><i class="fa fa-check"></i><b>3.5</b> Second variogram</a></li>
+<li class="chapter" data-level="3.6" data-path="ex9-5.html"><a href="ex9-5.html#variogram-model-selection-1"><i class="fa fa-check"></i><b>3.6</b> Variogram model selection</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="yieldloss.html"><a href="yieldloss.html"><i class="fa fa-check"></i><b>4</b> Yield loss</a><ul>
+<li class="chapter" data-level="4.1" data-path="yieldloss.html"><a href="yieldloss.html#load-packages-3"><i class="fa fa-check"></i><b>4.1</b> Load packages</a></li>
+<li class="chapter" data-level="4.2" data-path="yieldloss.html"><a href="yieldloss.html#data-2"><i class="fa fa-check"></i><b>4.2</b> Data</a></li>
+<li class="chapter" data-level="4.3" data-path="yieldloss.html"><a href="yieldloss.html#mixed-model-for-response-variable-ds"><i class="fa fa-check"></i><b>4.3</b> Mixed model for response variable DS</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="yieldloss.html"><a href="yieldloss.html#diagnostic-plots-1"><i class="fa fa-check"></i><b>4.3.1</b> Diagnostic plots</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="yieldloss.html"><a href="yieldloss.html#mixed-model-for-response-variable-yield"><i class="fa fa-check"></i><b>4.4</b> Mixed model for response variable YIELD</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="yieldloss.html"><a href="yieldloss.html#diagnostic-plots-2"><i class="fa fa-check"></i><b>4.4.1</b> Diagnostic plots</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="yieldloss.html"><a href="yieldloss.html#linear-regression-between-yield-and-ds"><i class="fa fa-check"></i><b>4.5</b> Linear regression between YIELD and DS</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="yieldloss.html"><a href="yieldloss.html#linear-regression-between-ry1-and-ds"><i class="fa fa-check"></i><b>4.5.1</b> Linear regression between RY1 and DS</a></li>
+<li class="chapter" data-level="4.5.2" data-path="yieldloss.html"><a href="yieldloss.html#transform-dataset-a"><i class="fa fa-check"></i><b>4.5.2</b> Transform dataset a</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="yieldloss.html"><a href="yieldloss.html#mixed-model-for-ry2"><i class="fa fa-check"></i><b>4.6</b> Mixed model for RY2</a></li>
+<li class="chapter" data-level="4.7" data-path="yieldloss.html"><a href="yieldloss.html#linear-regression-between-ry2-and-cds"><i class="fa fa-check"></i><b>4.7</b> Linear regression between RY2 and CDS</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="sascode.html"><a href="sascode.html"><i class="fa fa-check"></i><b>A</b> SAS code</a><ul>
+<li class="chapter" data-level="A.1" data-path="sascode.html"><a href="sascode.html#exercise-4"><i class="fa fa-check"></i><b>A.1</b> Exercise 4</a></li>
+<li class="chapter" data-level="A.2" data-path="sascode.html"><a href="sascode.html#exercise-9.4"><i class="fa fa-check"></i><b>A.2</b> Exercise 9.4</a></li>
+<li class="chapter" data-level="A.3" data-path="sascode.html"><a href="sascode.html#exercise-9.5"><i class="fa fa-check"></i><b>A.3</b> Exercise 9.5</a></li>
+<li class="chapter" data-level="A.4" data-path="sascode.html"><a href="sascode.html#yield-loss"><i class="fa fa-check"></i><b>A.4</b> Yield loss</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Epidemiological exercises in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="sascode" class="section level1">
+<h1><span class="header-section-number">A</span> SAS code</h1>
+<div id="exercise-4" class="section level2">
+<h2><span class="header-section-number">A.1</span> Exercise 4</h2>
+<p>Copy and paste the below code into a SAS editor, and hit run to see <a href="https://github.com/luckymehra/epidem-exercises/blob/master/sas_output/ex4.pdf">the output</a>.</p>
+<pre><code>DATA A;
+INPUT PLOT AN T BLK TRT PCTSEV;
+Y=PCTSEV/100;
+YSTAR=LOG(Y/(1-Y));
+WT=Y*(1-Y);
+DROP AN;
+CARDS;
+101 1   0   1   2   9
+102 1   0   1   1   6
+103 1   0   1   3   2
+201 1   0   2   2   7
+202 1   0   2   3   5
+203 1   0   2   1   3
+301 1   0   3   3   4
+302 1   0   3   2   2
+303 1   0   3   1   6
+401 1   0   4   1   1
+402 1   0   4   2   1
+403 1   0   4   3   4
+101 2   7   1   2   4
+102 2   7   1   1   6
+103 2   7   1   3   10
+201 2   7   2   2   2
+202 2   7   2   3   5
+203 2   7   2   1   3
+301 2   7   3   3   11
+302 2   7   3   2   6
+303 2   7   3   1   4
+401 2   7   4   1   8
+402 2   7   4   2   3
+403 2   7   4   3   6
+101 3   14  1   2   8
+102 3   14  1   1   20
+103 3   14  1   3   15
+201 3   14  2   2   13
+202 3   14  2   3   12
+203 3   14  2   1   14
+301 3   14  3   3   15
+302 3   14  3   2   8
+303 3   14  3   1   25
+401 3   14  4   1   17
+402 3   14  4   2   14
+403 3   14  4   3   49
+101 4   21  1   2   24
+102 4   21  1   1   38
+103 4   21  1   3   61
+201 4   21  2   2   31
+202 4   21  2   3   42
+203 4   21  2   1   79
+301 4   21  3   3   48
+302 4   21  3   2   23
+303 4   21  3   1   86
+401 4   21  4   1   52
+402 4   21  4   2   45
+403 4   21  4   3   56
+101 5   28  1   2   28
+102 5   28  1   1   89
+103 5   28  1   3   44
+201 5   28  2   2   41
+202 5   28  2   3   49
+203 5   28  2   1   79
+301 5   28  3   3   45
+302 5   28  3   2   47
+303 5   28  3   1   63
+401 5   28  4   1   94
+402 5   28  4   2   52
+403 5   28  4   3   64
+101 6   35  1   2   36
+102 6   35  1   1   77
+103 6   35  1   3   88
+201 6   35  2   2   42
+202 6   35  2   3   69
+203 6   35  2   1   71
+301 6   35  3   3   43
+302 6   35  3   2   39
+303 6   35  3   1   84
+401 6   35  4   1   97
+402 6   35  4   2   47
+403 6   35  4   3   76
+;
+PROC MIXED DATA=A COVTEST;
+CLASS BLK TRT;
+MODEL YSTAR=TRT|T/ SOLUTION DDFM=bw RESIDUAL;
+RANDOM BLK;
+WEIGHT WT;
+REPEATED/SUBJECT=BLK*TRT TYPE=AR(1) R RCORR;
+quit;
+
+PROC MIXED DATA=A;
+CLASS BLK TRT;
+MODEL YSTAR=TRT TRT*T/NOINT SOLUTION DDFM=bw OUTPM=B;
+RANDOM BLK;
+WEIGHT WT;
+REPEATED/SUBJECT=BLK*TRT TYPE=AR(1);
+LSMEANS TRT/DIFF AT T=0;
+LSMEANS TRT/DIFF AT T=7;
+LSMEANS TRT/DIFF AT T=14;
+LSMEANS TRT/DIFF AT T=21;
+LSMEANS TRT/DIFF AT T=28;
+LSMEANS TRT/DIFF AT T=35;
+
+ESTIMATE &#39;TRT1 S VS TRT2 S&#39; TRT*T 1 -1 0;
+ESTIMATE &#39;TRT1 S VS TRT3 S&#39; TRT*T 1 0 -1;
+ESTIMATE &#39;TRT2 S VS TRT3 S&#39; TRT*T 0 1 -1;
+quit;
+
+PROC PRINT DATA=B;
+
+PROC REG DATA=B;
+MODEL YSTAR=PRED;
+
+RUN;</code></pre>
+</div>
+<div id="exercise-9.4" class="section level2">
+<h2><span class="header-section-number">A.2</span> Exercise 9.4</h2>
+<p>Copy and paste the below code into a SAS editor, and hit run to see <a href="https://github.com/luckymehra/epidem-exercises/blob/master/sas_output/ex9_4.pdf">the output</a>.</p>
+<pre><code>DATA A;
+INPUT I YI;
+EAST=1;
+NORTH=I;
+CARDS;
+1   41
+2   60
+3   81
+4   22
+5   8
+6   20
+7   28
+8   2
+9   0
+10  2
+11  2
+12  8
+13  0
+14  43
+15  61
+16  50
+;
+PROC VARIOGRAM PLOTS=MORAN OUTVAR=B;
+COMPUTE LAGD=1 MAXLAG=11 AUTOCORR(ASSUM=RANDOM);
+COORDINATES XC=EAST YC=NORTH;
+VAR YI;
+
+PROC PRINT;
+run;
+
+PROC VARIOGRAM DATA=A PLOTS=FIT;
+COMPUTE LAGD=1 MAXLAG=11 CL ROBUST;
+COORDINATES XC=EAST YC=NORTH;
+MODEL FORM=AUTO(MLIST=(SPH EXP GAU) NEST=1);
+VAR YI;
+
+RUN;</code></pre>
+</div>
+<div id="exercise-9.5" class="section level2">
+<h2><span class="header-section-number">A.3</span> Exercise 9.5</h2>
+<p>Copy and paste the below code into a SAS editor, and hit run to see <a href="https://github.com/luckymehra/epidem-exercises/blob/master/sas_output/ex9_5.pdf">the output</a>.</p>
+<pre><code>DATA A;
+INPUT COL ROW YI;
+CARDS;
+1   1   2
+2   1   2
+3   1   0
+4   1   3
+5   1   1
+6   1   1
+7   1   1
+8   1   5
+9   1   22
+10  1   13
+11  1   14
+12  1   6
+1   2   2
+2   2   0
+3   2   0
+4   2   3
+5   2   0
+6   2   2
+7   2   7
+8   2   54
+9   2   57
+10  2   49
+11  2   42
+12  2   2
+1   3   3
+2   3   1
+3   3   0
+4   3   1
+5   3   0
+6   3   9
+7   3   6
+8   3   62
+9   3   94
+10  3   75
+11  3   7
+12  3   2
+1   4   33
+2   4   3
+3   4   0
+4   4   2
+5   4   0
+6   4   20
+7   4   25
+8   4   79
+9   4   95
+10  4   32
+11  4   12
+12  4   2
+1   5   4
+2   5   1
+3   5   3
+4   5   2
+5   5   6
+6   5   23
+7   5   14
+8   5   64
+9   5   31
+10  5   9
+11  5   13
+12  5   16
+1   6   0
+2   6   2
+3   6   1
+4   6   4
+5   6   4
+6   6   5
+7   6   4
+8   6   9
+9   6   10
+10  6   19
+11  6   6
+12  6   1
+1   7   0
+2   7   7
+3   7   7
+4   7   9
+5   7   4
+6   7   12
+7   7   7
+8   7   7
+9   7   12
+10  7   13
+11  7   11
+12  7   2
+1   8   0
+2   8   2
+3   8   11
+4   8   19
+5   8   12
+6   8   32
+7   8   11
+8   8   9
+9   8   31
+10  8   67
+11  8   27
+12  8   30
+1   9   5
+2   9   10
+3   9   35
+4   9   56
+5   9   62
+6   9   45
+7   9   21
+8   9   18
+9   9   43
+10  9   94
+11  9   77
+12  9   33
+1   10  11
+2   10  24
+3   10  78
+4   10  100
+5   10  99
+6   10  68
+7   10  52
+8   10  45
+9   10  74
+10  10  98
+11  10  99
+12  10  37
+1   11  7
+2   11  29
+3   11  79
+4   11  97
+5   11  92
+6   11  95
+7   11  100
+8   11  89
+9   11  53
+10  11  46
+11  11  50
+12  11  16
+1   12  7
+2   12  22
+3   12  31
+4   12  50
+5   12  56
+6   12  79
+7   12  100
+8   12  61
+9   12  53
+10  12  36
+11  12  33
+12  12  2
+;
+
+PROC VARIOGRAM DATA=A PLOTS=MORAN OUTVAR=B;
+COMPUTE LAGD=1 MAXLAG=12 AUTOCORR(ASSUM=RANDOM);
+COORDINATES XC=COL YC=ROW;
+VAR YI;
+
+PROC PRINT;
+
+PROC VARIOGRAM DATA=A PLOTS=FIT;
+COMPUTE LAGD=1 MAXLAG=12 CL ROBUST;
+COORDINATES XC=COL YC=ROW;
+MODEL FORM=AUTO(MLIST=(SPH EXP GAU) NEST=1);
+VAR YI;
+
+RUN;</code></pre>
+</div>
+<div id="yield-loss" class="section level2">
+<h2><span class="header-section-number">A.4</span> Yield loss</h2>
+<p>Copy and paste the below code into a SAS editor, and hit run to see <a href="https://github.com/luckymehra/epidem-exercises/blob/master/sas_output/exYieldLoss.pdf">the output</a>.</p>
+<pre><code>DATA A;
+INPUT WP SP $ BLK TRT FUNG DS YIELD;
+CARDS;
+101 A   1   1   0   43  205
+101 B   1   1   1   1   399
+102 A   1   2   1   2   426
+102 B   1   2   0   92  102
+103 A   1   3   1   2   385
+103 B   1   3   0   7   355
+201 A   2   2   1   4   412
+201 B   2   2   0   75  224
+202 A   2   3   1   3   425
+202 B   2   3   0   10  352
+203 A   2   1   0   27  330
+203 B   2   1   1   2   375
+301 A   3   1   1   2   420
+301 B   3   1   0   47  303
+302 A   3   3   0   12  342
+302 B   3   3   1   1   395
+303 A   3   2   0   63  222
+303 B   3   2   1   3   393
+401 A   4   3   0   12  326
+401 B   4   3   1   1   400
+402 A   4   1   0   32  289
+402 B   4   1   1   1   418
+403 A   4   2   1   2   371
+403 B   4   2   0   53  175
+;
+PROC MIXED COVTEST METHOD=TYPE3;
+CLASS BLK TRT FUNG;
+MODEL DS=TRT|FUNG/RESIDUAL;
+RANDOM BLK BLK*TRT;
+LSMEANS TRT|FUNG/DIFF;
+run;
+
+PROC MIXED COVTEST METHOD=TYPE3;
+CLASS BLK TRT FUNG;
+MODEL YIELD=TRT|FUNG/RESIDUAL;
+RANDOM BLK BLK*TRT;
+LSMEANS TRT|FUNG/DIFF;
+
+PROC REG;
+MODEL YIELD=DS;
+
+DATA B;
+SET A;
+RY1=YIELD/399.23843;
+
+PROC REG;
+MODEL RY1=DS;
+
+
+PROC SORT DATA=A; BY BLK TRT FUNG;
+PROC TRANSPOSE DATA=A OUT=T1A; BY BLK TRT;
+VAR YIELD;
+run;
+
+DATA T2A;
+SET T1A;
+RY2=COL1/COL2;
+DROP _NAME_ COL1 COL2;
+run;
+
+PROC TRANSPOSE DATA=A OUT=T1B; BY BLK TRT;
+VAR DS;
+run;
+
+DATA T2B;
+SET T1B;
+CDS=COL1;
+DROP _NAME_ COL1 COL2;
+run;
+
+DATA T3;
+MERGE T2A T2B;
+BY BLK TRT; 
+
+PROC PRINT;
+run;
+
+PROC MIXED COVTEST;
+CLASS BLK TRT;
+MODEL RY2=TRT/RESIDUAL;
+RANDOM BLK;
+LSMEANS TRT/DIFF;
+
+PROC REG;
+MODEL RY2=CDS;
+
+RUN;</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="yieldloss.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/10-appendix-1.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": ["_epidem_exercises.pdf", "_epidem_exercises.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
