@@ -2411,434 +2411,442 @@ This is equivalent to the data step in SAS. Here, the data is imported from a fi
 
 Copy and paste the below code into a SAS editor, and hit run to see \href{https://github.com/luckymehra/epidem-exercises/blob/master/sas_output/ex4.pdf}{the output}.
 
-\begin{verbatim}
-DATA A;
-INPUT PLOT AN T BLK TRT PCTSEV;
-Y=PCTSEV/100;
-YSTAR=LOG(Y/(1-Y));
-WT=Y*(1-Y);
-DROP AN;
-CARDS;
-101 1   0   1   2   9
-102 1   0   1   1   6
-103 1   0   1   3   2
-201 1   0   2   2   7
-202 1   0   2   3   5
-203 1   0   2   1   3
-301 1   0   3   3   4
-302 1   0   3   2   2
-303 1   0   3   1   6
-401 1   0   4   1   1
-402 1   0   4   2   1
-403 1   0   4   3   4
-101 2   7   1   2   4
-102 2   7   1   1   6
-103 2   7   1   3   10
-201 2   7   2   2   2
-202 2   7   2   3   5
-203 2   7   2   1   3
-301 2   7   3   3   11
-302 2   7   3   2   6
-303 2   7   3   1   4
-401 2   7   4   1   8
-402 2   7   4   2   3
-403 2   7   4   3   6
-101 3   14  1   2   8
-102 3   14  1   1   20
-103 3   14  1   3   15
-201 3   14  2   2   13
-202 3   14  2   3   12
-203 3   14  2   1   14
-301 3   14  3   3   15
-302 3   14  3   2   8
-303 3   14  3   1   25
-401 3   14  4   1   17
-402 3   14  4   2   14
-403 3   14  4   3   49
-101 4   21  1   2   24
-102 4   21  1   1   38
-103 4   21  1   3   61
-201 4   21  2   2   31
-202 4   21  2   3   42
-203 4   21  2   1   79
-301 4   21  3   3   48
-302 4   21  3   2   23
-303 4   21  3   1   86
-401 4   21  4   1   52
-402 4   21  4   2   45
-403 4   21  4   3   56
-101 5   28  1   2   28
-102 5   28  1   1   89
-103 5   28  1   3   44
-201 5   28  2   2   41
-202 5   28  2   3   49
-203 5   28  2   1   79
-301 5   28  3   3   45
-302 5   28  3   2   47
-303 5   28  3   1   63
-401 5   28  4   1   94
-402 5   28  4   2   52
-403 5   28  4   3   64
-101 6   35  1   2   36
-102 6   35  1   1   77
-103 6   35  1   3   88
-201 6   35  2   2   42
-202 6   35  2   3   69
-203 6   35  2   1   71
-301 6   35  3   3   43
-302 6   35  3   2   39
-303 6   35  3   1   84
-401 6   35  4   1   97
-402 6   35  4   2   47
-403 6   35  4   3   76
-;
-PROC MIXED DATA=A COVTEST;
-CLASS BLK TRT;
-MODEL YSTAR=TRT|T/ SOLUTION DDFM=bw RESIDUAL;
-RANDOM BLK;
-WEIGHT WT;
-REPEATED/SUBJECT=BLK*TRT TYPE=AR(1) R RCORR;
-quit;
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{DATA A;}
+\NormalTok{INPUT PLOT AN T BLK TRT PCTSEV;}
+\NormalTok{Y=PCTSEV}\OperatorTok{/}\DecValTok{100}\NormalTok{;}
+\NormalTok{YSTAR=}\KeywordTok{LOG}\NormalTok{(Y}\OperatorTok{/}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{Y));}
+\NormalTok{WT=Y}\OperatorTok{*}\NormalTok{(}\DecValTok{1}\OperatorTok{-}\NormalTok{Y);}
+\NormalTok{DROP AN;}
+\NormalTok{CARDS;}
+\DecValTok{101} \DecValTok{1}   \DecValTok{0}   \DecValTok{1}   \DecValTok{2}   \DecValTok{9}
+\DecValTok{102} \DecValTok{1}   \DecValTok{0}   \DecValTok{1}   \DecValTok{1}   \DecValTok{6}
+\DecValTok{103} \DecValTok{1}   \DecValTok{0}   \DecValTok{1}   \DecValTok{3}   \DecValTok{2}
+\DecValTok{201} \DecValTok{1}   \DecValTok{0}   \DecValTok{2}   \DecValTok{2}   \DecValTok{7}
+\DecValTok{202} \DecValTok{1}   \DecValTok{0}   \DecValTok{2}   \DecValTok{3}   \DecValTok{5}
+\DecValTok{203} \DecValTok{1}   \DecValTok{0}   \DecValTok{2}   \DecValTok{1}   \DecValTok{3}
+\DecValTok{301} \DecValTok{1}   \DecValTok{0}   \DecValTok{3}   \DecValTok{3}   \DecValTok{4}
+\DecValTok{302} \DecValTok{1}   \DecValTok{0}   \DecValTok{3}   \DecValTok{2}   \DecValTok{2}
+\DecValTok{303} \DecValTok{1}   \DecValTok{0}   \DecValTok{3}   \DecValTok{1}   \DecValTok{6}
+\DecValTok{401} \DecValTok{1}   \DecValTok{0}   \DecValTok{4}   \DecValTok{1}   \DecValTok{1}
+\DecValTok{402} \DecValTok{1}   \DecValTok{0}   \DecValTok{4}   \DecValTok{2}   \DecValTok{1}
+\DecValTok{403} \DecValTok{1}   \DecValTok{0}   \DecValTok{4}   \DecValTok{3}   \DecValTok{4}
+\DecValTok{101} \DecValTok{2}   \DecValTok{7}   \DecValTok{1}   \DecValTok{2}   \DecValTok{4}
+\DecValTok{102} \DecValTok{2}   \DecValTok{7}   \DecValTok{1}   \DecValTok{1}   \DecValTok{6}
+\DecValTok{103} \DecValTok{2}   \DecValTok{7}   \DecValTok{1}   \DecValTok{3}   \DecValTok{10}
+\DecValTok{201} \DecValTok{2}   \DecValTok{7}   \DecValTok{2}   \DecValTok{2}   \DecValTok{2}
+\DecValTok{202} \DecValTok{2}   \DecValTok{7}   \DecValTok{2}   \DecValTok{3}   \DecValTok{5}
+\DecValTok{203} \DecValTok{2}   \DecValTok{7}   \DecValTok{2}   \DecValTok{1}   \DecValTok{3}
+\DecValTok{301} \DecValTok{2}   \DecValTok{7}   \DecValTok{3}   \DecValTok{3}   \DecValTok{11}
+\DecValTok{302} \DecValTok{2}   \DecValTok{7}   \DecValTok{3}   \DecValTok{2}   \DecValTok{6}
+\DecValTok{303} \DecValTok{2}   \DecValTok{7}   \DecValTok{3}   \DecValTok{1}   \DecValTok{4}
+\DecValTok{401} \DecValTok{2}   \DecValTok{7}   \DecValTok{4}   \DecValTok{1}   \DecValTok{8}
+\DecValTok{402} \DecValTok{2}   \DecValTok{7}   \DecValTok{4}   \DecValTok{2}   \DecValTok{3}
+\DecValTok{403} \DecValTok{2}   \DecValTok{7}   \DecValTok{4}   \DecValTok{3}   \DecValTok{6}
+\DecValTok{101} \DecValTok{3}   \DecValTok{14}  \DecValTok{1}   \DecValTok{2}   \DecValTok{8}
+\DecValTok{102} \DecValTok{3}   \DecValTok{14}  \DecValTok{1}   \DecValTok{1}   \DecValTok{20}
+\DecValTok{103} \DecValTok{3}   \DecValTok{14}  \DecValTok{1}   \DecValTok{3}   \DecValTok{15}
+\DecValTok{201} \DecValTok{3}   \DecValTok{14}  \DecValTok{2}   \DecValTok{2}   \DecValTok{13}
+\DecValTok{202} \DecValTok{3}   \DecValTok{14}  \DecValTok{2}   \DecValTok{3}   \DecValTok{12}
+\DecValTok{203} \DecValTok{3}   \DecValTok{14}  \DecValTok{2}   \DecValTok{1}   \DecValTok{14}
+\DecValTok{301} \DecValTok{3}   \DecValTok{14}  \DecValTok{3}   \DecValTok{3}   \DecValTok{15}
+\DecValTok{302} \DecValTok{3}   \DecValTok{14}  \DecValTok{3}   \DecValTok{2}   \DecValTok{8}
+\DecValTok{303} \DecValTok{3}   \DecValTok{14}  \DecValTok{3}   \DecValTok{1}   \DecValTok{25}
+\DecValTok{401} \DecValTok{3}   \DecValTok{14}  \DecValTok{4}   \DecValTok{1}   \DecValTok{17}
+\DecValTok{402} \DecValTok{3}   \DecValTok{14}  \DecValTok{4}   \DecValTok{2}   \DecValTok{14}
+\DecValTok{403} \DecValTok{3}   \DecValTok{14}  \DecValTok{4}   \DecValTok{3}   \DecValTok{49}
+\DecValTok{101} \DecValTok{4}   \DecValTok{21}  \DecValTok{1}   \DecValTok{2}   \DecValTok{24}
+\DecValTok{102} \DecValTok{4}   \DecValTok{21}  \DecValTok{1}   \DecValTok{1}   \DecValTok{38}
+\DecValTok{103} \DecValTok{4}   \DecValTok{21}  \DecValTok{1}   \DecValTok{3}   \DecValTok{61}
+\DecValTok{201} \DecValTok{4}   \DecValTok{21}  \DecValTok{2}   \DecValTok{2}   \DecValTok{31}
+\DecValTok{202} \DecValTok{4}   \DecValTok{21}  \DecValTok{2}   \DecValTok{3}   \DecValTok{42}
+\DecValTok{203} \DecValTok{4}   \DecValTok{21}  \DecValTok{2}   \DecValTok{1}   \DecValTok{79}
+\DecValTok{301} \DecValTok{4}   \DecValTok{21}  \DecValTok{3}   \DecValTok{3}   \DecValTok{48}
+\DecValTok{302} \DecValTok{4}   \DecValTok{21}  \DecValTok{3}   \DecValTok{2}   \DecValTok{23}
+\DecValTok{303} \DecValTok{4}   \DecValTok{21}  \DecValTok{3}   \DecValTok{1}   \DecValTok{86}
+\DecValTok{401} \DecValTok{4}   \DecValTok{21}  \DecValTok{4}   \DecValTok{1}   \DecValTok{52}
+\DecValTok{402} \DecValTok{4}   \DecValTok{21}  \DecValTok{4}   \DecValTok{2}   \DecValTok{45}
+\DecValTok{403} \DecValTok{4}   \DecValTok{21}  \DecValTok{4}   \DecValTok{3}   \DecValTok{56}
+\DecValTok{101} \DecValTok{5}   \DecValTok{28}  \DecValTok{1}   \DecValTok{2}   \DecValTok{28}
+\DecValTok{102} \DecValTok{5}   \DecValTok{28}  \DecValTok{1}   \DecValTok{1}   \DecValTok{89}
+\DecValTok{103} \DecValTok{5}   \DecValTok{28}  \DecValTok{1}   \DecValTok{3}   \DecValTok{44}
+\DecValTok{201} \DecValTok{5}   \DecValTok{28}  \DecValTok{2}   \DecValTok{2}   \DecValTok{41}
+\DecValTok{202} \DecValTok{5}   \DecValTok{28}  \DecValTok{2}   \DecValTok{3}   \DecValTok{49}
+\DecValTok{203} \DecValTok{5}   \DecValTok{28}  \DecValTok{2}   \DecValTok{1}   \DecValTok{79}
+\DecValTok{301} \DecValTok{5}   \DecValTok{28}  \DecValTok{3}   \DecValTok{3}   \DecValTok{45}
+\DecValTok{302} \DecValTok{5}   \DecValTok{28}  \DecValTok{3}   \DecValTok{2}   \DecValTok{47}
+\DecValTok{303} \DecValTok{5}   \DecValTok{28}  \DecValTok{3}   \DecValTok{1}   \DecValTok{63}
+\DecValTok{401} \DecValTok{5}   \DecValTok{28}  \DecValTok{4}   \DecValTok{1}   \DecValTok{94}
+\DecValTok{402} \DecValTok{5}   \DecValTok{28}  \DecValTok{4}   \DecValTok{2}   \DecValTok{52}
+\DecValTok{403} \DecValTok{5}   \DecValTok{28}  \DecValTok{4}   \DecValTok{3}   \DecValTok{64}
+\DecValTok{101} \DecValTok{6}   \DecValTok{35}  \DecValTok{1}   \DecValTok{2}   \DecValTok{36}
+\DecValTok{102} \DecValTok{6}   \DecValTok{35}  \DecValTok{1}   \DecValTok{1}   \DecValTok{77}
+\DecValTok{103} \DecValTok{6}   \DecValTok{35}  \DecValTok{1}   \DecValTok{3}   \DecValTok{88}
+\DecValTok{201} \DecValTok{6}   \DecValTok{35}  \DecValTok{2}   \DecValTok{2}   \DecValTok{42}
+\DecValTok{202} \DecValTok{6}   \DecValTok{35}  \DecValTok{2}   \DecValTok{3}   \DecValTok{69}
+\DecValTok{203} \DecValTok{6}   \DecValTok{35}  \DecValTok{2}   \DecValTok{1}   \DecValTok{71}
+\DecValTok{301} \DecValTok{6}   \DecValTok{35}  \DecValTok{3}   \DecValTok{3}   \DecValTok{43}
+\DecValTok{302} \DecValTok{6}   \DecValTok{35}  \DecValTok{3}   \DecValTok{2}   \DecValTok{39}
+\DecValTok{303} \DecValTok{6}   \DecValTok{35}  \DecValTok{3}   \DecValTok{1}   \DecValTok{84}
+\DecValTok{401} \DecValTok{6}   \DecValTok{35}  \DecValTok{4}   \DecValTok{1}   \DecValTok{97}
+\DecValTok{402} \DecValTok{6}   \DecValTok{35}  \DecValTok{4}   \DecValTok{2}   \DecValTok{47}
+\DecValTok{403} \DecValTok{6}   \DecValTok{35}  \DecValTok{4}   \DecValTok{3}   \DecValTok{76}
+\NormalTok{;}
+\NormalTok{PROC MIXED DATA=A COVTEST;}
+\NormalTok{CLASS BLK TRT;}
+\NormalTok{MODEL YSTAR=TRT}\OperatorTok{|}\NormalTok{T}\OperatorTok{/}\StringTok{ }\NormalTok{SOLUTION DDFM=bw RESIDUAL;}
+\NormalTok{RANDOM BLK;}
+\NormalTok{WEIGHT WT;}
+\NormalTok{REPEATED}\OperatorTok{/}\NormalTok{SUBJECT=BLK}\OperatorTok{*}\NormalTok{TRT TYPE=}\KeywordTok{AR}\NormalTok{(}\DecValTok{1}\NormalTok{) R RCORR;}
+\NormalTok{quit;}
 
-PROC MIXED DATA=A;
-CLASS BLK TRT;
-MODEL YSTAR=TRT TRT*T/NOINT SOLUTION DDFM=bw OUTPM=B;
-RANDOM BLK;
-WEIGHT WT;
-REPEATED/SUBJECT=BLK*TRT TYPE=AR(1);
-LSMEANS TRT/DIFF AT T=0;
-LSMEANS TRT/DIFF AT T=7;
-LSMEANS TRT/DIFF AT T=14;
-LSMEANS TRT/DIFF AT T=21;
-LSMEANS TRT/DIFF AT T=28;
-LSMEANS TRT/DIFF AT T=35;
+\NormalTok{PROC MIXED DATA=A;}
+\NormalTok{CLASS BLK TRT;}
+\NormalTok{MODEL YSTAR=TRT TRT}\OperatorTok{*}\NormalTok{T}\OperatorTok{/}\NormalTok{NOINT SOLUTION DDFM=bw OUTPM=B;}
+\NormalTok{RANDOM BLK;}
+\NormalTok{WEIGHT WT;}
+\NormalTok{REPEATED}\OperatorTok{/}\NormalTok{SUBJECT=BLK}\OperatorTok{*}\NormalTok{TRT TYPE=}\KeywordTok{AR}\NormalTok{(}\DecValTok{1}\NormalTok{);}
+\NormalTok{LSMEANS TRT}\OperatorTok{/}\NormalTok{DIFF AT T=}\DecValTok{0}\NormalTok{;}
+\NormalTok{LSMEANS TRT}\OperatorTok{/}\NormalTok{DIFF AT T=}\DecValTok{7}\NormalTok{;}
+\NormalTok{LSMEANS TRT}\OperatorTok{/}\NormalTok{DIFF AT T=}\DecValTok{14}\NormalTok{;}
+\NormalTok{LSMEANS TRT}\OperatorTok{/}\NormalTok{DIFF AT T=}\DecValTok{21}\NormalTok{;}
+\NormalTok{LSMEANS TRT}\OperatorTok{/}\NormalTok{DIFF AT T=}\DecValTok{28}\NormalTok{;}
+\NormalTok{LSMEANS TRT}\OperatorTok{/}\NormalTok{DIFF AT T=}\DecValTok{35}\NormalTok{;}
 
-ESTIMATE 'TRT1 S VS TRT2 S' TRT*T 1 -1 0;
-ESTIMATE 'TRT1 S VS TRT3 S' TRT*T 1 0 -1;
-ESTIMATE 'TRT2 S VS TRT3 S' TRT*T 0 1 -1;
-quit;
+\NormalTok{ESTIMATE }\StringTok{'TRT1 S VS TRT2 S'}\NormalTok{ TRT}\OperatorTok{*}\NormalTok{T }\DecValTok{1} \DecValTok{-1} \DecValTok{0}\NormalTok{;}
+\NormalTok{ESTIMATE }\StringTok{'TRT1 S VS TRT3 S'}\NormalTok{ TRT}\OperatorTok{*}\NormalTok{T }\DecValTok{1} \DecValTok{0} \DecValTok{-1}\NormalTok{;}
+\NormalTok{ESTIMATE }\StringTok{'TRT2 S VS TRT3 S'}\NormalTok{ TRT}\OperatorTok{*}\NormalTok{T }\DecValTok{0} \DecValTok{1} \DecValTok{-1}\NormalTok{;}
+\NormalTok{quit;}
 
-PROC PRINT DATA=B;
+\NormalTok{PROC PRINT DATA=B;}
 
-PROC REG DATA=B;
-MODEL YSTAR=PRED;
+\NormalTok{PROC REG DATA=B;}
+\NormalTok{MODEL YSTAR=PRED;}
 
-RUN;
-\end{verbatim}
+\NormalTok{RUN;}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{exercise-9.4}{%
 \section{Exercise 9.4}\label{exercise-9.4}}
 
 Copy and paste the below code into a SAS editor, and hit run to see \href{https://github.com/luckymehra/epidem-exercises/blob/master/sas_output/ex9_4.pdf}{the output}.
 
-\begin{verbatim}
-DATA A;
-INPUT I YI;
-EAST=1;
-NORTH=I;
-CARDS;
-1   41
-2   60
-3   81
-4   22
-5   8
-6   20
-7   28
-8   2
-9   0
-10  2
-11  2
-12  8
-13  0
-14  43
-15  61
-16  50
-;
-PROC VARIOGRAM PLOTS=MORAN OUTVAR=B;
-COMPUTE LAGD=1 MAXLAG=11 AUTOCORR(ASSUM=RANDOM);
-COORDINATES XC=EAST YC=NORTH;
-VAR YI;
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{DATA A;}
+\NormalTok{INPUT I YI;}
+\NormalTok{EAST=}\DecValTok{1}\NormalTok{;}
+\NormalTok{NORTH=I;}
+\NormalTok{CARDS;}
+\DecValTok{1}   \DecValTok{41}
+\DecValTok{2}   \DecValTok{60}
+\DecValTok{3}   \DecValTok{81}
+\DecValTok{4}   \DecValTok{22}
+\DecValTok{5}   \DecValTok{8}
+\DecValTok{6}   \DecValTok{20}
+\DecValTok{7}   \DecValTok{28}
+\DecValTok{8}   \DecValTok{2}
+\DecValTok{9}   \DecValTok{0}
+\DecValTok{10}  \DecValTok{2}
+\DecValTok{11}  \DecValTok{2}
+\DecValTok{12}  \DecValTok{8}
+\DecValTok{13}  \DecValTok{0}
+\DecValTok{14}  \DecValTok{43}
+\DecValTok{15}  \DecValTok{61}
+\DecValTok{16}  \DecValTok{50}
+\NormalTok{;}
+\NormalTok{PROC VARIOGRAM PLOTS=MORAN OUTVAR=B;}
+\NormalTok{COMPUTE LAGD=}\DecValTok{1}\NormalTok{ MAXLAG=}\DecValTok{11} \KeywordTok{AUTOCORR}\NormalTok{(}\DataTypeTok{ASSUM=}\NormalTok{RANDOM);}
+\NormalTok{COORDINATES XC=EAST YC=NORTH;}
+\NormalTok{VAR YI;}
 
-PROC PRINT;
-run;
+\NormalTok{PROC PRINT;}
+\NormalTok{run;}
 
-PROC VARIOGRAM DATA=A PLOTS=FIT;
-COMPUTE LAGD=1 MAXLAG=11 CL ROBUST;
-COORDINATES XC=EAST YC=NORTH;
-MODEL FORM=AUTO(MLIST=(SPH EXP GAU) NEST=1);
-VAR YI;
+\NormalTok{PROC VARIOGRAM DATA=A PLOTS=FIT;}
+\NormalTok{COMPUTE LAGD=}\DecValTok{1}\NormalTok{ MAXLAG=}\DecValTok{11}\NormalTok{ CL ROBUST;}
+\NormalTok{COORDINATES XC=EAST YC=NORTH;}
+\NormalTok{MODEL FORM=}\KeywordTok{AUTO}\NormalTok{(}\DataTypeTok{MLIST=}\NormalTok{(SPH EXP GAU) }\DataTypeTok{NEST=}\DecValTok{1}\NormalTok{);}
+\NormalTok{VAR YI;}
 
-RUN;
-\end{verbatim}
+\NormalTok{RUN;}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{exercise-9.5}{%
 \section{Exercise 9.5}\label{exercise-9.5}}
 
 Copy and paste the below code into a SAS editor, and hit run to see \href{https://github.com/luckymehra/epidem-exercises/blob/master/sas_output/ex9_5.pdf}{the output}.
 
-\begin{verbatim}
-DATA A;
-INPUT COL ROW YI;
-CARDS;
-1   1   2
-2   1   2
-3   1   0
-4   1   3
-5   1   1
-6   1   1
-7   1   1
-8   1   5
-9   1   22
-10  1   13
-11  1   14
-12  1   6
-1   2   2
-2   2   0
-3   2   0
-4   2   3
-5   2   0
-6   2   2
-7   2   7
-8   2   54
-9   2   57
-10  2   49
-11  2   42
-12  2   2
-1   3   3
-2   3   1
-3   3   0
-4   3   1
-5   3   0
-6   3   9
-7   3   6
-8   3   62
-9   3   94
-10  3   75
-11  3   7
-12  3   2
-1   4   33
-2   4   3
-3   4   0
-4   4   2
-5   4   0
-6   4   20
-7   4   25
-8   4   79
-9   4   95
-10  4   32
-11  4   12
-12  4   2
-1   5   4
-2   5   1
-3   5   3
-4   5   2
-5   5   6
-6   5   23
-7   5   14
-8   5   64
-9   5   31
-10  5   9
-11  5   13
-12  5   16
-1   6   0
-2   6   2
-3   6   1
-4   6   4
-5   6   4
-6   6   5
-7   6   4
-8   6   9
-9   6   10
-10  6   19
-11  6   6
-12  6   1
-1   7   0
-2   7   7
-3   7   7
-4   7   9
-5   7   4
-6   7   12
-7   7   7
-8   7   7
-9   7   12
-10  7   13
-11  7   11
-12  7   2
-1   8   0
-2   8   2
-3   8   11
-4   8   19
-5   8   12
-6   8   32
-7   8   11
-8   8   9
-9   8   31
-10  8   67
-11  8   27
-12  8   30
-1   9   5
-2   9   10
-3   9   35
-4   9   56
-5   9   62
-6   9   45
-7   9   21
-8   9   18
-9   9   43
-10  9   94
-11  9   77
-12  9   33
-1   10  11
-2   10  24
-3   10  78
-4   10  100
-5   10  99
-6   10  68
-7   10  52
-8   10  45
-9   10  74
-10  10  98
-11  10  99
-12  10  37
-1   11  7
-2   11  29
-3   11  79
-4   11  97
-5   11  92
-6   11  95
-7   11  100
-8   11  89
-9   11  53
-10  11  46
-11  11  50
-12  11  16
-1   12  7
-2   12  22
-3   12  31
-4   12  50
-5   12  56
-6   12  79
-7   12  100
-8   12  61
-9   12  53
-10  12  36
-11  12  33
-12  12  2
-;
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{DATA A;}
+\NormalTok{INPUT COL ROW YI;}
+\NormalTok{CARDS;}
+\DecValTok{1}   \DecValTok{1}   \DecValTok{2}
+\DecValTok{2}   \DecValTok{1}   \DecValTok{2}
+\DecValTok{3}   \DecValTok{1}   \DecValTok{0}
+\DecValTok{4}   \DecValTok{1}   \DecValTok{3}
+\DecValTok{5}   \DecValTok{1}   \DecValTok{1}
+\DecValTok{6}   \DecValTok{1}   \DecValTok{1}
+\DecValTok{7}   \DecValTok{1}   \DecValTok{1}
+\DecValTok{8}   \DecValTok{1}   \DecValTok{5}
+\DecValTok{9}   \DecValTok{1}   \DecValTok{22}
+\DecValTok{10}  \DecValTok{1}   \DecValTok{13}
+\DecValTok{11}  \DecValTok{1}   \DecValTok{14}
+\DecValTok{12}  \DecValTok{1}   \DecValTok{6}
+\DecValTok{1}   \DecValTok{2}   \DecValTok{2}
+\DecValTok{2}   \DecValTok{2}   \DecValTok{0}
+\DecValTok{3}   \DecValTok{2}   \DecValTok{0}
+\DecValTok{4}   \DecValTok{2}   \DecValTok{3}
+\DecValTok{5}   \DecValTok{2}   \DecValTok{0}
+\DecValTok{6}   \DecValTok{2}   \DecValTok{2}
+\DecValTok{7}   \DecValTok{2}   \DecValTok{7}
+\DecValTok{8}   \DecValTok{2}   \DecValTok{54}
+\DecValTok{9}   \DecValTok{2}   \DecValTok{57}
+\DecValTok{10}  \DecValTok{2}   \DecValTok{49}
+\DecValTok{11}  \DecValTok{2}   \DecValTok{42}
+\DecValTok{12}  \DecValTok{2}   \DecValTok{2}
+\DecValTok{1}   \DecValTok{3}   \DecValTok{3}
+\DecValTok{2}   \DecValTok{3}   \DecValTok{1}
+\DecValTok{3}   \DecValTok{3}   \DecValTok{0}
+\DecValTok{4}   \DecValTok{3}   \DecValTok{1}
+\DecValTok{5}   \DecValTok{3}   \DecValTok{0}
+\DecValTok{6}   \DecValTok{3}   \DecValTok{9}
+\DecValTok{7}   \DecValTok{3}   \DecValTok{6}
+\DecValTok{8}   \DecValTok{3}   \DecValTok{62}
+\DecValTok{9}   \DecValTok{3}   \DecValTok{94}
+\DecValTok{10}  \DecValTok{3}   \DecValTok{75}
+\DecValTok{11}  \DecValTok{3}   \DecValTok{7}
+\DecValTok{12}  \DecValTok{3}   \DecValTok{2}
+\DecValTok{1}   \DecValTok{4}   \DecValTok{33}
+\DecValTok{2}   \DecValTok{4}   \DecValTok{3}
+\DecValTok{3}   \DecValTok{4}   \DecValTok{0}
+\DecValTok{4}   \DecValTok{4}   \DecValTok{2}
+\DecValTok{5}   \DecValTok{4}   \DecValTok{0}
+\DecValTok{6}   \DecValTok{4}   \DecValTok{20}
+\DecValTok{7}   \DecValTok{4}   \DecValTok{25}
+\DecValTok{8}   \DecValTok{4}   \DecValTok{79}
+\DecValTok{9}   \DecValTok{4}   \DecValTok{95}
+\DecValTok{10}  \DecValTok{4}   \DecValTok{32}
+\DecValTok{11}  \DecValTok{4}   \DecValTok{12}
+\DecValTok{12}  \DecValTok{4}   \DecValTok{2}
+\DecValTok{1}   \DecValTok{5}   \DecValTok{4}
+\DecValTok{2}   \DecValTok{5}   \DecValTok{1}
+\DecValTok{3}   \DecValTok{5}   \DecValTok{3}
+\DecValTok{4}   \DecValTok{5}   \DecValTok{2}
+\DecValTok{5}   \DecValTok{5}   \DecValTok{6}
+\DecValTok{6}   \DecValTok{5}   \DecValTok{23}
+\DecValTok{7}   \DecValTok{5}   \DecValTok{14}
+\DecValTok{8}   \DecValTok{5}   \DecValTok{64}
+\DecValTok{9}   \DecValTok{5}   \DecValTok{31}
+\DecValTok{10}  \DecValTok{5}   \DecValTok{9}
+\DecValTok{11}  \DecValTok{5}   \DecValTok{13}
+\DecValTok{12}  \DecValTok{5}   \DecValTok{16}
+\DecValTok{1}   \DecValTok{6}   \DecValTok{0}
+\DecValTok{2}   \DecValTok{6}   \DecValTok{2}
+\DecValTok{3}   \DecValTok{6}   \DecValTok{1}
+\DecValTok{4}   \DecValTok{6}   \DecValTok{4}
+\DecValTok{5}   \DecValTok{6}   \DecValTok{4}
+\DecValTok{6}   \DecValTok{6}   \DecValTok{5}
+\DecValTok{7}   \DecValTok{6}   \DecValTok{4}
+\DecValTok{8}   \DecValTok{6}   \DecValTok{9}
+\DecValTok{9}   \DecValTok{6}   \DecValTok{10}
+\DecValTok{10}  \DecValTok{6}   \DecValTok{19}
+\DecValTok{11}  \DecValTok{6}   \DecValTok{6}
+\DecValTok{12}  \DecValTok{6}   \DecValTok{1}
+\DecValTok{1}   \DecValTok{7}   \DecValTok{0}
+\DecValTok{2}   \DecValTok{7}   \DecValTok{7}
+\DecValTok{3}   \DecValTok{7}   \DecValTok{7}
+\DecValTok{4}   \DecValTok{7}   \DecValTok{9}
+\DecValTok{5}   \DecValTok{7}   \DecValTok{4}
+\DecValTok{6}   \DecValTok{7}   \DecValTok{12}
+\DecValTok{7}   \DecValTok{7}   \DecValTok{7}
+\DecValTok{8}   \DecValTok{7}   \DecValTok{7}
+\DecValTok{9}   \DecValTok{7}   \DecValTok{12}
+\DecValTok{10}  \DecValTok{7}   \DecValTok{13}
+\DecValTok{11}  \DecValTok{7}   \DecValTok{11}
+\DecValTok{12}  \DecValTok{7}   \DecValTok{2}
+\DecValTok{1}   \DecValTok{8}   \DecValTok{0}
+\DecValTok{2}   \DecValTok{8}   \DecValTok{2}
+\DecValTok{3}   \DecValTok{8}   \DecValTok{11}
+\DecValTok{4}   \DecValTok{8}   \DecValTok{19}
+\DecValTok{5}   \DecValTok{8}   \DecValTok{12}
+\DecValTok{6}   \DecValTok{8}   \DecValTok{32}
+\DecValTok{7}   \DecValTok{8}   \DecValTok{11}
+\DecValTok{8}   \DecValTok{8}   \DecValTok{9}
+\DecValTok{9}   \DecValTok{8}   \DecValTok{31}
+\DecValTok{10}  \DecValTok{8}   \DecValTok{67}
+\DecValTok{11}  \DecValTok{8}   \DecValTok{27}
+\DecValTok{12}  \DecValTok{8}   \DecValTok{30}
+\DecValTok{1}   \DecValTok{9}   \DecValTok{5}
+\DecValTok{2}   \DecValTok{9}   \DecValTok{10}
+\DecValTok{3}   \DecValTok{9}   \DecValTok{35}
+\DecValTok{4}   \DecValTok{9}   \DecValTok{56}
+\DecValTok{5}   \DecValTok{9}   \DecValTok{62}
+\DecValTok{6}   \DecValTok{9}   \DecValTok{45}
+\DecValTok{7}   \DecValTok{9}   \DecValTok{21}
+\DecValTok{8}   \DecValTok{9}   \DecValTok{18}
+\DecValTok{9}   \DecValTok{9}   \DecValTok{43}
+\DecValTok{10}  \DecValTok{9}   \DecValTok{94}
+\DecValTok{11}  \DecValTok{9}   \DecValTok{77}
+\DecValTok{12}  \DecValTok{9}   \DecValTok{33}
+\DecValTok{1}   \DecValTok{10}  \DecValTok{11}
+\DecValTok{2}   \DecValTok{10}  \DecValTok{24}
+\DecValTok{3}   \DecValTok{10}  \DecValTok{78}
+\DecValTok{4}   \DecValTok{10}  \DecValTok{100}
+\DecValTok{5}   \DecValTok{10}  \DecValTok{99}
+\DecValTok{6}   \DecValTok{10}  \DecValTok{68}
+\DecValTok{7}   \DecValTok{10}  \DecValTok{52}
+\DecValTok{8}   \DecValTok{10}  \DecValTok{45}
+\DecValTok{9}   \DecValTok{10}  \DecValTok{74}
+\DecValTok{10}  \DecValTok{10}  \DecValTok{98}
+\DecValTok{11}  \DecValTok{10}  \DecValTok{99}
+\DecValTok{12}  \DecValTok{10}  \DecValTok{37}
+\DecValTok{1}   \DecValTok{11}  \DecValTok{7}
+\DecValTok{2}   \DecValTok{11}  \DecValTok{29}
+\DecValTok{3}   \DecValTok{11}  \DecValTok{79}
+\DecValTok{4}   \DecValTok{11}  \DecValTok{97}
+\DecValTok{5}   \DecValTok{11}  \DecValTok{92}
+\DecValTok{6}   \DecValTok{11}  \DecValTok{95}
+\DecValTok{7}   \DecValTok{11}  \DecValTok{100}
+\DecValTok{8}   \DecValTok{11}  \DecValTok{89}
+\DecValTok{9}   \DecValTok{11}  \DecValTok{53}
+\DecValTok{10}  \DecValTok{11}  \DecValTok{46}
+\DecValTok{11}  \DecValTok{11}  \DecValTok{50}
+\DecValTok{12}  \DecValTok{11}  \DecValTok{16}
+\DecValTok{1}   \DecValTok{12}  \DecValTok{7}
+\DecValTok{2}   \DecValTok{12}  \DecValTok{22}
+\DecValTok{3}   \DecValTok{12}  \DecValTok{31}
+\DecValTok{4}   \DecValTok{12}  \DecValTok{50}
+\DecValTok{5}   \DecValTok{12}  \DecValTok{56}
+\DecValTok{6}   \DecValTok{12}  \DecValTok{79}
+\DecValTok{7}   \DecValTok{12}  \DecValTok{100}
+\DecValTok{8}   \DecValTok{12}  \DecValTok{61}
+\DecValTok{9}   \DecValTok{12}  \DecValTok{53}
+\DecValTok{10}  \DecValTok{12}  \DecValTok{36}
+\DecValTok{11}  \DecValTok{12}  \DecValTok{33}
+\DecValTok{12}  \DecValTok{12}  \DecValTok{2}
+\NormalTok{;}
 
-PROC VARIOGRAM DATA=A PLOTS=MORAN OUTVAR=B;
-COMPUTE LAGD=1 MAXLAG=12 AUTOCORR(ASSUM=RANDOM);
-COORDINATES XC=COL YC=ROW;
-VAR YI;
+\NormalTok{PROC VARIOGRAM DATA=A PLOTS=MORAN OUTVAR=B;}
+\NormalTok{COMPUTE LAGD=}\DecValTok{1}\NormalTok{ MAXLAG=}\DecValTok{12} \KeywordTok{AUTOCORR}\NormalTok{(}\DataTypeTok{ASSUM=}\NormalTok{RANDOM);}
+\NormalTok{COORDINATES XC=COL YC=ROW;}
+\NormalTok{VAR YI;}
 
-PROC PRINT;
+\NormalTok{PROC PRINT;}
 
-PROC VARIOGRAM DATA=A PLOTS=FIT;
-COMPUTE LAGD=1 MAXLAG=12 CL ROBUST;
-COORDINATES XC=COL YC=ROW;
-MODEL FORM=AUTO(MLIST=(SPH EXP GAU) NEST=1);
-VAR YI;
+\NormalTok{PROC VARIOGRAM DATA=A PLOTS=FIT;}
+\NormalTok{COMPUTE LAGD=}\DecValTok{1}\NormalTok{ MAXLAG=}\DecValTok{12}\NormalTok{ CL ROBUST;}
+\NormalTok{COORDINATES XC=COL YC=ROW;}
+\NormalTok{MODEL FORM=}\KeywordTok{AUTO}\NormalTok{(}\DataTypeTok{MLIST=}\NormalTok{(SPH EXP GAU) }\DataTypeTok{NEST=}\DecValTok{1}\NormalTok{);}
+\NormalTok{VAR YI;}
 
-RUN;
-\end{verbatim}
+\NormalTok{RUN;}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{yield-loss}{%
 \section{Yield loss}\label{yield-loss}}
 
 Copy and paste the below code into a SAS editor, and hit run to see \href{https://github.com/luckymehra/epidem-exercises/blob/master/sas_output/exYieldLoss.pdf}{the output}.
 
-\begin{verbatim}
-DATA A;
-INPUT WP SP $ BLK TRT FUNG DS YIELD;
-CARDS;
-101 A   1   1   0   43  205
-101 B   1   1   1   1   399
-102 A   1   2   1   2   426
-102 B   1   2   0   92  102
-103 A   1   3   1   2   385
-103 B   1   3   0   7   355
-201 A   2   2   1   4   412
-201 B   2   2   0   75  224
-202 A   2   3   1   3   425
-202 B   2   3   0   10  352
-203 A   2   1   0   27  330
-203 B   2   1   1   2   375
-301 A   3   1   1   2   420
-301 B   3   1   0   47  303
-302 A   3   3   0   12  342
-302 B   3   3   1   1   395
-303 A   3   2   0   63  222
-303 B   3   2   1   3   393
-401 A   4   3   0   12  326
-401 B   4   3   1   1   400
-402 A   4   1   0   32  289
-402 B   4   1   1   1   418
-403 A   4   2   1   2   371
-403 B   4   2   0   53  175
-;
-PROC MIXED COVTEST METHOD=TYPE3;
-CLASS BLK TRT FUNG;
-MODEL DS=TRT|FUNG/RESIDUAL;
-RANDOM BLK BLK*TRT;
-LSMEANS TRT|FUNG/DIFF;
-run;
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{DATA A;}
+\NormalTok{INPUT WP SP }\OperatorTok{$}\StringTok{ }\NormalTok{BLK TRT FUNG DS YIELD;}
+\NormalTok{CARDS;}
+\DecValTok{101}\NormalTok{ A   }\DecValTok{1}   \DecValTok{1}   \DecValTok{0}   \DecValTok{43}  \DecValTok{205}
+\DecValTok{101}\NormalTok{ B   }\DecValTok{1}   \DecValTok{1}   \DecValTok{1}   \DecValTok{1}   \DecValTok{399}
+\DecValTok{102}\NormalTok{ A   }\DecValTok{1}   \DecValTok{2}   \DecValTok{1}   \DecValTok{2}   \DecValTok{426}
+\DecValTok{102}\NormalTok{ B   }\DecValTok{1}   \DecValTok{2}   \DecValTok{0}   \DecValTok{92}  \DecValTok{102}
+\DecValTok{103}\NormalTok{ A   }\DecValTok{1}   \DecValTok{3}   \DecValTok{1}   \DecValTok{2}   \DecValTok{385}
+\DecValTok{103}\NormalTok{ B   }\DecValTok{1}   \DecValTok{3}   \DecValTok{0}   \DecValTok{7}   \DecValTok{355}
+\DecValTok{201}\NormalTok{ A   }\DecValTok{2}   \DecValTok{2}   \DecValTok{1}   \DecValTok{4}   \DecValTok{412}
+\DecValTok{201}\NormalTok{ B   }\DecValTok{2}   \DecValTok{2}   \DecValTok{0}   \DecValTok{75}  \DecValTok{224}
+\DecValTok{202}\NormalTok{ A   }\DecValTok{2}   \DecValTok{3}   \DecValTok{1}   \DecValTok{3}   \DecValTok{425}
+\DecValTok{202}\NormalTok{ B   }\DecValTok{2}   \DecValTok{3}   \DecValTok{0}   \DecValTok{10}  \DecValTok{352}
+\DecValTok{203}\NormalTok{ A   }\DecValTok{2}   \DecValTok{1}   \DecValTok{0}   \DecValTok{27}  \DecValTok{330}
+\DecValTok{203}\NormalTok{ B   }\DecValTok{2}   \DecValTok{1}   \DecValTok{1}   \DecValTok{2}   \DecValTok{375}
+\DecValTok{301}\NormalTok{ A   }\DecValTok{3}   \DecValTok{1}   \DecValTok{1}   \DecValTok{2}   \DecValTok{420}
+\DecValTok{301}\NormalTok{ B   }\DecValTok{3}   \DecValTok{1}   \DecValTok{0}   \DecValTok{47}  \DecValTok{303}
+\DecValTok{302}\NormalTok{ A   }\DecValTok{3}   \DecValTok{3}   \DecValTok{0}   \DecValTok{12}  \DecValTok{342}
+\DecValTok{302}\NormalTok{ B   }\DecValTok{3}   \DecValTok{3}   \DecValTok{1}   \DecValTok{1}   \DecValTok{395}
+\DecValTok{303}\NormalTok{ A   }\DecValTok{3}   \DecValTok{2}   \DecValTok{0}   \DecValTok{63}  \DecValTok{222}
+\DecValTok{303}\NormalTok{ B   }\DecValTok{3}   \DecValTok{2}   \DecValTok{1}   \DecValTok{3}   \DecValTok{393}
+\DecValTok{401}\NormalTok{ A   }\DecValTok{4}   \DecValTok{3}   \DecValTok{0}   \DecValTok{12}  \DecValTok{326}
+\DecValTok{401}\NormalTok{ B   }\DecValTok{4}   \DecValTok{3}   \DecValTok{1}   \DecValTok{1}   \DecValTok{400}
+\DecValTok{402}\NormalTok{ A   }\DecValTok{4}   \DecValTok{1}   \DecValTok{0}   \DecValTok{32}  \DecValTok{289}
+\DecValTok{402}\NormalTok{ B   }\DecValTok{4}   \DecValTok{1}   \DecValTok{1}   \DecValTok{1}   \DecValTok{418}
+\DecValTok{403}\NormalTok{ A   }\DecValTok{4}   \DecValTok{2}   \DecValTok{1}   \DecValTok{2}   \DecValTok{371}
+\DecValTok{403}\NormalTok{ B   }\DecValTok{4}   \DecValTok{2}   \DecValTok{0}   \DecValTok{53}  \DecValTok{175}
+\NormalTok{;}
+\NormalTok{PROC MIXED COVTEST METHOD=TYPE3;}
+\NormalTok{CLASS BLK TRT FUNG;}
+\NormalTok{MODEL DS=TRT}\OperatorTok{|}\NormalTok{FUNG}\OperatorTok{/}\NormalTok{RESIDUAL;}
+\NormalTok{RANDOM BLK BLK}\OperatorTok{*}\NormalTok{TRT;}
+\NormalTok{LSMEANS TRT}\OperatorTok{|}\NormalTok{FUNG}\OperatorTok{/}\NormalTok{DIFF;}
+\NormalTok{run;}
 
-PROC MIXED COVTEST METHOD=TYPE3;
-CLASS BLK TRT FUNG;
-MODEL YIELD=TRT|FUNG/RESIDUAL;
-RANDOM BLK BLK*TRT;
-LSMEANS TRT|FUNG/DIFF;
+\NormalTok{PROC MIXED COVTEST METHOD=TYPE3;}
+\NormalTok{CLASS BLK TRT FUNG;}
+\NormalTok{MODEL YIELD=TRT}\OperatorTok{|}\NormalTok{FUNG}\OperatorTok{/}\NormalTok{RESIDUAL;}
+\NormalTok{RANDOM BLK BLK}\OperatorTok{*}\NormalTok{TRT;}
+\NormalTok{LSMEANS TRT}\OperatorTok{|}\NormalTok{FUNG}\OperatorTok{/}\NormalTok{DIFF;}
 
-PROC REG;
-MODEL YIELD=DS;
+\NormalTok{PROC REG;}
+\NormalTok{MODEL YIELD=DS;}
 
-DATA B;
-SET A;
-RY1=YIELD/399.23843;
+\NormalTok{DATA B;}
+\NormalTok{SET A;}
+\NormalTok{RY1=YIELD}\OperatorTok{/}\FloatTok{399.23843}\NormalTok{;}
 
-PROC REG;
-MODEL RY1=DS;
+\NormalTok{PROC REG;}
+\NormalTok{MODEL RY1=DS;}
 
 
-PROC SORT DATA=A; BY BLK TRT FUNG;
-PROC TRANSPOSE DATA=A OUT=T1A; BY BLK TRT;
-VAR YIELD;
-run;
+\NormalTok{PROC SORT DATA=A; BY BLK TRT FUNG;}
+\NormalTok{PROC TRANSPOSE DATA=A OUT=T1A; BY BLK TRT;}
+\NormalTok{VAR YIELD;}
+\NormalTok{run;}
 
-DATA T2A;
-SET T1A;
-RY2=COL1/COL2;
-DROP _NAME_ COL1 COL2;
-run;
+\NormalTok{DATA T2A;}
+\NormalTok{SET T1A;}
+\NormalTok{RY2=COL1}\OperatorTok{/}\NormalTok{COL2;}
+\NormalTok{DROP _NAME_ COL1 COL2;}
+\NormalTok{run;}
 
-PROC TRANSPOSE DATA=A OUT=T1B; BY BLK TRT;
-VAR DS;
-run;
+\NormalTok{PROC TRANSPOSE DATA=A OUT=T1B; BY BLK TRT;}
+\NormalTok{VAR DS;}
+\NormalTok{run;}
 
-DATA T2B;
-SET T1B;
-CDS=COL1;
-DROP _NAME_ COL1 COL2;
-run;
+\NormalTok{DATA T2B;}
+\NormalTok{SET T1B;}
+\NormalTok{CDS=COL1;}
+\NormalTok{DROP _NAME_ COL1 COL2;}
+\NormalTok{run;}
 
-DATA T3;
-MERGE T2A T2B;
-BY BLK TRT; 
+\NormalTok{DATA T3;}
+\NormalTok{MERGE T2A T2B;}
+\NormalTok{BY BLK TRT; }
 
-PROC PRINT;
-run;
+\NormalTok{PROC PRINT;}
+\NormalTok{run;}
 
-PROC MIXED COVTEST;
-CLASS BLK TRT;
-MODEL RY2=TRT/RESIDUAL;
-RANDOM BLK;
-LSMEANS TRT/DIFF;
+\NormalTok{PROC MIXED COVTEST;}
+\NormalTok{CLASS BLK TRT;}
+\NormalTok{MODEL RY2=TRT}\OperatorTok{/}\NormalTok{RESIDUAL;}
+\NormalTok{RANDOM BLK;}
+\NormalTok{LSMEANS TRT}\OperatorTok{/}\NormalTok{DIFF;}
 
-PROC REG;
-MODEL RY2=CDS;
+\NormalTok{PROC REG;}
+\NormalTok{MODEL RY2=CDS;}
 
-RUN;
-\end{verbatim}
+\NormalTok{RUN;}
+\end{Highlighting}
+\end{Shaded}
 
 
 \end{document}

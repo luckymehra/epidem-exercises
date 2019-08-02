@@ -6,7 +6,8 @@
 
 Copy and paste the below code into a SAS editor, and hit run to see [the output](https://github.com/luckymehra/epidem-exercises/blob/master/sas_output/ex4.pdf).
 
-```
+
+```r
 DATA A;
 INPUT PLOT AN T BLK TRT PCTSEV;
 Y=PCTSEV/100;
@@ -125,7 +126,8 @@ RUN;
 
 Copy and paste the below code into a SAS editor, and hit run to see [the output](https://github.com/luckymehra/epidem-exercises/blob/master/sas_output/ex9_4.pdf).
 
-```
+
+```r
 DATA A;
 INPUT I YI;
 EAST=1;
@@ -169,7 +171,8 @@ RUN;
 
 Copy and paste the below code into a SAS editor, and hit run to see [the output](https://github.com/luckymehra/epidem-exercises/blob/master/sas_output/ex9_5.pdf).
 
-```
+
+```r
 DATA A;
 INPUT COL ROW YI;
 CARDS;
@@ -339,7 +342,8 @@ RUN;
 
 Copy and paste the below code into a SAS editor, and hit run to see [the output](https://github.com/luckymehra/epidem-exercises/blob/master/sas_output/exYieldLoss.pdf).
 
-```
+
+```r
 DATA A;
 INPUT WP SP $ BLK TRT FUNG DS YIELD;
 CARDS;
