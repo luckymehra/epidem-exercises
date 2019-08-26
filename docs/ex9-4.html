@@ -24,7 +24,7 @@
 <meta name="author" content="Lucky Mehra" />
 
 
-<meta name="date" content="2019-08-23" />
+<meta name="date" content="2019-08-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -402,87 +402,78 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb82-3" title="3"></a>
 <a class="sourceLine" id="cb82-4" title="4"><span class="co"># select the best model out of exponential, spherical, and gaussian  </span></a>
 <a class="sourceLine" id="cb82-5" title="5"><span class="kw">autofitVariogram</span>(YI <span class="op">~</span><span class="st"> </span>East <span class="op">+</span><span class="st"> </span>North, a, <span class="dt">model =</span> <span class="kw">c</span>(<span class="st">&quot;Sph&quot;</span>, <span class="st">&quot;Exp&quot;</span>, <span class="st">&quot;Gau&quot;</span>))</a></code></pre></div>
-<pre><code>## Warning in getModel(initial_sill - initial_nugget, m, initial_range, kappa = 0, : An error has occured during variogram fitting. Used:
-##  nugget: NaN
-##  model:  Sph
-##  psill:  NaN
-##  range:  1.5
-##  kappa:  NA
-##   as initial guess. This particular variogram fit is not taken into account. 
-## Gstat error:
-## Error in if (direct[direct$id == id, &quot;is.direct&quot;] &amp;&amp; any(model$psill &lt;  : 
-##   missing value where TRUE/FALSE needed</code></pre>
-<pre><code>## Warning in getModel(initial_sill - initial_nugget, m, initial_range, kappa = 0, : An error has occured during variogram fitting. Used:
-##  nugget: NaN
-##  model:  Exp
-##  psill:  NaN
-##  range:  1.5
-##  kappa:  NA
-##   as initial guess. This particular variogram fit is not taken into account. 
-## Gstat error:
-## Error in if (direct[direct$id == id, &quot;is.direct&quot;] &amp;&amp; any(model$psill &lt;  : 
-##   missing value where TRUE/FALSE needed</code></pre>
-<pre><code>## Warning in getModel(initial_sill - initial_nugget, m, initial_range, kappa = 0, : An error has occured during variogram fitting. Used:
-##  nugget: NaN
-##  model:  Gau
-##  psill:  NaN
-##  range:  1.5
-##  kappa:  NA
-##   as initial guess. This particular variogram fit is not taken into account. 
-## Gstat error:
-## Error in if (direct[direct$id == id, &quot;is.direct&quot;] &amp;&amp; any(model$psill &lt;  : 
-##   missing value where TRUE/FALSE needed</code></pre>
-<pre><code>## Error in vgm_list[[which.min(SSerr_list)]]: attempt to select less than one element in get1index</code></pre>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="co"># fit empirical variogram</span></a>
-<a class="sourceLine" id="cb87-2" title="2">v_emp &lt;-<span class="st"> </span><span class="kw">variogram</span>(YI <span class="op">~</span><span class="st"> </span>East <span class="op">+</span><span class="st"> </span>North, <span class="dt">data =</span> a, <span class="dt">cutoff =</span> <span class="dv">11</span>)</a>
-<a class="sourceLine" id="cb87-3" title="3">v_emp</a></code></pre></div>
-<pre><code>##    np dist      gamma dir.hor dir.ver   id
-## 1  15    1   377.2333       0       0 var1
-## 2  14    2  1022.1429       0       0 var1
-## 3  13    3  1832.0000       0       0 var1
-## 4  12    4  2894.8333       0       0 var1
-## 5  11    5  4317.6364       0       0 var1
-## 6  10    6  6219.0000       0       0 var1
-## 7   9    7  8462.2222       0       0 var1
-## 8   8    8 10694.7500       0       0 var1
-## 9   7    9 13308.0000       0       0 var1
-## 10  6   10 15858.0000       0       0 var1
-## 11  5   11 18189.8000       0       0 var1</code></pre>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1"><span class="kw">plot</span>(v_emp)</a></code></pre></div>
+<pre><code>## $exp_var
+##   np dist    gamma dir.hor dir.ver   id
+## 1 15    1 258.8333       0       0 var1
+## 2 14    2 533.0000       0       0 var1
+## 3 13    3 576.6154       0       0 var1
+## 4 12    4 580.1667       0       0 var1
+## 5 11    5 754.0000       0       0 var1
+## 
+## $var_model
+##   model    psill    range
+## 1   Nug   0.0000 0.000000
+## 2   Exp 854.3133 2.575499
+## 
+## $sserr
+## [1] 28783.32
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;autofitVariogram&quot; &quot;list&quot;</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1"><span class="co"># fit empirical variogram</span></a>
+<a class="sourceLine" id="cb84-2" title="2">v_emp &lt;-<span class="st"> </span><span class="kw">variogram</span>(YI <span class="op">~</span><span class="st"> </span>East <span class="op">+</span><span class="st"> </span>North, <span class="dt">data =</span> a, <span class="dt">cutoff =</span> <span class="dv">11</span>)</a>
+<a class="sourceLine" id="cb84-3" title="3">v_emp</a></code></pre></div>
+<pre><code>##    np dist gamma dir.hor dir.ver   id
+## 1  15    1   NaN       0       0 var1
+## 2  14    2   NaN       0       0 var1
+## 3  13    3   NaN       0       0 var1
+## 4  12    4   NaN       0       0 var1
+## 5  11    5   NaN       0       0 var1
+## 6  10    6   NaN       0       0 var1
+## 7   9    7   NaN       0       0 var1
+## 8   8    8   NaN       0       0 var1
+## 9   7    9   NaN       0       0 var1
+## 10  6   10   NaN       0       0 var1
+## 11  5   11   NaN       0       0 var1</code></pre>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1"><span class="kw">plot</span>(v_emp)</a></code></pre></div>
 <p><img src="03-ex9_4_files/figure-html/model-selection-1.png" width="672" /></p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="co"># fit exponential variogram</span></a>
-<a class="sourceLine" id="cb90-2" title="2">v_exp &lt;-<span class="st"> </span><span class="kw">fit.variogram</span>(v_emp, <span class="kw">vgm</span>(<span class="st">&quot;Exp&quot;</span>))</a></code></pre></div>
-<pre><code>## Warning in fit.variogram(v_emp, vgm(&quot;Exp&quot;)): No convergence after 200
-## iterations: try different initial values?</code></pre>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1">v_exp</a></code></pre></div>
-<pre><code>##   model      psill    range
-## 1   Nug   1587.279   0.0000
-## 2   Exp 206333.966 176.1914</code></pre>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1"><span class="co"># fit spherical and gaussian</span></a>
-<a class="sourceLine" id="cb94-2" title="2">v_sph &lt;-<span class="st"> </span><span class="kw">fit.variogram</span>(v_emp, <span class="kw">vgm</span>(<span class="st">&quot;Sph&quot;</span>))</a></code></pre></div>
-<pre><code>## Warning in fit.variogram(v_emp, vgm(&quot;Sph&quot;)): No convergence after 200
-## iterations: try different initial values?</code></pre>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1">v_gau &lt;-<span class="st"> </span><span class="kw">fit.variogram</span>(v_emp, <span class="kw">vgm</span>(<span class="st">&quot;Gau&quot;</span>))</a>
-<a class="sourceLine" id="cb96-2" title="2"></a>
-<a class="sourceLine" id="cb96-3" title="3"><span class="co"># extract plotting data from fitted variograms</span></a>
-<a class="sourceLine" id="cb96-4" title="4">v_exp_line &lt;-<span class="st"> </span><span class="kw">variogramLine</span>(v_exp, <span class="dt">maxdist =</span> <span class="dv">11</span>)</a>
-<a class="sourceLine" id="cb96-5" title="5">v_sph_line &lt;-<span class="st"> </span><span class="kw">variogramLine</span>(v_sph, <span class="dt">maxdist =</span> <span class="dv">11</span>)</a>
-<a class="sourceLine" id="cb96-6" title="6">v_gau_line &lt;-<span class="st"> </span><span class="kw">variogramLine</span>(v_gau, <span class="dt">maxdist =</span> <span class="dv">11</span>)</a>
-<a class="sourceLine" id="cb96-7" title="7"></a>
-<a class="sourceLine" id="cb96-8" title="8"><span class="co"># plot emprical and fitted variograms together  </span></a>
-<a class="sourceLine" id="cb96-9" title="9"><span class="co"># specify color for legends</span></a>
-<a class="sourceLine" id="cb96-10" title="10">legend_color &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Empirical&quot;</span> =<span class="st"> &quot;blue&quot;</span>, <span class="st">&quot;Exponential&quot;</span> =<span class="st"> &quot;blue&quot;</span>,</a>
-<a class="sourceLine" id="cb96-11" title="11">                  <span class="st">&quot;Spherical&quot;</span> =<span class="st"> &quot;orange&quot;</span>, <span class="st">&quot;Gaussian&quot;</span> =<span class="st"> &quot;green&quot;</span>)</a>
-<a class="sourceLine" id="cb96-12" title="12"><span class="kw">ggplot</span>(<span class="dt">data =</span> v_emp) <span class="op">+</span></a>
-<a class="sourceLine" id="cb96-13" title="13"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> dist, <span class="dt">y =</span> gamma, <span class="dt">fill =</span> <span class="st">&quot;Empirical&quot;</span>), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb96-14" title="14"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> v_exp_line, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> dist, <span class="dt">y =</span> gamma, <span class="dt">color =</span> <span class="st">&quot;Exponential&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb96-15" title="15"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> v_sph_line, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> dist, <span class="dt">y =</span> gamma, <span class="dt">color =</span> <span class="st">&quot;Spherical&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb96-16" title="16"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> v_gau_line, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> dist, <span class="dt">y =</span> gamma, <span class="dt">color =</span> <span class="st">&quot;Gaussian&quot;</span>)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb96-17" title="17"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">name =</span> <span class="st">&quot;&quot;</span>, <span class="dt">values =</span> legend_color) <span class="op">+</span></a>
-<a class="sourceLine" id="cb96-18" title="18"><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">name =</span> <span class="st">&quot;&quot;</span>, <span class="dt">values =</span> legend_color) <span class="op">+</span></a>
-<a class="sourceLine" id="cb96-19" title="19"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Distance&quot;</span>,</a>
-<a class="sourceLine" id="cb96-20" title="20">       <span class="dt">y =</span> <span class="st">&quot;Semivariance&quot;</span>)</a></code></pre></div>
-<p><img src="03-ex9_4_files/figure-html/model-selection-2.png" width="672" /></p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="co"># fit exponential variogram</span></a>
+<a class="sourceLine" id="cb87-2" title="2">v_exp &lt;-<span class="st"> </span><span class="kw">fit.variogram</span>(v_emp, <span class="kw">vgm</span>(<span class="st">&quot;Exp&quot;</span>))</a></code></pre></div>
+<pre><code>## Warning in fit.variogram(v_emp, vgm(&quot;Exp&quot;)): singular model in variogram
+## fit</code></pre>
+<pre><code>## Error in if (direct[direct$id == id, &quot;is.direct&quot;] &amp;&amp; any(model$psill &lt; : missing value where TRUE/FALSE needed</code></pre>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1">v_exp</a></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;v_exp&#39; not found</code></pre>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1"><span class="co"># fit spherical and gaussian</span></a>
+<a class="sourceLine" id="cb92-2" title="2">v_sph &lt;-<span class="st"> </span><span class="kw">fit.variogram</span>(v_emp, <span class="kw">vgm</span>(<span class="st">&quot;Sph&quot;</span>))</a></code></pre></div>
+<pre><code>## Warning in fit.variogram(v_emp, vgm(&quot;Sph&quot;)): singular model in variogram
+## fit</code></pre>
+<pre><code>## Error in if (direct[direct$id == id, &quot;is.direct&quot;] &amp;&amp; any(model$psill &lt; : missing value where TRUE/FALSE needed</code></pre>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1">v_gau &lt;-<span class="st"> </span><span class="kw">fit.variogram</span>(v_emp, <span class="kw">vgm</span>(<span class="st">&quot;Gau&quot;</span>))</a></code></pre></div>
+<pre><code>## Warning in fit.variogram(v_emp, vgm(&quot;Gau&quot;)): singular model in variogram
+## fit</code></pre>
+<pre><code>## Error in if (direct[direct$id == id, &quot;is.direct&quot;] &amp;&amp; any(model$psill &lt; : missing value where TRUE/FALSE needed</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1"><span class="co"># extract plotting data from fitted variograms</span></a>
+<a class="sourceLine" id="cb98-2" title="2">v_exp_line &lt;-<span class="st"> </span><span class="kw">variogramLine</span>(v_exp, <span class="dt">maxdist =</span> <span class="dv">11</span>)</a></code></pre></div>
+<pre><code>## Error in variogramLine(v_exp, maxdist = 11): object &#39;v_exp&#39; not found</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1">v_sph_line &lt;-<span class="st"> </span><span class="kw">variogramLine</span>(v_sph, <span class="dt">maxdist =</span> <span class="dv">11</span>)</a></code></pre></div>
+<pre><code>## Error in variogramLine(v_sph, maxdist = 11): object &#39;v_sph&#39; not found</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1">v_gau_line &lt;-<span class="st"> </span><span class="kw">variogramLine</span>(v_gau, <span class="dt">maxdist =</span> <span class="dv">11</span>)</a></code></pre></div>
+<pre><code>## Error in variogramLine(v_gau, maxdist = 11): object &#39;v_gau&#39; not found</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1"><span class="co"># plot emprical and fitted variograms together  </span></a>
+<a class="sourceLine" id="cb104-2" title="2"><span class="co"># specify color for legends</span></a>
+<a class="sourceLine" id="cb104-3" title="3">legend_color &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Empirical&quot;</span> =<span class="st"> &quot;blue&quot;</span>, <span class="st">&quot;Exponential&quot;</span> =<span class="st"> &quot;blue&quot;</span>,</a>
+<a class="sourceLine" id="cb104-4" title="4">                  <span class="st">&quot;Spherical&quot;</span> =<span class="st"> &quot;orange&quot;</span>, <span class="st">&quot;Gaussian&quot;</span> =<span class="st"> &quot;green&quot;</span>)</a>
+<a class="sourceLine" id="cb104-5" title="5"><span class="kw">ggplot</span>(<span class="dt">data =</span> v_emp) <span class="op">+</span></a>
+<a class="sourceLine" id="cb104-6" title="6"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> dist, <span class="dt">y =</span> gamma, <span class="dt">fill =</span> <span class="st">&quot;Empirical&quot;</span>), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb104-7" title="7"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> v_exp_line, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> dist, <span class="dt">y =</span> gamma, <span class="dt">color =</span> <span class="st">&quot;Exponential&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb104-8" title="8"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> v_sph_line, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> dist, <span class="dt">y =</span> gamma, <span class="dt">color =</span> <span class="st">&quot;Spherical&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb104-9" title="9"><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data =</span> v_gau_line, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> dist, <span class="dt">y =</span> gamma, <span class="dt">color =</span> <span class="st">&quot;Gaussian&quot;</span>)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb104-10" title="10"><span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">name =</span> <span class="st">&quot;&quot;</span>, <span class="dt">values =</span> legend_color) <span class="op">+</span></a>
+<a class="sourceLine" id="cb104-11" title="11"><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">name =</span> <span class="st">&quot;&quot;</span>, <span class="dt">values =</span> legend_color) <span class="op">+</span></a>
+<a class="sourceLine" id="cb104-12" title="12"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Distance&quot;</span>,</a>
+<a class="sourceLine" id="cb104-13" title="13">       <span class="dt">y =</span> <span class="st">&quot;Semivariance&quot;</span>)</a></code></pre></div>
+<pre><code>## Error in fortify(data): object &#39;v_exp_line&#39; not found</code></pre>
 
 </div>
 </div>

@@ -149,7 +149,7 @@ anova(mm_1)
 emmip(mm_1, TRT ~ FUNG)
 ```
 
-![](05-ex_yield_loss_files/figure-epub3/mixed-model-DS-1.png)<!-- -->
+<img src="05-ex_yield_loss_files/figure-html/mixed-model-DS-1.png" width="672" />
 
 ```r
 # to do anova for random effects, we need to compare mm_1 with a model that only has fixed effects,
@@ -301,14 +301,14 @@ test(emmeans(mm_1, pairwise ~ TRT*FUNG), adjust = "none")
 plot(mm_1, resid(., type="pearson") ~ fitted(.), abline = 0)
 ```
 
-![](05-ex_yield_loss_files/figure-epub3/diagnostic-plots-1.png)<!-- -->
+<img src="05-ex_yield_loss_files/figure-html/diagnostic-plots-1.png" width="672" />
 
 ```r
 # standardaized residuals vs. fitted values
 plot(mm_1, resid(., scaled=TRUE) ~ fitted(.), abline = 0)
 ```
 
-![](05-ex_yield_loss_files/figure-epub3/diagnostic-plots-2.png)<!-- -->
+<img src="05-ex_yield_loss_files/figure-html/diagnostic-plots-2.png" width="672" />
 
 ```r
 # qq plot
@@ -316,14 +316,14 @@ qqnorm(residuals(mm_1))
 qqline(residuals(mm_1))
 ```
 
-![](05-ex_yield_loss_files/figure-epub3/diagnostic-plots-3.png)<!-- -->
+<img src="05-ex_yield_loss_files/figure-html/diagnostic-plots-3.png" width="672" />
 
 ```r
 #observed vs. fitted values
 plot(mm_1, DS ~ fitted(.), abline = c(0,1))
 ```
 
-![](05-ex_yield_loss_files/figure-epub3/diagnostic-plots-4.png)<!-- -->
+<img src="05-ex_yield_loss_files/figure-html/diagnostic-plots-4.png" width="672" />
 
 ## Mixed model for response variable YIELD 
 
@@ -397,7 +397,7 @@ anova(mm_2)
 emmip(mm_2, TRT ~ FUNG)
 ```
 
-![](05-ex_yield_loss_files/figure-epub3/mixed-model-yield-1.png)<!-- -->
+<img src="05-ex_yield_loss_files/figure-html/mixed-model-yield-1.png" width="672" />
 
 ```r
 # to do anova for random effects, we need to compare mm_1 with a model that only has fixed effects,
@@ -549,14 +549,14 @@ test(emmeans(mm_2, pairwise ~ TRT*FUNG), adjust = "none")
 plot(mm_2, resid(., type="pearson") ~ fitted(.), abline = 0)
 ```
 
-![](05-ex_yield_loss_files/figure-epub3/diagnostic-plots-yield-1.png)<!-- -->
+<img src="05-ex_yield_loss_files/figure-html/diagnostic-plots-yield-1.png" width="672" />
 
 ```r
 # standardaized residuals vs. fitted values
 plot(mm_2, resid(., scaled=TRUE) ~ fitted(.), abline = 0)
 ```
 
-![](05-ex_yield_loss_files/figure-epub3/diagnostic-plots-yield-2.png)<!-- -->
+<img src="05-ex_yield_loss_files/figure-html/diagnostic-plots-yield-2.png" width="672" />
 
 ```r
 # qq plot
@@ -564,14 +564,14 @@ qqnorm(residuals(mm_2))
 qqline(residuals(mm_2))
 ```
 
-![](05-ex_yield_loss_files/figure-epub3/diagnostic-plots-yield-3.png)<!-- -->
+<img src="05-ex_yield_loss_files/figure-html/diagnostic-plots-yield-3.png" width="672" />
 
 ```r
 #observed vs. fitted values
 plot(mm_2, YIELD ~ fitted(.), abline = c(0,1))
 ```
 
-![](05-ex_yield_loss_files/figure-epub3/diagnostic-plots-yield-4.png)<!-- -->
+<img src="05-ex_yield_loss_files/figure-html/diagnostic-plots-yield-4.png" width="672" />
 
 ## Linear regression between YIELD and DS  
 
