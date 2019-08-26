@@ -24,7 +24,7 @@ This is equivalent to the data step in SAS. Here, the data is imported from a fi
 
 ```{r data-import, eval=TRUE}
 # Import data
-a <- read_csv("data/ex1.csv") %>% 
+a <- read_csv("https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/ex1.csv") %>% 
 	# create a new variable `DIFF`
 	mutate(DIFF = ESTIMATE - ACTUAL)
 
