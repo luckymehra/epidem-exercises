@@ -1,0 +1,243 @@
+# Yield loss {#yieldloss}
+
+## Load packages
+
+Here is the R code to download the required packages for this exercise.
+
+```{r pac-load, eval = TRUE}
+# install package manager 'pacman'
+if (!require(pacman)){
+  install.packages('pacman')
+}
+
+# load packages needed for this exercise
+pacman::p_load(tidyverse,
+       nlme,
+       emmeans,
+       predictmeans
+       )
+```
+
+## Data
+
+This is equivalent to the data step in SAS. Here, the data is imported from a file `yield_loss.csv` using the function `read_csv`. This function will download the data file direclty from [here](https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/yield_loss.csv).
+
+```{r data-import, eval=TRUE}
+# Import data
+a <- read_csv("https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/yield_loss.csv")
+
+# print the data
+a
+
+# specify that FUNG, TRT, and BLK are factors
+a$FUNG <- as.ordered(as.factor(a$FUNG))
+a$TRT <- as.ordered(as.factor(a$TRT))
+a$BLK <- as.ordered(as.factor(a$BLK))
+```
+
+## Mixed model for response variable DS 
+
+```{r mixed-model-DS, eval=TRUE}
+# fit the model  
+mm_1 <- lme(DS ~ TRT*FUNG, # fixed effects
+            data = a,
+            random = ~1|BLK/TRT) # read mm_1 as mixed model 1
+
+# summary output
+summary(mm_1)
+
+# type 3 tests of fixed effects
+anova(mm_1)
+
+# visualize interaction
+emmip(mm_1, TRT ~ FUNG)
+
+# to do anova for random effects, we need to compare mm_1 with a model that only has fixed effects,
+# we can use `gls()` function in `nlme` to fit the fixed effects model
+fixed_model <- gls(DS ~ TRT * FUNG,
+									 data = a)
+
+# test the random effects in the model
+anova(mm_1, fixed_model)
+
+# least square means
+test(emmeans(mm_1, "TRT"))
+test(emmeans(mm_1, "FUNG"))
+
+# pairwise difference
+test(emmeans(mm_1, pairwise ~ TRT), adjust = "none")
+test(emmeans(mm_1, pairwise ~ FUNG))
+test(emmeans(mm_1, pairwise ~ TRT*FUNG), adjust = "none")
+
+```
+
+### Diagnostic plots
+
+```{r diagnostic-plots, eval = TRUE}
+
+# pearson residuals vs. fitted values
+plot(mm_1, resid(., type="pearson") ~ fitted(.), abline = 0)
+
+# standardaized residuals vs. fitted values
+plot(mm_1, resid(., scaled=TRUE) ~ fitted(.), abline = 0)
+
+# qq plot
+qqnorm(residuals(mm_1))
+qqline(residuals(mm_1))
+
+#observed vs. fitted values
+plot(mm_1, DS ~ fitted(.), abline = c(0,1))
+```
+
+## Mixed model for response variable YIELD 
+
+```{r mixed-model-yield, eval=TRUE}
+# fit the model  
+mm_2 <- lme(YIELD ~ TRT*FUNG, # fixed effects
+            data = a,
+            random = ~1|BLK/TRT) # read mm_2 as mixed model 2
+
+# summary output
+summary(mm_2)
+
+# type 3 tests of fixed effects
+anova(mm_2)
+
+# visualize interaction
+emmip(mm_2, TRT ~ FUNG)
+
+# to do anova for random effects, we need to compare mm_1 with a model that only has fixed effects,
+# we can use `gls()` function in `nlme` to fit the fixed effects model
+fixed_model_YIELD <- gls(YIELD ~ TRT * FUNG,
+									 data = a)
+
+# test the random effects in the model
+anova(mm_2, fixed_model_YIELD)
+
+# least square means
+test(emmeans(mm_2, "TRT"))
+test(emmeans(mm_2, "FUNG"))
+
+# pairwise difference
+test(emmeans(mm_2, pairwise ~ TRT), adjust = "none")
+test(emmeans(mm_2, pairwise ~ FUNG))
+test(emmeans(mm_2, pairwise ~ TRT*FUNG), adjust = "none")
+
+```
+
+### Diagnostic plots
+
+```{r diagnostic-plots-yield, eval = TRUE}
+
+# pearson residuals vs. fitted values
+plot(mm_2, resid(., type="pearson") ~ fitted(.), abline = 0)
+
+# standardaized residuals vs. fitted values
+plot(mm_2, resid(., scaled=TRUE) ~ fitted(.), abline = 0)
+
+# qq plot
+qqnorm(residuals(mm_2))
+qqline(residuals(mm_2))
+
+#observed vs. fitted values
+plot(mm_2, YIELD ~ fitted(.), abline = c(0,1))
+```
+
+## Linear regression between YIELD and DS  
+
+```{r lm-yield-ds, eval=TRUE}
+# fit `lm` model
+lm_1 <- lm(YIELD ~ DS, data = a) 
+summary(lm_1)
+anova(lm_1)
+
+# diagnostic plots  
+residplot(lm_1)
+
+```
+
+### Linear regression between RY1 and DS
+
+```{r lm-ry1-ds, eval=TRUE}
+b <- a %>% 
+	mutate(RY1 = YIELD/399.23843)
+
+# fit linear regression model
+lm_2 <- lm(RY1 ~ DS, data = b)
+summary(lm_2)
+anova(lm_2)
+
+# diagnostic plots  
+residplot(lm_2)
+
+```
+
+### Transform dataset a
+
+```{r data-transform, eval=TRUE}
+a_yield <- a %>% 
+	dplyr::select(BLK, TRT, YIELD) %>% 
+	arrange(BLK, TRT, YIELD) %>% 
+	group_by(BLK, TRT) %>% 
+	summarise(RY2 = YIELD[1]/YIELD[2]) %>% 
+	ungroup()
+
+
+a_ds <- a %>% 
+	dplyr::select(BLK, TRT, DS) %>% 
+	arrange(BLK, TRT, DS) %>% 
+	group_by(BLK, TRT) %>% 
+	summarise(CDS = DS[2]) %>% 
+	ungroup()
+
+a_new <- a_yield %>% 
+	inner_join(a_ds) %>% 
+	ungroup() %>% 
+	mutate(BLK = parse_factor(as.character(BLK)),
+				 TRT = parse_factor(as.character(TRT)))
+
+# print the data
+a_new
+```
+
+## Mixed model for RY2
+
+```{r mixed-model-RY2, eval=TRUE}
+# fit the model  
+mm_3 <- lme(RY2 ~ TRT, # fixed effects
+            data = a_new,
+            random = ~1|BLK) # read mm_3 as mixed model 3
+
+# summary output
+summary(mm_3)
+
+# type 3 tests of fixed effects
+anova(mm_3)
+
+# to do anova for random effects, we need to compare mm_1 with a model that only has fixed effects,
+# we can use `gls()` function in `nlme` to fit the fixed effects model
+fixed_model_RY2 <- gls(RY2 ~ TRT,
+									 data = a_new)
+
+# test the random effects in the model
+anova(mm_3, fixed_model_RY2)
+
+# pairwise difference
+test(emmeans(mm_3, pairwise ~ TRT), adjust = "none")
+
+# diagnostic plots  
+residplot(mm_3)
+```
+
+## Linear regression between RY2 and CDS
+
+```{r lm_ry2-cds, eval=TRUE}
+# fit linear regression model
+lm_3 <- lm(RY2 ~ CDS, data = a_new)
+summary(lm_3)
+anova(lm_3)
+
+# diagnostic plots  
+residplot(lm_3)
+```
+

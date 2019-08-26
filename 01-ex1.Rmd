@@ -1,0 +1,154 @@
+# Exercise 1 {#ex1}
+
+## Load packages
+
+Here is the R code to download the required packages for this exercise.
+
+```{r pac-load, eval = TRUE}
+# install package manager 'pacman'
+if (!require(pacman)){
+  install.packages('pacman')
+}
+
+# load packages needed for this exercise
+pacman::p_load(tidyverse, # for data manipulation
+							 psych, # for `describe()` function
+							 ggpubr, # for graphing
+							 rlang, # for tidy evaluation
+							 ggfortify)
+```
+
+## Data
+
+This is equivalent to the data step in SAS. Here, the data is imported from a file `ex1.csv` using the function `read_csv`. This function will download the data file direclty from [here](https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/ex1.csv).
+
+```{r data-import, eval=TRUE}
+# Import data
+a <- read_csv("data/ex1.csv") %>% 
+	# create a new variable `DIFF`
+	mutate(DIFF = ESTIMATE - ACTUAL)
+
+# print the data
+a
+```
+
+## Descriptive statistics
+
+```{r desc-stat, eval=TRUE}
+# use the describe() function to get an idea about different variables
+sm_a <- a %>% 
+	group_by(TEST) %>% 
+	summarise_at(vars(DIFF),
+							 list(~mean(., na.rm = TRUE),
+							 		 ~mode(.),
+							 		 ~median(., na.rm = TRUE),
+							 		 ~sd(., na.rm = TRUE),
+							 		 ~var(., na.rm = TRUE),
+							 		 ~IQR(., na.rm = TRUE),
+ 							 		 ~min(., na.rm = TRUE),
+							 		 ~max(., na.rm = TRUE),
+							 		 ~n(),
+							 		 ~skew(.),
+							 		 ~kurtosi(.)
+							 		 )) %>% 
+	mutate(CV = (sd/mean)*100,
+				 std.err = sd/sqrt(n)) %>% 
+	ungroup()
+
+sm_a
+```
+
+## Create histogram, boxplot, and qqplot
+
+```{r plots, eval=TRUE}
+# histograms
+create_hist <- function(test_id){
+a %>%
+	filter(TEST == {{test_id}}) %>% 
+	gghistogram("DIFF", bins = 6, fill = "skyblue") +
+		coord_flip()
+}
+
+create_hist(unique(a$TEST)[1]) # BASELINE
+create_hist(unique(a$TEST)[2]) # POST1
+create_hist(unique(a$TEST)[3]) # POST2
+
+# boxplots
+create_box <- function(test_id){
+	a %>% 
+		filter(TEST == {{test_id}}) %>% 
+		ggboxplot(y = "DIFF", fill =  "skyblue",
+							main = {{test_id}})
+}
+
+create_box(unique(a$TEST)[1]) # BASELINE
+create_box(unique(a$TEST)[2]) # POST1
+create_box(unique(a$TEST)[3]) # POST2
+
+# distribution of DIFF by TEST
+ggboxplot(data = a,
+					x = "TEST", y = "DIFF")
+# qqplots
+create_qq <- function(test_id){
+a %>%
+	filter(TEST == {{test_id}}) %>% 
+	ggqqplot("DIFF",
+					 main = {{test_id}}) 
+}
+
+create_qq(unique(a$TEST)[1]) # BASELINE
+create_qq(unique(a$TEST)[2]) # POST1
+create_qq(unique(a$TEST)[3]) # POST2
+```
+
+## Normality test
+
+```{r norm-test, eval = TRUE}
+st <- shapiro.test(a$DIFF)
+data.frame(st$method, st$statistic, st$p.value)
+
+do_shp_test <- function(df){
+	st <- shapiro.test(df$DIFF)
+	data.frame(st$method, st$statistic, st$p.value)
+}
+
+a %>% 
+	group_by(TEST) %>% 
+	do(do_shp_test(.)) %>% 
+	ungroup()
+```
+
+## Linear regression
+
+```{r lin-reg}
+# fit linear regression by TEST
+# Response: ESTIMATE
+est_lm <- function(df){
+	model <- lm(ESTIMATE ~ ACTUAL, data = df)
+	
+	# fit plot
+	fit_plot <- ggplot(data = df, aes(x = ACTUAL, y = ESTIMATE)) +
+		geom_point()+
+		stat_smooth(method = "lm", col = "blue")
+	
+	return(list(summary(model), autoplot(model), fit_plot))
+}
+
+by(a, a$TEST, est_lm)
+
+# Response: DIFF
+diff_lm <- function(df){
+	model <- lm(DIFF ~ ACTUAL, data = df)
+	
+	# fit plot 
+	fit_plot <- ggplot(data = df, aes(x = ACTUAL, y = DIFF)) +
+		geom_point()+
+		stat_smooth(method = "lm", col = "blue")
+		
+	return(list(summary(model), autoplot(model)))
+}
+
+by(a, a$TEST, diff_lm)
+
+
+```

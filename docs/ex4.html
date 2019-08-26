@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 Exercise 4 | Epidemiological exercises in R</title>
+  <title>Chapter 2 Exercise 4 | Epidemiological exercises in R</title>
   <meta name="description" content="This book contains epidemiological data analysis exercises in R. These are written for students of PLPTH 905 (Ecology and Epidemiology of Plant Pathogens) offered in even springs at Kansas State University." />
   <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 Exercise 4 | Epidemiological exercises in R" />
+  <meta property="og:title" content="Chapter 2 Exercise 4 | Epidemiological exercises in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="luckymehra/epidem-exercises" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 Exercise 4 | Epidemiological exercises in R" />
+  <meta name="twitter:title" content="Chapter 2 Exercise 4 | Epidemiological exercises in R" />
   
   <meta name="twitter:description" content="This book contains epidemiological data analysis exercises in R. These are written for students of PLPTH 905 (Ecology and Epidemiology of Plant Pathogens) offered in even springs at Kansas State University." />
   
@@ -24,14 +24,14 @@
 <meta name="author" content="Lucky Mehra" />
 
 
-<meta name="date" content="2019-08-02" />
+<meta name="date" content="2019-08-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html">
+<link rel="prev" href="ex1.html">
 <link rel="next" href="ex9-4.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -129,49 +129,57 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prerequisites</a></li>
-<li class="chapter" data-level="1" data-path="ex4.html"><a href="ex4.html"><i class="fa fa-check"></i><b>1</b> Exercise 4</a><ul>
-<li class="chapter" data-level="1.1" data-path="ex4.html"><a href="ex4.html#load-packages"><i class="fa fa-check"></i><b>1.1</b> Load packages</a></li>
-<li class="chapter" data-level="1.2" data-path="ex4.html"><a href="ex4.html#import-data"><i class="fa fa-check"></i><b>1.2</b> Import data</a></li>
-<li class="chapter" data-level="1.3" data-path="ex4.html"><a href="ex4.html#first-mixed-model"><i class="fa fa-check"></i><b>1.3</b> First mixed model</a><ul>
-<li class="chapter" data-level="1.3.1" data-path="ex4.html"><a href="ex4.html#fit-the-model"><i class="fa fa-check"></i><b>1.3.1</b> Fit the model</a></li>
-<li class="chapter" data-level="1.3.2" data-path="ex4.html"><a href="ex4.html#diagnostic-plots"><i class="fa fa-check"></i><b>1.3.2</b> Diagnostic plots</a></li>
+<li class="chapter" data-level="1" data-path="ex1.html"><a href="ex1.html"><i class="fa fa-check"></i><b>1</b> Exercise 1</a><ul>
+<li class="chapter" data-level="1.1" data-path="ex1.html"><a href="ex1.html#load-packages"><i class="fa fa-check"></i><b>1.1</b> Load packages</a></li>
+<li class="chapter" data-level="1.2" data-path="ex1.html"><a href="ex1.html#data"><i class="fa fa-check"></i><b>1.2</b> Data</a></li>
+<li class="chapter" data-level="1.3" data-path="ex1.html"><a href="ex1.html#descriptive-statistics"><i class="fa fa-check"></i><b>1.3</b> Descriptive statistics</a></li>
+<li class="chapter" data-level="1.4" data-path="ex1.html"><a href="ex1.html#create-histogram-boxplot-and-qqplot"><i class="fa fa-check"></i><b>1.4</b> Create histogram, boxplot, and qqplot</a></li>
+<li class="chapter" data-level="1.5" data-path="ex1.html"><a href="ex1.html#normality-test"><i class="fa fa-check"></i><b>1.5</b> Normality test</a></li>
+<li class="chapter" data-level="1.6" data-path="ex1.html"><a href="ex1.html#linear-regression"><i class="fa fa-check"></i><b>1.6</b> Linear regression</a></li>
 </ul></li>
-<li class="chapter" data-level="1.4" data-path="ex4.html"><a href="ex4.html#second-mixed-model"><i class="fa fa-check"></i><b>1.4</b> Second mixed model</a><ul>
-<li class="chapter" data-level="1.4.1" data-path="ex4.html"><a href="ex4.html#fit-the-model-1"><i class="fa fa-check"></i><b>1.4.1</b> Fit the model</a></li>
-<li class="chapter" data-level="1.4.2" data-path="ex4.html"><a href="ex4.html#plot-observed-versus-predicted-model-values"><i class="fa fa-check"></i><b>1.4.2</b> Plot observed versus predicted model values</a></li>
+<li class="chapter" data-level="2" data-path="ex4.html"><a href="ex4.html"><i class="fa fa-check"></i><b>2</b> Exercise 4</a><ul>
+<li class="chapter" data-level="2.1" data-path="ex4.html"><a href="ex4.html#load-packages-1"><i class="fa fa-check"></i><b>2.1</b> Load packages</a></li>
+<li class="chapter" data-level="2.2" data-path="ex4.html"><a href="ex4.html#import-data"><i class="fa fa-check"></i><b>2.2</b> Import data</a></li>
+<li class="chapter" data-level="2.3" data-path="ex4.html"><a href="ex4.html#first-mixed-model"><i class="fa fa-check"></i><b>2.3</b> First mixed model</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="ex4.html"><a href="ex4.html#fit-the-model"><i class="fa fa-check"></i><b>2.3.1</b> Fit the model</a></li>
+<li class="chapter" data-level="2.3.2" data-path="ex4.html"><a href="ex4.html#diagnostic-plots"><i class="fa fa-check"></i><b>2.3.2</b> Diagnostic plots</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="ex4.html"><a href="ex4.html#second-mixed-model"><i class="fa fa-check"></i><b>2.4</b> Second mixed model</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="ex4.html"><a href="ex4.html#fit-the-model-1"><i class="fa fa-check"></i><b>2.4.1</b> Fit the model</a></li>
+<li class="chapter" data-level="2.4.2" data-path="ex4.html"><a href="ex4.html#plot-observed-versus-predicted-model-values"><i class="fa fa-check"></i><b>2.4.2</b> Plot observed versus predicted model values</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="ex9-4.html"><a href="ex9-4.html"><i class="fa fa-check"></i><b>2</b> Exercise 9.4</a><ul>
-<li class="chapter" data-level="2.1" data-path="ex9-4.html"><a href="ex9-4.html#load-packages-1"><i class="fa fa-check"></i><b>2.1</b> Load packages</a></li>
-<li class="chapter" data-level="2.2" data-path="ex9-4.html"><a href="ex9-4.html#data"><i class="fa fa-check"></i><b>2.2</b> Data</a></li>
-<li class="chapter" data-level="2.3" data-path="ex9-4.html"><a href="ex9-4.html#autocorrelation-statistics"><i class="fa fa-check"></i><b>2.3</b> Autocorrelation statistics</a></li>
-<li class="chapter" data-level="2.4" data-path="ex9-4.html"><a href="ex9-4.html#first-variogram"><i class="fa fa-check"></i><b>2.4</b> First variogram</a></li>
-<li class="chapter" data-level="2.5" data-path="ex9-4.html"><a href="ex9-4.html#second-variogram"><i class="fa fa-check"></i><b>2.5</b> Second variogram</a></li>
-<li class="chapter" data-level="2.6" data-path="ex9-4.html"><a href="ex9-4.html#variogram-model-selection"><i class="fa fa-check"></i><b>2.6</b> Variogram model selection</a></li>
+<li class="chapter" data-level="3" data-path="ex9-4.html"><a href="ex9-4.html"><i class="fa fa-check"></i><b>3</b> Exercise 9.4</a><ul>
+<li class="chapter" data-level="3.1" data-path="ex9-4.html"><a href="ex9-4.html#load-packages-2"><i class="fa fa-check"></i><b>3.1</b> Load packages</a></li>
+<li class="chapter" data-level="3.2" data-path="ex9-4.html"><a href="ex9-4.html#data-1"><i class="fa fa-check"></i><b>3.2</b> Data</a></li>
+<li class="chapter" data-level="3.3" data-path="ex9-4.html"><a href="ex9-4.html#autocorrelation-statistics"><i class="fa fa-check"></i><b>3.3</b> Autocorrelation statistics</a></li>
+<li class="chapter" data-level="3.4" data-path="ex9-4.html"><a href="ex9-4.html#first-variogram"><i class="fa fa-check"></i><b>3.4</b> First variogram</a></li>
+<li class="chapter" data-level="3.5" data-path="ex9-4.html"><a href="ex9-4.html#second-variogram"><i class="fa fa-check"></i><b>3.5</b> Second variogram</a></li>
+<li class="chapter" data-level="3.6" data-path="ex9-4.html"><a href="ex9-4.html#variogram-model-selection"><i class="fa fa-check"></i><b>3.6</b> Variogram model selection</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="ex9-5.html"><a href="ex9-5.html"><i class="fa fa-check"></i><b>3</b> Exercise 9.5</a><ul>
-<li class="chapter" data-level="3.1" data-path="ex9-5.html"><a href="ex9-5.html#load-packages-2"><i class="fa fa-check"></i><b>3.1</b> Load packages</a></li>
-<li class="chapter" data-level="3.2" data-path="ex9-5.html"><a href="ex9-5.html#data-1"><i class="fa fa-check"></i><b>3.2</b> Data</a></li>
-<li class="chapter" data-level="3.3" data-path="ex9-5.html"><a href="ex9-5.html#autocorrelation-statistics-1"><i class="fa fa-check"></i><b>3.3</b> Autocorrelation statistics</a></li>
-<li class="chapter" data-level="3.4" data-path="ex9-5.html"><a href="ex9-5.html#first-variogram-1"><i class="fa fa-check"></i><b>3.4</b> First variogram</a></li>
-<li class="chapter" data-level="3.5" data-path="ex9-5.html"><a href="ex9-5.html#second-variogram-1"><i class="fa fa-check"></i><b>3.5</b> Second variogram</a></li>
-<li class="chapter" data-level="3.6" data-path="ex9-5.html"><a href="ex9-5.html#variogram-model-selection-1"><i class="fa fa-check"></i><b>3.6</b> Variogram model selection</a></li>
+<li class="chapter" data-level="4" data-path="ex9-5.html"><a href="ex9-5.html"><i class="fa fa-check"></i><b>4</b> Exercise 9.5</a><ul>
+<li class="chapter" data-level="4.1" data-path="ex9-5.html"><a href="ex9-5.html#load-packages-3"><i class="fa fa-check"></i><b>4.1</b> Load packages</a></li>
+<li class="chapter" data-level="4.2" data-path="ex9-5.html"><a href="ex9-5.html#data-2"><i class="fa fa-check"></i><b>4.2</b> Data</a></li>
+<li class="chapter" data-level="4.3" data-path="ex9-5.html"><a href="ex9-5.html#autocorrelation-statistics-1"><i class="fa fa-check"></i><b>4.3</b> Autocorrelation statistics</a></li>
+<li class="chapter" data-level="4.4" data-path="ex9-5.html"><a href="ex9-5.html#first-variogram-1"><i class="fa fa-check"></i><b>4.4</b> First variogram</a></li>
+<li class="chapter" data-level="4.5" data-path="ex9-5.html"><a href="ex9-5.html#second-variogram-1"><i class="fa fa-check"></i><b>4.5</b> Second variogram</a></li>
+<li class="chapter" data-level="4.6" data-path="ex9-5.html"><a href="ex9-5.html#variogram-model-selection-1"><i class="fa fa-check"></i><b>4.6</b> Variogram model selection</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="yieldloss.html"><a href="yieldloss.html"><i class="fa fa-check"></i><b>4</b> Yield loss</a><ul>
-<li class="chapter" data-level="4.1" data-path="yieldloss.html"><a href="yieldloss.html#load-packages-3"><i class="fa fa-check"></i><b>4.1</b> Load packages</a></li>
-<li class="chapter" data-level="4.2" data-path="yieldloss.html"><a href="yieldloss.html#data-2"><i class="fa fa-check"></i><b>4.2</b> Data</a></li>
-<li class="chapter" data-level="4.3" data-path="yieldloss.html"><a href="yieldloss.html#mixed-model-for-response-variable-ds"><i class="fa fa-check"></i><b>4.3</b> Mixed model for response variable DS</a><ul>
-<li class="chapter" data-level="4.3.1" data-path="yieldloss.html"><a href="yieldloss.html#diagnostic-plots-1"><i class="fa fa-check"></i><b>4.3.1</b> Diagnostic plots</a></li>
+<li class="chapter" data-level="5" data-path="yieldloss.html"><a href="yieldloss.html"><i class="fa fa-check"></i><b>5</b> Yield loss</a><ul>
+<li class="chapter" data-level="5.1" data-path="yieldloss.html"><a href="yieldloss.html#load-packages-4"><i class="fa fa-check"></i><b>5.1</b> Load packages</a></li>
+<li class="chapter" data-level="5.2" data-path="yieldloss.html"><a href="yieldloss.html#data-3"><i class="fa fa-check"></i><b>5.2</b> Data</a></li>
+<li class="chapter" data-level="5.3" data-path="yieldloss.html"><a href="yieldloss.html#mixed-model-for-response-variable-ds"><i class="fa fa-check"></i><b>5.3</b> Mixed model for response variable DS</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="yieldloss.html"><a href="yieldloss.html#diagnostic-plots-1"><i class="fa fa-check"></i><b>5.3.1</b> Diagnostic plots</a></li>
 </ul></li>
-<li class="chapter" data-level="4.4" data-path="yieldloss.html"><a href="yieldloss.html#mixed-model-for-response-variable-yield"><i class="fa fa-check"></i><b>4.4</b> Mixed model for response variable YIELD</a><ul>
-<li class="chapter" data-level="4.4.1" data-path="yieldloss.html"><a href="yieldloss.html#diagnostic-plots-2"><i class="fa fa-check"></i><b>4.4.1</b> Diagnostic plots</a></li>
+<li class="chapter" data-level="5.4" data-path="yieldloss.html"><a href="yieldloss.html#mixed-model-for-response-variable-yield"><i class="fa fa-check"></i><b>5.4</b> Mixed model for response variable YIELD</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="yieldloss.html"><a href="yieldloss.html#diagnostic-plots-2"><i class="fa fa-check"></i><b>5.4.1</b> Diagnostic plots</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="yieldloss.html"><a href="yieldloss.html#linear-regression-between-yield-and-ds"><i class="fa fa-check"></i><b>4.5</b> Linear regression between YIELD and DS</a><ul>
-<li class="chapter" data-level="4.5.1" data-path="yieldloss.html"><a href="yieldloss.html#linear-regression-between-ry1-and-ds"><i class="fa fa-check"></i><b>4.5.1</b> Linear regression between RY1 and DS</a></li>
-<li class="chapter" data-level="4.5.2" data-path="yieldloss.html"><a href="yieldloss.html#transform-dataset-a"><i class="fa fa-check"></i><b>4.5.2</b> Transform dataset a</a></li>
+<li class="chapter" data-level="5.5" data-path="yieldloss.html"><a href="yieldloss.html#linear-regression-between-yield-and-ds"><i class="fa fa-check"></i><b>5.5</b> Linear regression between YIELD and DS</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="yieldloss.html"><a href="yieldloss.html#linear-regression-between-ry1-and-ds"><i class="fa fa-check"></i><b>5.5.1</b> Linear regression between RY1 and DS</a></li>
+<li class="chapter" data-level="5.5.2" data-path="yieldloss.html"><a href="yieldloss.html#transform-dataset-a"><i class="fa fa-check"></i><b>5.5.2</b> Transform dataset a</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="yieldloss.html"><a href="yieldloss.html#mixed-model-for-ry2"><i class="fa fa-check"></i><b>4.6</b> Mixed model for RY2</a></li>
-<li class="chapter" data-level="4.7" data-path="yieldloss.html"><a href="yieldloss.html#linear-regression-between-ry2-and-cds"><i class="fa fa-check"></i><b>4.7</b> Linear regression between RY2 and CDS</a></li>
+<li class="chapter" data-level="5.6" data-path="yieldloss.html"><a href="yieldloss.html#mixed-model-for-ry2"><i class="fa fa-check"></i><b>5.6</b> Mixed model for RY2</a></li>
+<li class="chapter" data-level="5.7" data-path="yieldloss.html"><a href="yieldloss.html#linear-regression-between-ry2-and-cds"><i class="fa fa-check"></i><b>5.7</b> Linear regression between RY2 and CDS</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="sascode.html"><a href="sascode.html"><i class="fa fa-check"></i><b>A</b> SAS code</a><ul>
@@ -201,40 +209,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="ex4" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Exercise 4</h1>
-<div id="load-packages" class="section level2">
-<h2><span class="header-section-number">1.1</span> Load packages</h2>
+<h1><span class="header-section-number">Chapter 2</span> Exercise 4</h1>
+<div id="load-packages-1" class="section level2">
+<h2><span class="header-section-number">2.1</span> Load packages</h2>
 <p>Here is the R code to download the required packages for this exercise.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="co"># install package manager &#39;pacman&#39;</span></a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(pacman)){</a>
-<a class="sourceLine" id="cb1-3" title="3">  <span class="kw">install.packages</span>(<span class="st">&#39;pacman&#39;</span>)</a>
-<a class="sourceLine" id="cb1-4" title="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1"><span class="co"># install package manager &#39;pacman&#39;</span></a>
+<a class="sourceLine" id="cb35-2" title="2"><span class="cf">if</span> (<span class="op">!</span><span class="kw">require</span>(pacman)){</a>
+<a class="sourceLine" id="cb35-3" title="3">  <span class="kw">install.packages</span>(<span class="st">&#39;pacman&#39;</span>)</a>
+<a class="sourceLine" id="cb35-4" title="4">}</a></code></pre></div>
 <pre><code>## Loading required package: pacman</code></pre>
 <p>Load the packages needed for this exercise:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">pacman<span class="op">::</span><span class="kw">p_load</span>(tidyverse, </a>
-<a class="sourceLine" id="cb3-2" title="2">       nlme, </a>
-<a class="sourceLine" id="cb3-3" title="3">       emmeans)</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">pacman<span class="op">::</span><span class="kw">p_load</span>(tidyverse, </a>
+<a class="sourceLine" id="cb37-2" title="2">       nlme, </a>
+<a class="sourceLine" id="cb37-3" title="3">       emmeans)</a></code></pre></div>
 </div>
 <div id="import-data" class="section level2">
-<h2><span class="header-section-number">1.2</span> Import data</h2>
+<h2><span class="header-section-number">2.2</span> Import data</h2>
 <p>Our data is located in <code>ex4.csv</code> file, which can be found on <a href="https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/ex4.csv">my github repo</a>. Import the data and create new variables using the code below.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># import data</span></a>
-<a class="sourceLine" id="cb4-2" title="2">a &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/ex4.csv&quot;</span>,</a>
-<a class="sourceLine" id="cb4-3" title="3">              <span class="dt">col_types =</span> <span class="kw">cols</span>(</a>
-<a class="sourceLine" id="cb4-4" title="4">                <span class="dt">blk =</span> <span class="kw">col_factor</span>(), <span class="co"># parse blk as a factor</span></a>
-<a class="sourceLine" id="cb4-5" title="5">                <span class="dt">trt =</span> <span class="kw">col_factor</span>() <span class="co"># parse trt as a factor</span></a>
-<a class="sourceLine" id="cb4-6" title="6">                ))</a>
-<a class="sourceLine" id="cb4-7" title="7"></a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="co"># create new variables</span></a>
-<a class="sourceLine" id="cb4-9" title="9">a<span class="op">$</span>y &lt;-<span class="st"> </span>a<span class="op">$</span>pctsev<span class="op">/</span><span class="dv">100</span></a>
-<a class="sourceLine" id="cb4-10" title="10">a<span class="op">$</span>ystar &lt;-<span class="st"> </span><span class="kw">log</span>(a<span class="op">$</span>y<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>a<span class="op">$</span>y))</a>
-<a class="sourceLine" id="cb4-11" title="11">a<span class="op">$</span>wt &lt;-<span class="st"> </span>a<span class="op">$</span>y<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>a<span class="op">$</span>y)</a>
-<a class="sourceLine" id="cb4-12" title="12"></a>
-<a class="sourceLine" id="cb4-13" title="13"><span class="co"># print the data</span></a>
-<a class="sourceLine" id="cb4-14" title="14">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(a),</a>
-<a class="sourceLine" id="cb4-15" title="15">             <span class="dt">caption =</span> <span class="st">&quot;The first 6 rows of dataset *a*.&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="co"># import data</span></a>
+<a class="sourceLine" id="cb38-2" title="2">a &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/ex4.csv&quot;</span>,</a>
+<a class="sourceLine" id="cb38-3" title="3">              <span class="dt">col_types =</span> <span class="kw">cols</span>(</a>
+<a class="sourceLine" id="cb38-4" title="4">                <span class="dt">blk =</span> <span class="kw">col_factor</span>(), <span class="co"># parse blk as a factor</span></a>
+<a class="sourceLine" id="cb38-5" title="5">                <span class="dt">trt =</span> <span class="kw">col_factor</span>() <span class="co"># parse trt as a factor</span></a>
+<a class="sourceLine" id="cb38-6" title="6">                ))</a>
+<a class="sourceLine" id="cb38-7" title="7"></a>
+<a class="sourceLine" id="cb38-8" title="8"><span class="co"># create new variables</span></a>
+<a class="sourceLine" id="cb38-9" title="9">a<span class="op">$</span>y &lt;-<span class="st"> </span>a<span class="op">$</span>pctsev<span class="op">/</span><span class="dv">100</span></a>
+<a class="sourceLine" id="cb38-10" title="10">a<span class="op">$</span>ystar &lt;-<span class="st"> </span><span class="kw">log</span>(a<span class="op">$</span>y<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>a<span class="op">$</span>y))</a>
+<a class="sourceLine" id="cb38-11" title="11">a<span class="op">$</span>wt &lt;-<span class="st"> </span>a<span class="op">$</span>y<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>a<span class="op">$</span>y)</a>
+<a class="sourceLine" id="cb38-12" title="12"></a>
+<a class="sourceLine" id="cb38-13" title="13"><span class="co"># print the data</span></a>
+<a class="sourceLine" id="cb38-14" title="14">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">head</span>(a),</a>
+<a class="sourceLine" id="cb38-15" title="15">             <span class="dt">caption =</span> <span class="st">&quot;The first 6 rows of dataset *a*.&quot;</span>)</a></code></pre></div>
 <table>
-<caption><span id="tab:data-import">Table 1.1: </span>The first 6 rows of dataset <em>a</em>.</caption>
+<caption><span id="tab:data-import">Table 2.1: </span>The first 6 rows of dataset <em>a</em>.</caption>
 <thead>
 <tr class="header">
 <th align="right">plot</th>
@@ -310,8 +318,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># get a glimpse of data</span></a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="kw">glimpse</span>(a)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="co"># get a glimpse of data</span></a>
+<a class="sourceLine" id="cb39-2" title="2"><span class="kw">glimpse</span>(a)</a></code></pre></div>
 <pre><code>## Observations: 72
 ## Variables: 8
 ## $ plot   &lt;dbl&gt; 101, 102, 103, 201, 202, 203, 301, 302, 303, 401, 402, ...
@@ -324,21 +332,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## $ wt     &lt;dbl&gt; 0.0819, 0.0564, 0.0196, 0.0651, 0.0475, 0.0291, 0.0384,...</code></pre>
 </div>
 <div id="first-mixed-model" class="section level2">
-<h2><span class="header-section-number">1.3</span> First mixed model</h2>
+<h2><span class="header-section-number">2.3</span> First mixed model</h2>
 <div id="fit-the-model" class="section level3">
-<h3><span class="header-section-number">1.3.1</span> Fit the model</h3>
+<h3><span class="header-section-number">2.3.1</span> Fit the model</h3>
 <p>Run the mixed model analysis using <strong>nlme</strong> package in R. The function used to fit the mixed model is called <code>lme()</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># fit the model</span></a>
-<a class="sourceLine" id="cb7-2" title="2"></a>
-<a class="sourceLine" id="cb7-3" title="3">mm_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lme</span>(ystar <span class="op">~</span><span class="st"> </span>trt<span class="op">*</span>t, <span class="co"># fixed effects</span></a>
-<a class="sourceLine" id="cb7-4" title="4">            <span class="dt">data =</span> a, </a>
-<a class="sourceLine" id="cb7-5" title="5">            <span class="dt">random =</span> <span class="kw">list</span>(<span class="dt">blk =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">plot =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>), <span class="co"># random effects</span></a>
-<a class="sourceLine" id="cb7-6" title="6">            <span class="dt">correlation =</span> <span class="kw">corAR1</span>(<span class="dt">form =</span> (<span class="dt">plot =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)), <span class="co"># specify that observations within a plot are autocorrelated. Other valid arguments are corAR1, corARMA, corCAR1, corCompSymm, corExp, corGaus, corLin, corRatio, corSpher, corSymm</span></a>
-<a class="sourceLine" id="cb7-7" title="7">            <span class="dt">contrasts =</span> <span class="kw">list</span>(<span class="dt">trt =</span> <span class="st">&quot;contr.SAS&quot;</span>), <span class="co"># specify this option to get parameter estimates similar to reported by SAS</span></a>
-<a class="sourceLine" id="cb7-8" title="8">            <span class="dt">weights =</span> <span class="op">~</span><span class="st"> </span><span class="kw">I</span>(<span class="dv">1</span><span class="op">/</span>wt))</a>
-<a class="sourceLine" id="cb7-9" title="9"></a>
-<a class="sourceLine" id="cb7-10" title="10"><span class="co"># output the summary</span></a>
-<a class="sourceLine" id="cb7-11" title="11"><span class="kw">summary</span>(mm_<span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="co"># fit the model</span></a>
+<a class="sourceLine" id="cb41-2" title="2"></a>
+<a class="sourceLine" id="cb41-3" title="3">mm_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lme</span>(ystar <span class="op">~</span><span class="st"> </span>trt<span class="op">*</span>t, <span class="co"># fixed effects</span></a>
+<a class="sourceLine" id="cb41-4" title="4">            <span class="dt">data =</span> a, </a>
+<a class="sourceLine" id="cb41-5" title="5">            <span class="dt">random =</span> <span class="kw">list</span>(<span class="dt">blk =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">plot =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>), <span class="co"># random effects</span></a>
+<a class="sourceLine" id="cb41-6" title="6">            <span class="dt">correlation =</span> <span class="kw">corAR1</span>(<span class="dt">form =</span> (<span class="dt">plot =</span> <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)), <span class="co"># specify that observations within a plot are autocorrelated. Other valid arguments are corAR1, corARMA, corCAR1, corCompSymm, corExp, corGaus, corLin, corRatio, corSpher, corSymm</span></a>
+<a class="sourceLine" id="cb41-7" title="7">            <span class="dt">contrasts =</span> <span class="kw">list</span>(<span class="dt">trt =</span> <span class="st">&quot;contr.SAS&quot;</span>), <span class="co"># specify this option to get parameter estimates similar to reported by SAS</span></a>
+<a class="sourceLine" id="cb41-8" title="8">            <span class="dt">weights =</span> <span class="op">~</span><span class="st"> </span><span class="kw">I</span>(<span class="dv">1</span><span class="op">/</span>wt))</a>
+<a class="sourceLine" id="cb41-9" title="9"></a>
+<a class="sourceLine" id="cb41-10" title="10"><span class="co"># output the summary</span></a>
+<a class="sourceLine" id="cb41-11" title="11"><span class="kw">summary</span>(mm_<span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## Linear mixed-effects model fit by REML
 ##  Data: a 
 ##        AIC      BIC    logLik
@@ -385,16 +393,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Number of Groups: 
 ##           blk plot %in% blk 
 ##             4            12</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># extract covariance parameter estimates</span></a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="kw">VarCorr</span>(mm_<span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1"><span class="co"># extract covariance parameter estimates</span></a>
+<a class="sourceLine" id="cb43-2" title="2"><span class="kw">VarCorr</span>(mm_<span class="dv">1</span>)</a></code></pre></div>
 <pre><code>##             Variance     StdDev      
 ## blk =       pdLogChol(1)             
 ## (Intercept) 3.561212e-02 1.887117e-01
 ## plot =      pdLogChol(1)             
 ## (Intercept) 2.119946e-09 4.604287e-05
 ## Residual    6.347936e-02 2.519511e-01</code></pre>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># extract type3 fixed effects anova</span></a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="kw">anova.lme</span>(mm_<span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&#39;marginal&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="co"># extract type3 fixed effects anova</span></a>
+<a class="sourceLine" id="cb45-2" title="2"><span class="kw">anova.lme</span>(mm_<span class="dv">1</span>, <span class="dt">type =</span> <span class="st">&#39;marginal&#39;</span>)</a></code></pre></div>
 <pre><code>##             numDF denDF  F-value p-value
 ## (Intercept)     1    57 50.09622  &lt;.0001
 ## trt             2     6  0.56135  0.5977
@@ -402,33 +410,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## trt:t           2    57  4.80110  0.0118</code></pre>
 </div>
 <div id="diagnostic-plots" class="section level3">
-<h3><span class="header-section-number">1.3.2</span> Diagnostic plots</h3>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># pearson residuals vs. fitted values</span></a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="kw">plot</span>(mm_<span class="dv">1</span>, <span class="kw">resid</span>(., <span class="dt">type=</span><span class="st">&quot;pearson&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="kw">fitted</span>(.), <span class="dt">abline =</span> <span class="dv">0</span>)</a></code></pre></div>
-<p><img src="01-ex4_files/figure-html/diagnostic-plots-1.png" width="672" /></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co"># standardaized residuals vs. fitted values</span></a>
-<a class="sourceLine" id="cb14-2" title="2"><span class="kw">plot</span>(mm_<span class="dv">1</span>, <span class="kw">resid</span>(., <span class="dt">scaled=</span><span class="ot">TRUE</span>) <span class="op">~</span><span class="st"> </span><span class="kw">fitted</span>(.), <span class="dt">abline =</span> <span class="dv">0</span>)</a></code></pre></div>
-<p><img src="01-ex4_files/figure-html/diagnostic-plots-2.png" width="672" /></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="co"># qq plot</span></a>
-<a class="sourceLine" id="cb15-2" title="2"><span class="kw">qqnorm</span>(<span class="kw">residuals</span>(mm_<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb15-3" title="3"><span class="kw">qqline</span>(<span class="kw">residuals</span>(mm_<span class="dv">1</span>))</a></code></pre></div>
-<p><img src="01-ex4_files/figure-html/diagnostic-plots-3.png" width="672" /></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="co">#observed vs. fitted values</span></a>
-<a class="sourceLine" id="cb16-2" title="2"><span class="kw">plot</span>(mm_<span class="dv">1</span>, ystar <span class="op">~</span><span class="st"> </span><span class="kw">fitted</span>(.), <span class="dt">abline =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</a></code></pre></div>
-<p><img src="01-ex4_files/figure-html/diagnostic-plots-4.png" width="672" /></p>
+<h3><span class="header-section-number">2.3.2</span> Diagnostic plots</h3>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1"><span class="co"># pearson residuals vs. fitted values</span></a>
+<a class="sourceLine" id="cb47-2" title="2"><span class="kw">plot</span>(mm_<span class="dv">1</span>, <span class="kw">resid</span>(., <span class="dt">type=</span><span class="st">&quot;pearson&quot;</span>) <span class="op">~</span><span class="st"> </span><span class="kw">fitted</span>(.), <span class="dt">abline =</span> <span class="dv">0</span>)</a></code></pre></div>
+<p><img src="02-ex4_files/figure-html/diagnostic-plots-1.png" width="672" /></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" title="1"><span class="co"># standardaized residuals vs. fitted values</span></a>
+<a class="sourceLine" id="cb48-2" title="2"><span class="kw">plot</span>(mm_<span class="dv">1</span>, <span class="kw">resid</span>(., <span class="dt">scaled=</span><span class="ot">TRUE</span>) <span class="op">~</span><span class="st"> </span><span class="kw">fitted</span>(.), <span class="dt">abline =</span> <span class="dv">0</span>)</a></code></pre></div>
+<p><img src="02-ex4_files/figure-html/diagnostic-plots-2.png" width="672" /></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1"><span class="co"># qq plot</span></a>
+<a class="sourceLine" id="cb49-2" title="2"><span class="kw">qqnorm</span>(<span class="kw">residuals</span>(mm_<span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb49-3" title="3"><span class="kw">qqline</span>(<span class="kw">residuals</span>(mm_<span class="dv">1</span>))</a></code></pre></div>
+<p><img src="02-ex4_files/figure-html/diagnostic-plots-3.png" width="672" /></p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" title="1"><span class="co">#observed vs. fitted values</span></a>
+<a class="sourceLine" id="cb50-2" title="2"><span class="kw">plot</span>(mm_<span class="dv">1</span>, ystar <span class="op">~</span><span class="st"> </span><span class="kw">fitted</span>(.), <span class="dt">abline =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</a></code></pre></div>
+<p><img src="02-ex4_files/figure-html/diagnostic-plots-4.png" width="672" /></p>
 </div>
 </div>
 <div id="second-mixed-model" class="section level2">
-<h2><span class="header-section-number">1.4</span> Second mixed model</h2>
+<h2><span class="header-section-number">2.4</span> Second mixed model</h2>
 <div id="fit-the-model-1" class="section level3">
-<h3><span class="header-section-number">1.4.1</span> Fit the model</h3>
+<h3><span class="header-section-number">2.4.1</span> Fit the model</h3>
 <p>Run the mixed model analysis using <strong>nlme</strong> package in R. The function used to fit the mixed model is called <code>lme()</code>. Here we will specify no intercept. We will also use <strong>emmeans</strong> package to get least squared means and contrasts.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1"><span class="co"># fit the model</span></a>
-<a class="sourceLine" id="cb17-2" title="2"><span class="co">#library(nlme)</span></a>
-<a class="sourceLine" id="cb17-3" title="3">mm_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">update</span>(mm_<span class="dv">1</span>, <span class="dt">fixed =</span> ystar <span class="op">~</span><span class="st"> </span><span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>trt <span class="op">+</span><span class="st"> </span>trt<span class="op">:</span>t) <span class="co"># update fixed effects in mm_1, -1 indicates no intercept</span></a>
-<a class="sourceLine" id="cb17-4" title="4"></a>
-<a class="sourceLine" id="cb17-5" title="5"><span class="co"># output the summary</span></a>
-<a class="sourceLine" id="cb17-6" title="6"><span class="kw">summary</span>(mm_<span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1"><span class="co"># fit the model</span></a>
+<a class="sourceLine" id="cb51-2" title="2"><span class="co">#library(nlme)</span></a>
+<a class="sourceLine" id="cb51-3" title="3">mm_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">update</span>(mm_<span class="dv">1</span>, <span class="dt">fixed =</span> ystar <span class="op">~</span><span class="st"> </span><span class="op">-</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>trt <span class="op">+</span><span class="st"> </span>trt<span class="op">:</span>t) <span class="co"># update fixed effects in mm_1, -1 indicates no intercept</span></a>
+<a class="sourceLine" id="cb51-4" title="4"></a>
+<a class="sourceLine" id="cb51-5" title="5"><span class="co"># output the summary</span></a>
+<a class="sourceLine" id="cb51-6" title="6"><span class="kw">summary</span>(mm_<span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## Linear mixed-effects model fit by REML
 ##  Data: a 
 ##        AIC      BIC    logLik
@@ -475,23 +483,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Number of Groups: 
 ##           blk plot %in% blk 
 ##             4            12</code></pre>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># extract covariance parameter estimates</span></a>
-<a class="sourceLine" id="cb19-2" title="2"><span class="kw">VarCorr</span>(mm_<span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1"><span class="co"># extract covariance parameter estimates</span></a>
+<a class="sourceLine" id="cb53-2" title="2"><span class="kw">VarCorr</span>(mm_<span class="dv">2</span>)</a></code></pre></div>
 <pre><code>##             Variance     StdDev      
 ## blk =       pdLogChol(1)             
 ## (Intercept) 3.561212e-02 1.887117e-01
 ## plot =      pdLogChol(1)             
 ## (Intercept) 2.118896e-09 4.603147e-05
 ## Residual    6.347936e-02 2.519511e-01</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="co"># extract type3 fixed effects anova</span></a>
-<a class="sourceLine" id="cb21-2" title="2"><span class="kw">anova.lme</span>(mm_<span class="dv">2</span>, <span class="dt">type =</span> <span class="st">&#39;marginal&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1"><span class="co"># extract type3 fixed effects anova</span></a>
+<a class="sourceLine" id="cb55-2" title="2"><span class="kw">anova.lme</span>(mm_<span class="dv">2</span>, <span class="dt">type =</span> <span class="st">&#39;marginal&#39;</span>)</a></code></pre></div>
 <pre><code>##       numDF denDF  F-value p-value
 ## trt       3     6 48.57698   1e-04
 ## trt:t     3    58 52.74601  &lt;.0001</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="co"># compare the slopes for different treatments</span></a>
-<a class="sourceLine" id="cb23-2" title="2"><span class="co">#library(emmeans)</span></a>
-<a class="sourceLine" id="cb23-3" title="3"></a>
-<a class="sourceLine" id="cb23-4" title="4"><span class="kw">emtrends</span>(mm_<span class="dv">2</span>, pairwise <span class="op">~</span><span class="st"> </span>trt, <span class="dt">var=</span><span class="st">&quot;t&quot;</span>, <span class="dt">adjust =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1"><span class="co"># compare the slopes for different treatments</span></a>
+<a class="sourceLine" id="cb57-2" title="2"><span class="co">#library(emmeans)</span></a>
+<a class="sourceLine" id="cb57-3" title="3"></a>
+<a class="sourceLine" id="cb57-4" title="4"><span class="kw">emtrends</span>(mm_<span class="dv">2</span>, pairwise <span class="op">~</span><span class="st"> </span>trt, <span class="dt">var=</span><span class="st">&quot;t&quot;</span>, <span class="dt">adjust =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
 <pre><code>## $emtrends
 ##  trt t.trend     SE df lower.CL upper.CL
 ##  2    0.0771 0.0145 58   0.0481    0.106
@@ -506,8 +514,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  2 - 1     -0.0659 0.0215 58 -3.067  0.0033 
 ##  2 - 3     -0.0222 0.0203 58 -1.092  0.2793 
 ##  1 - 3      0.0437 0.0213 58  2.056  0.0443</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="co"># get the treatment difference at various time points</span></a>
-<a class="sourceLine" id="cb25-2" title="2"><span class="kw">emmeans</span>(mm_<span class="dv">2</span>, pairwise <span class="op">~</span><span class="st"> </span>trt<span class="op">|</span>t, <span class="dt">nesting =</span> <span class="ot">NULL</span>, <span class="dt">at =</span> <span class="kw">list</span>(<span class="dt">t =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>, <span class="dv">21</span>, <span class="dv">28</span>, <span class="dv">35</span>)), <span class="dt">adjust =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" title="1"><span class="co"># get the treatment difference at various time points</span></a>
+<a class="sourceLine" id="cb59-2" title="2"><span class="kw">emmeans</span>(mm_<span class="dv">2</span>, pairwise <span class="op">~</span><span class="st"> </span>trt<span class="op">|</span>t, <span class="dt">nesting =</span> <span class="ot">NULL</span>, <span class="dt">at =</span> <span class="kw">list</span>(<span class="dt">t =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">14</span>, <span class="dv">21</span>, <span class="dv">28</span>, <span class="dv">35</span>)), <span class="dt">adjust =</span> <span class="st">&quot;none&quot;</span>)</a></code></pre></div>
 <pre><code>## $emmeans
 ## t =  0:
 ##  trt  emmean    SE df lower.CL upper.CL
@@ -586,18 +594,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ##  1 - 3      0.9904 0.346  6  2.861  0.0288</code></pre>
 </div>
 <div id="plot-observed-versus-predicted-model-values" class="section level3">
-<h3><span class="header-section-number">1.4.2</span> Plot observed versus predicted model values</h3>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="co"># add fitted and residuals in to a new dataset called b</span></a>
-<a class="sourceLine" id="cb27-2" title="2">b =<span class="st"> </span><span class="kw">cbind</span>(a, <span class="dt">resid =</span> <span class="kw">resid</span>(mm_<span class="dv">2</span>), <span class="dt">fitted =</span> <span class="kw">fitted</span>(mm_<span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb27-3" title="3"></a>
-<a class="sourceLine" id="cb27-4" title="4"><span class="co"># fit linear regression</span></a>
-<a class="sourceLine" id="cb27-5" title="5">b.lm &lt;-<span class="st"> </span><span class="kw">lm</span>(ystar <span class="op">~</span><span class="st"> </span>fitted, <span class="dt">data=</span>b)</a>
-<a class="sourceLine" id="cb27-6" title="6"></a>
-<a class="sourceLine" id="cb27-7" title="7"><span class="co"># plot using ggplot2 package</span></a>
-<a class="sourceLine" id="cb27-8" title="8"><span class="kw">ggplot</span>(b, <span class="kw">aes</span>(<span class="dt">x=</span>fitted, <span class="dt">y =</span> ystar)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb27-9" title="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb27-10" title="10"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">color =</span> <span class="st">&quot;lightgrey&quot;</span>)</a></code></pre></div>
-<p><img src="01-ex4_files/figure-html/obs-pred-plot-1.png" width="672" /></p>
+<h3><span class="header-section-number">2.4.2</span> Plot observed versus predicted model values</h3>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" title="1"><span class="co"># add fitted and residuals in to a new dataset called b</span></a>
+<a class="sourceLine" id="cb61-2" title="2">b =<span class="st"> </span><span class="kw">cbind</span>(a, <span class="dt">resid =</span> <span class="kw">resid</span>(mm_<span class="dv">2</span>), <span class="dt">fitted =</span> <span class="kw">fitted</span>(mm_<span class="dv">2</span>))</a>
+<a class="sourceLine" id="cb61-3" title="3"></a>
+<a class="sourceLine" id="cb61-4" title="4"><span class="co"># fit linear regression</span></a>
+<a class="sourceLine" id="cb61-5" title="5">b.lm &lt;-<span class="st"> </span><span class="kw">lm</span>(ystar <span class="op">~</span><span class="st"> </span>fitted, <span class="dt">data=</span>b)</a>
+<a class="sourceLine" id="cb61-6" title="6"></a>
+<a class="sourceLine" id="cb61-7" title="7"><span class="co"># plot using ggplot2 package</span></a>
+<a class="sourceLine" id="cb61-8" title="8"><span class="kw">ggplot</span>(b, <span class="kw">aes</span>(<span class="dt">x=</span>fitted, <span class="dt">y =</span> ystar)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb61-9" title="9"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb61-10" title="10"><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm, <span class="dt">color =</span> <span class="st">&quot;lightgrey&quot;</span>)</a></code></pre></div>
+<p><img src="02-ex4_files/figure-html/obs-pred-plot-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -607,7 +615,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ex1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="ex9-4.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -638,7 +646,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-ex4.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-ex4.Rmd",
 "text": "Edit"
 },
 "history": {

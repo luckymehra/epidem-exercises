@@ -1,7 +1,7 @@
 --- 
 title: "Epidemiological exercises in R"
 author: "Lucky Mehra"
-date: "2019-08-02"
+date: "2019-08-23"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 documentclass: book

@@ -124,7 +124,7 @@
   \postauthor{\par}
       \predate{\centering\large\emph}
   \postdate{\par}
-    \date{2019-08-02}
+    \date{2019-08-23}
 
 \usepackage{booktabs}
 \usepackage{amsthm}
@@ -150,11 +150,512 @@ To run these exercises, you will need to install the latest version of R (\url{h
 
 These exercises are a work in progress, and are an attempt to translate \protect\hyperlink{sascode}{SAS code} written by \href{https://www.plantpath.k-state.edu/people/faculty/todd-timothy/}{Tim Todd} into R.
 
-\hypertarget{ex4}{%
-\chapter{Exercise 4}\label{ex4}}
+\hypertarget{ex1}{%
+\chapter{Exercise 1}\label{ex1}}
 
 \hypertarget{load-packages}{%
 \section{Load packages}\label{load-packages}}
+
+Here is the R code to download the required packages for this exercise.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# install package manager 'pacman'}
+\ControlFlowTok{if}\NormalTok{ (}\OperatorTok{!}\KeywordTok{require}\NormalTok{(pacman))\{}
+  \KeywordTok{install.packages}\NormalTok{(}\StringTok{'pacman'}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: pacman
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# load packages needed for this exercise}
+\NormalTok{pacman}\OperatorTok{::}\KeywordTok{p_load}\NormalTok{(tidyverse, }\CommentTok{# for data manipulation}
+\NormalTok{                             psych, }\CommentTok{# for `describe()` function}
+\NormalTok{                             ggpubr, }\CommentTok{# for graphing}
+\NormalTok{                             rlang, }\CommentTok{# for tidy evaluation}
+\NormalTok{                             ggfortify)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{data}{%
+\section{Data}\label{data}}
+
+This is equivalent to the data step in SAS. Here, the data is imported from a file \texttt{ex1.csv} using the function \texttt{read\_csv}. This function will download the data file direclty from \href{https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/ex1.csv}{here}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Import data}
+\NormalTok{a <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/ex1.csv"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\CommentTok{# create a new variable `DIFF`}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{DIFF =}\NormalTok{ ESTIMATE }\OperatorTok{-}\StringTok{ }\NormalTok{ACTUAL)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   TEST = col_character(),
+##   OBS = col_double(),
+##   ESTIMATE = col_double(),
+##   ACTUAL = col_double()
+## )
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# print the data}
+\NormalTok{a}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 60 x 5
+##    TEST       OBS ESTIMATE ACTUAL  DIFF
+##    <chr>    <dbl>    <dbl>  <dbl> <dbl>
+##  1 BASELINE     1        2      7    -5
+##  2 BASELINE     2       25     39   -14
+##  3 BASELINE     3       35     49   -14
+##  4 BASELINE     4       20     34   -14
+##  5 BASELINE     5        5      8    -3
+##  6 BASELINE     6       50     57    -7
+##  7 BASELINE     7        5     14    -9
+##  8 BASELINE     8       50     57    -7
+##  9 BASELINE     9       60     73   -13
+## 10 BASELINE    10        2      9    -7
+## # ... with 50 more rows
+\end{verbatim}
+
+\hypertarget{descriptive-statistics}{%
+\section{Descriptive statistics}\label{descriptive-statistics}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# use the describe() function to get an idea about different variables}
+\NormalTok{sm_a <-}\StringTok{ }\NormalTok{a }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(TEST) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{summarise_at}\NormalTok{(}\KeywordTok{vars}\NormalTok{(DIFF),}
+                             \KeywordTok{list}\NormalTok{(}\OperatorTok{~}\KeywordTok{mean}\NormalTok{(., }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+                                     \OperatorTok{~}\KeywordTok{mode}\NormalTok{(.),}
+                                     \OperatorTok{~}\KeywordTok{median}\NormalTok{(., }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+                                     \OperatorTok{~}\KeywordTok{sd}\NormalTok{(., }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+                                     \OperatorTok{~}\KeywordTok{var}\NormalTok{(., }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+                                     \OperatorTok{~}\KeywordTok{IQR}\NormalTok{(., }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+                                     \OperatorTok{~}\KeywordTok{min}\NormalTok{(., }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+                                     \OperatorTok{~}\KeywordTok{max}\NormalTok{(., }\DataTypeTok{na.rm =} \OtherTok{TRUE}\NormalTok{),}
+                                     \OperatorTok{~}\KeywordTok{n}\NormalTok{(),}
+                                     \OperatorTok{~}\KeywordTok{skew}\NormalTok{(.),}
+                                     \OperatorTok{~}\KeywordTok{kurtosi}\NormalTok{(.)}
+\NormalTok{                                     )) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{CV =}\NormalTok{ (sd}\OperatorTok{/}\NormalTok{mean)}\OperatorTok{*}\DecValTok{100}\NormalTok{,}
+                 \DataTypeTok{std.err =}\NormalTok{ sd}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{ungroup}\NormalTok{()}
+
+\NormalTok{sm_a}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 14
+##   TEST   mean mode  median    sd   var   IQR   min   max     n    skew
+##   <chr> <dbl> <chr>  <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <int>   <dbl>
+## 1 BASE~ -9.75 nume~   -9.5  4.17  17.4  6.5    -17    -3    20 -0.0599
+## 2 POST1 -2.95 nume~   -2    4.43  19.6  7      -14     3    20 -0.804 
+## 3 POST2 -2.75 nume~   -2.5  8.82  77.8  9.75   -18    12    20  0.0162
+## # ... with 3 more variables: kurtosi <dbl>, CV <dbl>, std.err <dbl>
+\end{verbatim}
+
+\hypertarget{create-histogram-boxplot-and-qqplot}{%
+\section{Create histogram, boxplot, and qqplot}\label{create-histogram-boxplot-and-qqplot}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# histograms}
+\NormalTok{create_hist <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(test_id)\{}
+\NormalTok{a }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(TEST }\OperatorTok{==}\StringTok{ }\NormalTok{\{\{test_id\}\}) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{gghistogram}\NormalTok{(}\StringTok{"DIFF"}\NormalTok{, }\DataTypeTok{bins =} \DecValTok{6}\NormalTok{, }\DataTypeTok{fill =} \StringTok{"skyblue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{        }\KeywordTok{coord_flip}\NormalTok{()}
+\NormalTok{\}}
+
+\KeywordTok{create_hist}\NormalTok{(}\KeywordTok{unique}\NormalTok{(a}\OperatorTok{$}\NormalTok{TEST)[}\DecValTok{1}\NormalTok{]) }\CommentTok{# BASELINE}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{01-ex1_files/figure-latex/plots-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{create_hist}\NormalTok{(}\KeywordTok{unique}\NormalTok{(a}\OperatorTok{$}\NormalTok{TEST)[}\DecValTok{2}\NormalTok{]) }\CommentTok{# POST1}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{01-ex1_files/figure-latex/plots-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{create_hist}\NormalTok{(}\KeywordTok{unique}\NormalTok{(a}\OperatorTok{$}\NormalTok{TEST)[}\DecValTok{3}\NormalTok{]) }\CommentTok{# POST2}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{01-ex1_files/figure-latex/plots-3.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# boxplots}
+\NormalTok{create_box <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(test_id)\{}
+\NormalTok{    a }\OperatorTok{%>%}\StringTok{ }
+\StringTok{        }\KeywordTok{filter}\NormalTok{(TEST }\OperatorTok{==}\StringTok{ }\NormalTok{\{\{test_id\}\}) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{        }\KeywordTok{ggboxplot}\NormalTok{(}\DataTypeTok{y =} \StringTok{"DIFF"}\NormalTok{, }\DataTypeTok{fill =}  \StringTok{"skyblue"}\NormalTok{,}
+                            \DataTypeTok{main =}\NormalTok{ \{\{test_id\}\})}
+\NormalTok{\}}
+
+\KeywordTok{create_box}\NormalTok{(}\KeywordTok{unique}\NormalTok{(a}\OperatorTok{$}\NormalTok{TEST)[}\DecValTok{1}\NormalTok{]) }\CommentTok{# BASELINE}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{01-ex1_files/figure-latex/plots-4.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{create_box}\NormalTok{(}\KeywordTok{unique}\NormalTok{(a}\OperatorTok{$}\NormalTok{TEST)[}\DecValTok{2}\NormalTok{]) }\CommentTok{# POST1}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{01-ex1_files/figure-latex/plots-5.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{create_box}\NormalTok{(}\KeywordTok{unique}\NormalTok{(a}\OperatorTok{$}\NormalTok{TEST)[}\DecValTok{3}\NormalTok{]) }\CommentTok{# POST2}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{01-ex1_files/figure-latex/plots-6.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# distribution of DIFF by }\AlertTok{TEST}
+\KeywordTok{ggboxplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ a,}
+                    \DataTypeTok{x =} \StringTok{"TEST"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"DIFF"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{01-ex1_files/figure-latex/plots-7.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# qqplots}
+\NormalTok{create_qq <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(test_id)\{}
+\NormalTok{a }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(TEST }\OperatorTok{==}\StringTok{ }\NormalTok{\{\{test_id\}\}) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{ggqqplot}\NormalTok{(}\StringTok{"DIFF"}\NormalTok{,}
+                     \DataTypeTok{main =}\NormalTok{ \{\{test_id\}\}) }
+\NormalTok{\}}
+
+\KeywordTok{create_qq}\NormalTok{(}\KeywordTok{unique}\NormalTok{(a}\OperatorTok{$}\NormalTok{TEST)[}\DecValTok{1}\NormalTok{]) }\CommentTok{# BASELINE}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{01-ex1_files/figure-latex/plots-8.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{create_qq}\NormalTok{(}\KeywordTok{unique}\NormalTok{(a}\OperatorTok{$}\NormalTok{TEST)[}\DecValTok{2}\NormalTok{]) }\CommentTok{# POST1}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{01-ex1_files/figure-latex/plots-9.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{create_qq}\NormalTok{(}\KeywordTok{unique}\NormalTok{(a}\OperatorTok{$}\NormalTok{TEST)[}\DecValTok{3}\NormalTok{]) }\CommentTok{# POST2}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{01-ex1_files/figure-latex/plots-10.pdf}
+
+\hypertarget{normality-test}{%
+\section{Normality test}\label{normality-test}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{st <-}\StringTok{ }\KeywordTok{shapiro.test}\NormalTok{(a}\OperatorTok{$}\NormalTok{DIFF)}
+\KeywordTok{data.frame}\NormalTok{(st}\OperatorTok{$}\NormalTok{method, st}\OperatorTok{$}\NormalTok{statistic, st}\OperatorTok{$}\NormalTok{p.value)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                     st.method st.statistic st.p.value
+## W Shapiro-Wilk normality test    0.9783355  0.3622644
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{do_shp_test <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(df)\{}
+\NormalTok{    st <-}\StringTok{ }\KeywordTok{shapiro.test}\NormalTok{(df}\OperatorTok{$}\NormalTok{DIFF)}
+    \KeywordTok{data.frame}\NormalTok{(st}\OperatorTok{$}\NormalTok{method, st}\OperatorTok{$}\NormalTok{statistic, st}\OperatorTok{$}\NormalTok{p.value)}
+\NormalTok{\}}
+
+\NormalTok{a }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(TEST) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{do}\NormalTok{(}\KeywordTok{do_shp_test}\NormalTok{(.)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{ungroup}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 4
+##   TEST     st.method                   st.statistic st.p.value
+##   <chr>    <fct>                              <dbl>      <dbl>
+## 1 BASELINE Shapiro-Wilk normality test        0.958     0.511 
+## 2 POST1    Shapiro-Wilk normality test        0.919     0.0958
+## 3 POST2    Shapiro-Wilk normality test        0.965     0.638
+\end{verbatim}
+
+\hypertarget{linear-regression}{%
+\section{Linear regression}\label{linear-regression}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# fit linear regression by }\AlertTok{TEST}
+\CommentTok{# Response: ESTIMATE}
+\NormalTok{est_lm <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(df)\{}
+\NormalTok{    model <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(ESTIMATE }\OperatorTok{~}\StringTok{ }\NormalTok{ACTUAL, }\DataTypeTok{data =}\NormalTok{ df)}
+    
+    \CommentTok{# fit plot}
+\NormalTok{    fit_plot <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ df, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ ACTUAL, }\DataTypeTok{y =}\NormalTok{ ESTIMATE)) }\OperatorTok{+}
+\StringTok{        }\KeywordTok{geom_point}\NormalTok{()}\OperatorTok{+}
+\StringTok{        }\KeywordTok{stat_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+    
+    \KeywordTok{return}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\KeywordTok{summary}\NormalTok{(model), }\KeywordTok{autoplot}\NormalTok{(model), fit_plot))}
+\NormalTok{\}}
+
+\KeywordTok{by}\NormalTok{(a, a}\OperatorTok{$}\NormalTok{TEST, est_lm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## a$TEST: BASELINE
+## [[1]]
+## 
+## Call:
+## lm(formula = ESTIMATE ~ ACTUAL, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7.3419 -3.0730  0.3805  3.2750  6.3549 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  -9.1837     1.8107  -5.072 7.95e-05 ***
+## ACTUAL        0.9852     0.0403  24.448 2.93e-15 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.264 on 18 degrees of freedom
+## Multiple R-squared:  0.9708, Adjusted R-squared:  0.9691 
+## F-statistic: 597.7 on 1 and 18 DF,  p-value: 2.933e-15
+## 
+## 
+## [[2]]
+\end{verbatim}
+
+\includegraphics{01-ex1_files/figure-latex/lin-reg-1.pdf}
+
+\begin{verbatim}
+## 
+## [[3]]
+\end{verbatim}
+
+\includegraphics{01-ex1_files/figure-latex/lin-reg-2.pdf}
+
+\begin{verbatim}
+## 
+## -------------------------------------------------------- 
+## a$TEST: POST1
+## [[1]]
+## 
+## Call:
+## lm(formula = ESTIMATE ~ ACTUAL, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -11.0323  -2.7663   0.6561   3.5244   6.3667 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  -2.1033     1.9186  -1.096    0.287    
+## ACTUAL        0.9778     0.0427  22.901 9.18e-15 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.518 on 18 degrees of freedom
+## Multiple R-squared:  0.9668, Adjusted R-squared:  0.965 
+## F-statistic: 524.5 on 1 and 18 DF,  p-value: 9.183e-15
+## 
+## 
+## [[2]]
+\end{verbatim}
+
+\includegraphics{01-ex1_files/figure-latex/lin-reg-3.pdf}
+
+\begin{verbatim}
+## 
+## [[3]]
+\end{verbatim}
+
+\includegraphics{01-ex1_files/figure-latex/lin-reg-4.pdf}
+
+\begin{verbatim}
+## 
+## -------------------------------------------------------- 
+## a$TEST: POST2
+## [[1]]
+## 
+## Call:
+## lm(formula = ESTIMATE ~ ACTUAL, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -15.9575  -4.2873   0.8961   6.2328   9.6890 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -11.40269    3.67614  -3.102  0.00615 ** 
+## ACTUAL        1.21768    0.08178  14.889 1.46e-11 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 7.675 on 18 degrees of freedom
+## Multiple R-squared:  0.9249, Adjusted R-squared:  0.9207 
+## F-statistic: 221.7 on 1 and 18 DF,  p-value: 1.46e-11
+## 
+## 
+## [[2]]
+\end{verbatim}
+
+\includegraphics{01-ex1_files/figure-latex/lin-reg-5.pdf}
+
+\begin{verbatim}
+## 
+## [[3]]
+\end{verbatim}
+
+\includegraphics{01-ex1_files/figure-latex/lin-reg-6.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Response: DIFF}
+\NormalTok{diff_lm <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(df)\{}
+\NormalTok{    model <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(DIFF }\OperatorTok{~}\StringTok{ }\NormalTok{ACTUAL, }\DataTypeTok{data =}\NormalTok{ df)}
+    
+    \CommentTok{# fit plot }
+\NormalTok{    fit_plot <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ df, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ ACTUAL, }\DataTypeTok{y =}\NormalTok{ DIFF)) }\OperatorTok{+}
+\StringTok{        }\KeywordTok{geom_point}\NormalTok{()}\OperatorTok{+}
+\StringTok{        }\KeywordTok{stat_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+        
+    \KeywordTok{return}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\KeywordTok{summary}\NormalTok{(model), }\KeywordTok{autoplot}\NormalTok{(model)))}
+\NormalTok{\}}
+
+\KeywordTok{by}\NormalTok{(a, a}\OperatorTok{$}\NormalTok{TEST, diff_lm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## a$TEST: BASELINE
+## [[1]]
+## 
+## Call:
+## lm(formula = DIFF ~ ACTUAL, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7.3419 -3.0730  0.3805  3.2750  6.3549 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -9.18368    1.81073  -5.072 7.95e-05 ***
+## ACTUAL      -0.01483    0.04030  -0.368    0.717    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.264 on 18 degrees of freedom
+## Multiple R-squared:  0.007463,   Adjusted R-squared:  -0.04768 
+## F-statistic: 0.1353 on 1 and 18 DF,  p-value: 0.7172
+## 
+## 
+## [[2]]
+\end{verbatim}
+
+\includegraphics{01-ex1_files/figure-latex/lin-reg-7.pdf}
+
+\begin{verbatim}
+## 
+## -------------------------------------------------------- 
+## a$TEST: POST1
+## [[1]]
+## 
+## Call:
+## lm(formula = DIFF ~ ACTUAL, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -11.0323  -2.7663   0.6561   3.5244   6.3667 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)
+## (Intercept) -2.10325    1.91861  -1.096    0.287
+## ACTUAL      -0.02217    0.04270  -0.519    0.610
+## 
+## Residual standard error: 4.518 on 18 degrees of freedom
+## Multiple R-squared:  0.01475,    Adjusted R-squared:  -0.03998 
+## F-statistic: 0.2695 on 1 and 18 DF,  p-value: 0.61
+## 
+## 
+## [[2]]
+\end{verbatim}
+
+\includegraphics{01-ex1_files/figure-latex/lin-reg-8.pdf}
+
+\begin{verbatim}
+## 
+## -------------------------------------------------------- 
+## a$TEST: POST2
+## [[1]]
+## 
+## Call:
+## lm(formula = DIFF ~ ACTUAL, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -15.9575  -4.2873   0.8961   6.2328   9.6890 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)   
+## (Intercept) -11.40269    3.67614  -3.102  0.00615 **
+## ACTUAL        0.21768    0.08178   2.662  0.01589 * 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 7.675 on 18 degrees of freedom
+## Multiple R-squared:  0.2824, Adjusted R-squared:  0.2426 
+## F-statistic: 7.084 on 1 and 18 DF,  p-value: 0.01589
+## 
+## 
+## [[2]]
+\end{verbatim}
+
+\includegraphics{01-ex1_files/figure-latex/lin-reg-9.pdf}
+
+\hypertarget{ex4}{%
+\chapter{Exercise 4}\label{ex4}}
+
+\hypertarget{load-packages-1}{%
+\section{Load packages}\label{load-packages-1}}
 
 Here is the R code to download the required packages for this exercise.
 
@@ -363,7 +864,7 @@ Run the mixed model analysis using \textbf{nlme} package in R. The function used
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{01-ex4_files/figure-latex/diagnostic-plots-1.pdf}
+\includegraphics{02-ex4_files/figure-latex/diagnostic-plots-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -372,7 +873,7 @@ Run the mixed model analysis using \textbf{nlme} package in R. The function used
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{01-ex4_files/figure-latex/diagnostic-plots-2.pdf}
+\includegraphics{02-ex4_files/figure-latex/diagnostic-plots-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -382,7 +883,7 @@ Run the mixed model analysis using \textbf{nlme} package in R. The function used
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{01-ex4_files/figure-latex/diagnostic-plots-3.pdf}
+\includegraphics{02-ex4_files/figure-latex/diagnostic-plots-3.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -391,7 +892,7 @@ Run the mixed model analysis using \textbf{nlme} package in R. The function used
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{01-ex4_files/figure-latex/diagnostic-plots-4.pdf}
+\includegraphics{02-ex4_files/figure-latex/diagnostic-plots-4.pdf}
 
 \hypertarget{second-mixed-model}{%
 \section{Second mixed model}\label{second-mixed-model}}
@@ -620,13 +1121,13 @@ Run the mixed model analysis using \textbf{nlme} package in R. The function used
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{01-ex4_files/figure-latex/obs-pred-plot-1.pdf}
+\includegraphics{02-ex4_files/figure-latex/obs-pred-plot-1.pdf}
 
 \hypertarget{ex9_4}{%
 \chapter{Exercise 9.4}\label{ex9_4}}
 
-\hypertarget{load-packages-1}{%
-\section{Load packages}\label{load-packages-1}}
+\hypertarget{load-packages-2}{%
+\section{Load packages}\label{load-packages-2}}
 
 Here is the R code to download the required packages for this exercise.
 
@@ -658,8 +1159,8 @@ Here is the R code to download the required packages for this exercise.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{data}{%
-\section{Data}\label{data}}
+\hypertarget{data-1}{%
+\section{Data}\label{data-1}}
 
 This is equivalent to data step in SAS. Here, the data is entered inside a function called \texttt{tibble}.
 
@@ -712,7 +1213,7 @@ This is equivalent to data step in SAS. Here, the data is entered inside a funct
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{02-ex9_4_files/figure-latex/autocorr-statistics-1.pdf}
+\includegraphics{03-ex9_4_files/figure-latex/autocorr-statistics-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -747,7 +1248,7 @@ This is equivalent to data step in SAS. Here, the data is entered inside a funct
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{02-ex9_4_files/figure-latex/autocorr-statistics-2.pdf}
+\includegraphics{03-ex9_4_files/figure-latex/autocorr-statistics-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -842,7 +1343,7 @@ We will use the package \texttt{geoR} to construct empricial variogram, and then
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{02-ex9_4_files/figure-latex/first-variogram-model-1.pdf}
+\includegraphics{03-ex9_4_files/figure-latex/first-variogram-model-1.pdf}
 
 \hypertarget{second-variogram}{%
 \section{Second variogram}\label{second-variogram}}
@@ -880,7 +1381,7 @@ Plot robust and classical variogram together.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{02-ex9_4_files/figure-latex/second-variogram-model-1.pdf}
+\includegraphics{03-ex9_4_files/figure-latex/second-variogram-model-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -902,7 +1403,7 @@ Plot robust and classical variogram together.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{02-ex9_4_files/figure-latex/second-variogram-model-2.pdf}
+\includegraphics{03-ex9_4_files/figure-latex/second-variogram-model-2.pdf}
 
 \hypertarget{variogram-model-selection}{%
 \section{Variogram model selection}\label{variogram-model-selection}}
@@ -922,19 +1423,19 @@ We will use the package \texttt{gstat} and \texttt{automap} for variogram model 
 \begin{verbatim}
 ## $exp_var
 ##   np dist    gamma dir.hor dir.ver   id
-## 1 15    1 258.8333       0       0 var1
-## 2 14    2 533.0000       0       0 var1
-## 3 13    3 576.6154       0       0 var1
-## 4 12    4 580.1667       0       0 var1
-## 5 11    5 754.0000       0       0 var1
+## 1 15    1 259.9333       0       0 var1
+## 2 14    2 536.4286       0       0 var1
+## 3 13    3 574.6538       0       0 var1
+## 4 12    4 571.5000       0       0 var1
+## 5 11    5 743.7727       0       0 var1
 ## 
 ## $var_model
 ##   model    psill    range
 ## 1   Nug   0.0000 0.000000
-## 2   Exp 854.3133 2.575499
+## 2   Exp 835.8984 2.488287
 ## 
 ## $sserr
-## [1] 28783.32
+## [1] 31108.23
 ## 
 ## attr(,"class")
 ## [1] "autofitVariogram" "list"
@@ -949,18 +1450,18 @@ We will use the package \texttt{gstat} and \texttt{automap} for variogram model 
 \end{Shaded}
 
 \begin{verbatim}
-##    np dist     gamma dir.hor dir.ver   id
-## 1  15    1  258.8333       0       0 var1
-## 2  14    2  533.0000       0       0 var1
-## 3  13    3  576.6154       0       0 var1
-## 4  12    4  580.1667       0       0 var1
-## 5  11    5  754.0000       0       0 var1
-## 6  10    6  958.2000       0       0 var1
-## 7   9    7 1020.4444       0       0 var1
-## 8   8    8  966.7500       0       0 var1
-## 9   7    9 1006.2857       0       0 var1
-## 10  6   10 1244.6667       0       0 var1
-## 11  5   11  941.8000       0       0 var1
+##    np dist      gamma dir.hor dir.ver   id
+## 1  15    1   377.2333       0       0 var1
+## 2  14    2  1022.1429       0       0 var1
+## 3  13    3  1832.0000       0       0 var1
+## 4  12    4  2894.8333       0       0 var1
+## 5  11    5  4317.6364       0       0 var1
+## 6  10    6  6219.0000       0       0 var1
+## 7   9    7  8462.2222       0       0 var1
+## 8   8    8 10694.7500       0       0 var1
+## 9   7    9 13308.0000       0       0 var1
+## 10  6   10 15858.0000       0       0 var1
+## 11  5   11 18189.8000       0       0 var1
 \end{verbatim}
 
 \begin{Shaded}
@@ -969,26 +1470,46 @@ We will use the package \texttt{gstat} and \texttt{automap} for variogram model 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{02-ex9_4_files/figure-latex/model-selection-1.pdf}
+\includegraphics{03-ex9_4_files/figure-latex/model-selection-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# fit exponential variogram}
 \NormalTok{v_exp <-}\StringTok{ }\KeywordTok{fit.variogram}\NormalTok{(v_emp, }\KeywordTok{vgm}\NormalTok{(}\StringTok{"Exp"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in fit.variogram(v_emp, vgm("Exp")): No convergence after 200
+## iterations: try different initial values?
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{v_exp}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##   model    psill   range
-## 1   Nug    0.000 0.00000
-## 2   Exp 1062.461 3.47171
+##   model      psill    range
+## 1   Nug   1587.279   0.0000
+## 2   Exp 206333.966 176.1914
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# fit spherical and gaussian}
 \NormalTok{v_sph <-}\StringTok{ }\KeywordTok{fit.variogram}\NormalTok{(v_emp, }\KeywordTok{vgm}\NormalTok{(}\StringTok{"Sph"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in fit.variogram(v_emp, vgm("Sph")): No convergence after 200
+## iterations: try different initial values?
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{v_gau <-}\StringTok{ }\KeywordTok{fit.variogram}\NormalTok{(v_emp, }\KeywordTok{vgm}\NormalTok{(}\StringTok{"Gau"}\NormalTok{))}
 
 \CommentTok{# extract plotting data from fitted variograms}
@@ -1012,13 +1533,13 @@ We will use the package \texttt{gstat} and \texttt{automap} for variogram model 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{02-ex9_4_files/figure-latex/model-selection-2.pdf}
+\includegraphics{03-ex9_4_files/figure-latex/model-selection-2.pdf}
 
 \hypertarget{ex9_5}{%
 \chapter{Exercise 9.5}\label{ex9_5}}
 
-\hypertarget{load-packages-2}{%
-\section{Load packages}\label{load-packages-2}}
+\hypertarget{load-packages-3}{%
+\section{Load packages}\label{load-packages-3}}
 
 Here is the R code to download the required packages for this exercise.
 
@@ -1050,8 +1571,8 @@ Here is the R code to download the required packages for this exercise.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{data-1}{%
-\section{Data}\label{data-1}}
+\hypertarget{data-2}{%
+\section{Data}\label{data-2}}
 
 This is equivalent to data step in SAS. Here, the data is imported from a file \texttt{data.csv} using the function \texttt{read\_csv}. This function will download the file directly from \href{https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/ex9_5.csv}{here}.
 
@@ -1108,7 +1629,7 @@ This is equivalent to data step in SAS. Here, the data is imported from a file \
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{03-ex9_5_files/figure-latex/autocorr-statistics-1.pdf}
+\includegraphics{04-ex9_5_files/figure-latex/autocorr-statistics-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1143,7 +1664,7 @@ This is equivalent to data step in SAS. Here, the data is imported from a file \
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{03-ex9_5_files/figure-latex/autocorr-statistics-2.pdf}
+\includegraphics{04-ex9_5_files/figure-latex/autocorr-statistics-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1239,7 +1760,7 @@ We will use the package \texttt{geoR} to construct empricial variogram, and then
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{03-ex9_5_files/figure-latex/first-variogram-model-1.pdf}
+\includegraphics{04-ex9_5_files/figure-latex/first-variogram-model-1.pdf}
 
 \hypertarget{second-variogram-1}{%
 \section{Second variogram}\label{second-variogram-1}}
@@ -1277,7 +1798,7 @@ Plot robust and classical variogram together.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{03-ex9_5_files/figure-latex/second-variogram-model-1.pdf}
+\includegraphics{04-ex9_5_files/figure-latex/second-variogram-model-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1299,7 +1820,7 @@ Plot robust and classical variogram together.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{03-ex9_5_files/figure-latex/second-variogram-model-2.pdf}
+\includegraphics{04-ex9_5_files/figure-latex/second-variogram-model-2.pdf}
 
 \hypertarget{variogram-model-selection-1}{%
 \section{Variogram model selection}\label{variogram-model-selection-1}}
@@ -1370,7 +1891,7 @@ We will use the package \texttt{gstat} and \texttt{automap} for variogram model 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{03-ex9_5_files/figure-latex/model-selection-1.pdf}
+\includegraphics{04-ex9_5_files/figure-latex/model-selection-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1423,13 +1944,13 @@ We will use the package \texttt{gstat} and \texttt{automap} for variogram model 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{03-ex9_5_files/figure-latex/model-selection-2.pdf}
+\includegraphics{04-ex9_5_files/figure-latex/model-selection-2.pdf}
 
 \hypertarget{yieldloss}{%
 \chapter{Yield loss}\label{yieldloss}}
 
-\hypertarget{load-packages-3}{%
-\section{Load packages}\label{load-packages-3}}
+\hypertarget{load-packages-4}{%
+\section{Load packages}\label{load-packages-4}}
 
 Here is the R code to download the required packages for this exercise.
 
@@ -1457,8 +1978,8 @@ Here is the R code to download the required packages for this exercise.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{data-2}{%
-\section{Data}\label{data-2}}
+\hypertarget{data-3}{%
+\section{Data}\label{data-3}}
 
 This is equivalent to the data step in SAS. Here, the data is imported from a file \texttt{yield\_loss.csv} using the function \texttt{read\_csv}. This function will download the data file direclty from \href{https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/yield_loss.csv}{here}.
 
@@ -1593,7 +2114,7 @@ This is equivalent to the data step in SAS. Here, the data is imported from a fi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{04-ex_yield_loss_files/figure-latex/mixed-model-DS-1.pdf}
+\includegraphics{05-ex_yield_loss_files/figure-latex/mixed-model-DS-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1759,7 +2280,7 @@ This is equivalent to the data step in SAS. Here, the data is imported from a fi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{04-ex_yield_loss_files/figure-latex/diagnostic-plots-1.pdf}
+\includegraphics{05-ex_yield_loss_files/figure-latex/diagnostic-plots-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1768,7 +2289,7 @@ This is equivalent to the data step in SAS. Here, the data is imported from a fi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{04-ex_yield_loss_files/figure-latex/diagnostic-plots-2.pdf}
+\includegraphics{05-ex_yield_loss_files/figure-latex/diagnostic-plots-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1778,7 +2299,7 @@ This is equivalent to the data step in SAS. Here, the data is imported from a fi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{04-ex_yield_loss_files/figure-latex/diagnostic-plots-3.pdf}
+\includegraphics{05-ex_yield_loss_files/figure-latex/diagnostic-plots-3.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1787,7 +2308,7 @@ This is equivalent to the data step in SAS. Here, the data is imported from a fi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{04-ex_yield_loss_files/figure-latex/diagnostic-plots-4.pdf}
+\includegraphics{05-ex_yield_loss_files/figure-latex/diagnostic-plots-4.pdf}
 
 \hypertarget{mixed-model-for-response-variable-yield}{%
 \section{Mixed model for response variable YIELD}\label{mixed-model-for-response-variable-yield}}
@@ -1867,7 +2388,7 @@ This is equivalent to the data step in SAS. Here, the data is imported from a fi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{04-ex_yield_loss_files/figure-latex/mixed-model-yield-1.pdf}
+\includegraphics{05-ex_yield_loss_files/figure-latex/mixed-model-yield-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2033,7 +2554,7 @@ This is equivalent to the data step in SAS. Here, the data is imported from a fi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{04-ex_yield_loss_files/figure-latex/diagnostic-plots-yield-1.pdf}
+\includegraphics{05-ex_yield_loss_files/figure-latex/diagnostic-plots-yield-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2042,7 +2563,7 @@ This is equivalent to the data step in SAS. Here, the data is imported from a fi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{04-ex_yield_loss_files/figure-latex/diagnostic-plots-yield-2.pdf}
+\includegraphics{05-ex_yield_loss_files/figure-latex/diagnostic-plots-yield-2.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2052,7 +2573,7 @@ This is equivalent to the data step in SAS. Here, the data is imported from a fi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{04-ex_yield_loss_files/figure-latex/diagnostic-plots-yield-3.pdf}
+\includegraphics{05-ex_yield_loss_files/figure-latex/diagnostic-plots-yield-3.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2061,7 +2582,7 @@ This is equivalent to the data step in SAS. Here, the data is imported from a fi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{04-ex_yield_loss_files/figure-latex/diagnostic-plots-yield-4.pdf}
+\includegraphics{05-ex_yield_loss_files/figure-latex/diagnostic-plots-yield-4.pdf}
 
 \hypertarget{linear-regression-between-yield-and-ds}{%
 \section{Linear regression between YIELD and DS}\label{linear-regression-between-yield-and-ds}}

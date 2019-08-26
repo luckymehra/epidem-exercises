@@ -1,0 +1,141 @@
+# Exercise 4 {#ex4}
+
+
+
+## Load packages
+
+Here is the R code to download the required packages for this exercise.
+
+```{r pac-load}
+# install package manager 'pacman'
+if (!require(pacman)){
+  install.packages('pacman')
+}
+```
+
+Load the packages needed for this exercise:
+
+```{r}
+pacman::p_load(tidyverse, 
+       nlme, 
+       emmeans)
+```
+
+## Import data
+
+Our data is located in `ex4.csv` file, which can be found on [my github repo](https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/ex4.csv). Import the data and create new variables using the code below.
+
+```{r data-import, eval=TRUE}
+
+# import data
+a <- read_csv("https://raw.githubusercontent.com/luckymehra/epidem-exercises/master/data/ex4.csv",
+              col_types = cols(
+                blk = col_factor(), # parse blk as a factor
+                trt = col_factor() # parse trt as a factor
+                ))
+
+# create new variables
+a$y <- a$pctsev/100
+a$ystar <- log(a$y/(1-a$y))
+a$wt <- a$y*(1-a$y)
+
+# print the data
+knitr::kable(head(a),
+             caption = "The first 6 rows of dataset *a*.")
+
+# get a glimpse of data
+glimpse(a)
+```
+
+
+## First mixed model
+
+### Fit the model
+
+Run the mixed model analysis using **nlme** package in R. The function used to fit the mixed model is called `lme()`.
+
+```{r first-mixed-model, eval = TRUE}
+
+# fit the model
+
+mm_1 <- lme(ystar ~ trt*t, # fixed effects
+            data = a, 
+            random = list(blk = ~ 1, plot = ~ 1), # random effects
+            correlation = corAR1(form = (plot = ~ 1)), # specify that observations within a plot are autocorrelated. Other valid arguments are corAR1, corARMA, corCAR1, corCompSymm, corExp, corGaus, corLin, corRatio, corSpher, corSymm
+            contrasts = list(trt = "contr.SAS"), # specify this option to get parameter estimates similar to reported by SAS
+            weights = ~ I(1/wt))
+
+# output the summary
+summary(mm_1)
+
+# extract covariance parameter estimates
+VarCorr(mm_1)
+
+# extract type3 fixed effects anova
+anova.lme(mm_1, type = 'marginal')
+```
+
+### Diagnostic plots
+
+```{r diagnostic-plots, eval=TRUE}
+
+# pearson residuals vs. fitted values
+plot(mm_1, resid(., type="pearson") ~ fitted(.), abline = 0)
+
+# standardaized residuals vs. fitted values
+plot(mm_1, resid(., scaled=TRUE) ~ fitted(.), abline = 0)
+
+# qq plot
+qqnorm(residuals(mm_1))
+qqline(residuals(mm_1))
+
+#observed vs. fitted values
+plot(mm_1, ystar ~ fitted(.), abline = c(0,1))
+```
+
+## Second mixed model
+
+### Fit the model
+
+Run the mixed model analysis using **nlme** package in R. The function used to fit the mixed model is called `lme()`. Here we will specify no intercept. We will also use **emmeans** package to get least squared means and contrasts.
+
+```{r second-mixed-model, eval = TRUE}
+
+# fit the model
+#library(nlme)
+mm_2 <- update(mm_1, fixed = ystar ~ - 1 + trt + trt:t) # update fixed effects in mm_1, -1 indicates no intercept
+
+# output the summary
+summary(mm_2)
+
+# extract covariance parameter estimates
+VarCorr(mm_2)
+
+# extract type3 fixed effects anova
+anova.lme(mm_2, type = 'marginal')
+
+# compare the slopes for different treatments
+#library(emmeans)
+
+emtrends(mm_2, pairwise ~ trt, var="t", adjust = "none")
+
+# get the treatment difference at various time points
+emmeans(mm_2, pairwise ~ trt|t, nesting = NULL, at = list(t = c(0, 7, 14, 21, 28, 35)), adjust = "none")
+```
+
+### Plot observed versus predicted model values
+
+```{r obs-pred-plot, eval = TRUE}
+
+# add fitted and residuals in to a new dataset called b
+b = cbind(a, resid = resid(mm_2), fitted = fitted(mm_2))
+
+# fit linear regression
+b.lm <- lm(ystar ~ fitted, data=b)
+
+# plot using ggplot2 package
+ggplot(b, aes(x=fitted, y = ystar)) +
+  geom_point(color="blue", size = 3) +
+  geom_smooth(method = lm, color = "lightgrey")
+```
+
